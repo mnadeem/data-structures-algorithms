@@ -2,6 +2,8 @@ package com.nadeem.app.dsa.adt;
 
 import java.util.Arrays;
 
+import com.nadeem.app.dsa.exception.EmptyCollectionException;
+
 public class ArrayStack<T> implements Stack<T> {
 	
 	private final int DEFAULT_CAPACITY = 100;
@@ -30,5 +32,15 @@ public class ArrayStack<T> implements Stack<T> {
 
 	public int size() {
 		return top;
+	}
+
+	public T pop() {
+		if (size() == 0) {
+			throw new EmptyCollectionException();
+		}
+		top--;
+		T result = elements[top];
+		elements[top] = null;
+		return result;
 	}
 }
