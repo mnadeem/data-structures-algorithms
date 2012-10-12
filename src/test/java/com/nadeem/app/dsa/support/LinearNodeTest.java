@@ -1,8 +1,9 @@
-package com.nadeem.app.dsa.adt;
+package com.nadeem.app.dsa.support;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
 
 public class LinearNodeTest {
 	
