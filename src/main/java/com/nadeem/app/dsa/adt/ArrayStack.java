@@ -6,7 +6,7 @@ import com.nadeem.app.dsa.exception.EmptyCollectionException;
 
 public class ArrayStack<T> implements Stack<T> {
 
-	private final int DEFAULT_CAPACITY = 100;
+	private final int DEFAULT_CAPACITY = 50;
 
 	private int top;
 	private T[] elements;
@@ -46,6 +46,9 @@ public class ArrayStack<T> implements Stack<T> {
 	}
 
 	private void collapseCapacity() {
+		if (this.elements.length == DEFAULT_CAPACITY) {
+			return ;
+		}
 		int reducedNewCapacity = this.elements.length >>> 1;
 		if (this.top < reducedNewCapacity) {
 			this.elements = Arrays.copyOf(this.elements, reducedNewCapacity);
