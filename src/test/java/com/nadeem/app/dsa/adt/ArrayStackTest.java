@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.nadeem.app.dsa.exception.EmptyCollectionException;
 
 public class ArrayStackTest {
-	
+
 	private Stack<String> arrayStack;
 
 	@Before
