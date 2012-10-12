@@ -14,39 +14,39 @@ public class ArrayStackTest {
 
 	@Before
 	public void doBeforeEachTestCase() {
-		arrayStack = new ArrayStack<String>();
+		this.arrayStack = new ArrayStack<String>();
 	}
 
 	@Test
 	public void sizeShouldBeOneAfterPush() {
 		
-		arrayStack.push("A");
-		assertThat(arrayStack.size(), is(1));
+		this.arrayStack.push("A");
+		assertThat(this.arrayStack.size(), is(1));
 	}
 
 	@Test
 	public void sizeShouldBeTwoAfterTwoPushes() {
-		arrayStack.push("A");
-		arrayStack.push("B");
-		assertThat(arrayStack.size(), is(2));
+		this.arrayStack.push("A");
+		this.arrayStack.push("B");
+		assertThat(this.arrayStack.size(), is(2));
 	}
 
 	@Test
 	public void capacityShouldBeIncreased() throws Exception {
 		for (int i = 0; i < 101; i++) {
-			arrayStack.push(String.valueOf(i));
+			this.arrayStack.push(String.valueOf(i));
 		}
 		assertThat(arrayStack.size(), greaterThan(100));
 	}
 	
 	@Test(expected=EmptyCollectionException.class)
 	public void popThrowsExceptionIfEmptyCollection() throws Exception {
-		arrayStack.pop();
+		this.arrayStack.pop();
 	}
 	
 	@Test
 	public void poppedElementIsA() throws Exception {
-		arrayStack.push("A");
-		assertThat(arrayStack.pop(), is("A"));
+		this.arrayStack.push("A");
+		assertThat(this.arrayStack.pop(), is("A"));
 	}
 }
