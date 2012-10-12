@@ -35,7 +35,7 @@ public class ArrayStack<T> implements Stack<T> {
 	}
 
 	public T pop() {
-		if (this.size() == 0) {
+		if (isEmpty()) {
 			throw new EmptyCollectionException();
 		}
 		this.top--;
@@ -46,9 +46,20 @@ public class ArrayStack<T> implements Stack<T> {
 	}
 
 	private void collapseCapacity() {
-		int halfCapacity = this.elements.length >>> 1;
-		if (this.top < halfCapacity) {
-			this.elements = Arrays.copyOf(this.elements, halfCapacity);
+		int reducedNewCapacity = this.elements.length >>> 1;
+		if (this.top < reducedNewCapacity) {
+			this.elements = Arrays.copyOf(this.elements, reducedNewCapacity);
 		}
+	}
+
+	public T peek() {
+		if (isEmpty()) {
+			throw new EmptyCollectionException();
+		}
+		return this.elements[top - 1];
+	}
+
+	private boolean isEmpty() {
+		return this.top == 0;
 	}
 }

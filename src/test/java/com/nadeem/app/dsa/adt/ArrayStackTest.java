@@ -49,4 +49,14 @@ public class ArrayStackTest {
 		this.arrayStack.push("A");
 		assertThat(this.arrayStack.pop(), is("A"));
 	}
+	
+	@Test(expected=EmptyCollectionException.class)
+	public void peekThrowsExceptionIfEmptyCollection() throws Exception {
+		this.arrayStack.peek();
+	}
+	@Test
+	public void peekedElementIsA() throws Exception {
+		this.arrayStack.push("A");
+		assertThat(this.arrayStack.peek(), is("A"));
+	}
 }
