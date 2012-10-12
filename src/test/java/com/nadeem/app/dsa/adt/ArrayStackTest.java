@@ -49,6 +49,16 @@ public class ArrayStackTest {
 		this.arrayStack.push("A");
 		assertThat(this.arrayStack.pop(), is("A"));
 	}
+
+	@Test
+	public void capacityShouldBeDecreased() throws Exception {
+		for (int i = 0; i < 101; i++) {
+			this.arrayStack.push(String.valueOf(i));
+		}
+		assertThat(arrayStack.size(), greaterThan(100));
+		this.arrayStack.pop();
+		this.arrayStack.pop();
+	}
 	
 	@Test(expected=EmptyCollectionException.class)
 	public void peekThrowsExceptionIfEmptyCollection() throws Exception {

@@ -18,16 +18,16 @@ public class ArrayStack<T> implements Stack<T> {
 	}
 
 	public void push(T element) {
-		if (this.size() == this.elements.length) {
-			expandCapacity();
-		}
+		expandCapacity();
 		this.elements[this.top] = element;
 		this.top++;
 	}
 
 	private void expandCapacity() {
-		int newLength = this.elements.length * 2;
-		this.elements = Arrays.copyOf(this.elements, newLength);
+		if (this.size() == this.elements.length) {
+			int newLength = this.elements.length * 2;
+			this.elements = Arrays.copyOf(this.elements, newLength);
+		}
 	}
 
 	public int size() {
@@ -47,7 +47,7 @@ public class ArrayStack<T> implements Stack<T> {
 
 	private void collapseCapacity() {
 		if (this.elements.length == DEFAULT_CAPACITY) {
-			return ;
+			return;
 		}
 		int reducedNewCapacity = this.elements.length >>> 1;
 		if (this.top < reducedNewCapacity) {
