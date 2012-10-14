@@ -14,8 +14,8 @@ public class LinearNode<T> {
 	}
 
 	public LinearNode(final T newElement, final LinearNode<T> newNext) {
-		this.element = newElement;
-		this.next = newNext;
+		this.element 	= newElement;
+		this.next 		= newNext;
 	}
 
 	public final T getElement() {
@@ -24,5 +24,9 @@ public class LinearNode<T> {
 
 	public final LinearNode<T> getNext() {
 		return this.next;
+	}
+
+	public void setNext(LinearNode<T> next) {
+		this.next = next;
 	}
 }

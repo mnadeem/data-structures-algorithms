@@ -62,7 +62,7 @@ public class ArrayStack<T> implements Stack<T> {
 		return this.elements[top - 1];
 	}
 
-	private boolean isEmpty() {
+	public boolean isEmpty() {
 		return this.top == 0;
 	}
 }
