@@ -26,7 +26,10 @@ public class LinkedQueueTest {
 	@Test
 	public void shouldSuccessfullyEnqueue() {
 		queue.enqueue("A");
-		assertThat(queue.size(), is(1));		
+		assertThat(queue.size(), is(1));
+		
+		queue.enqueue("B");
+		assertThat(queue.size(), is(2));
 	}
 
 	@Test(expected= EmptyCollectionException.class)
