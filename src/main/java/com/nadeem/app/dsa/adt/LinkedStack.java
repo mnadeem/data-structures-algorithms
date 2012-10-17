@@ -1,6 +1,6 @@
 package com.nadeem.app.dsa.adt;
 
-import com.nadeem.app.dsa.exception.EmptyCollectionException;
+import com.nadeem.app.dsa.exception.CollectionEmptyException;
 import com.nadeem.app.dsa.support.LinearNode;
 
 public class LinkedStack<T> implements Stack<T> {
@@ -22,7 +22,7 @@ public class LinkedStack<T> implements Stack<T> {
 
 	public final T pop() {
 		if (this.isEmpty()) {
-			throw new EmptyCollectionException();
+			throw new CollectionEmptyException();
 		}
 		T result = this.top.getElement();
 		this.top = this.top.getNext();
@@ -36,7 +36,7 @@ public class LinkedStack<T> implements Stack<T> {
 
 	public final T peek() {
 		if (this.isEmpty()) {
-			throw new EmptyCollectionException();
+			throw new CollectionEmptyException();
 		}
 		return this.top.getElement();
 	}

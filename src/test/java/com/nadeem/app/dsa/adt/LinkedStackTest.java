@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.*;
 
 import org.junit.Test;
 
-import com.nadeem.app.dsa.exception.EmptyCollectionException;
+import com.nadeem.app.dsa.exception.CollectionEmptyException;
 
 public class LinkedStackTest {
 
@@ -37,13 +37,13 @@ public class LinkedStackTest {
 		assertThat(stack.pop(), is("B"));		
 		assertThat(stack.size(), is(1));
 	}
-	@Test(expected = EmptyCollectionException.class)
+	@Test(expected = CollectionEmptyException.class)
 	public void shouldThrowExceptionWhilePoppingEmptyStack() throws Exception {
 		Stack<String> stack = new LinkedStack<String>();
 		stack.pop();
 	}
 
-	@Test(expected = EmptyCollectionException.class)
+	@Test(expected = CollectionEmptyException.class)
 	public void shouldThrowExceptionWhilePeekingEmptyStack() throws Exception {
 		Stack<String> stack = new LinkedStack<String>();
 		stack.peek();

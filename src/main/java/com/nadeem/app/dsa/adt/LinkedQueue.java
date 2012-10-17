@@ -1,6 +1,6 @@
 package com.nadeem.app.dsa.adt;
 
-import com.nadeem.app.dsa.exception.EmptyCollectionException;
+import com.nadeem.app.dsa.exception.CollectionEmptyException;
 import com.nadeem.app.dsa.support.LinearNode;
 
 public class LinkedQueue<T> implements Queue<T> {
@@ -26,7 +26,7 @@ public class LinkedQueue<T> implements Queue<T> {
 		this.count++;
 	}
 
-	private final boolean isEmpty() {
+	public final boolean isEmpty() {
 		return this.size() == 0;
 	}
 
@@ -36,7 +36,7 @@ public class LinkedQueue<T> implements Queue<T> {
 
 	public final T dequeue() {
 		if (isEmpty()) {
-			throw new EmptyCollectionException();
+			throw new CollectionEmptyException();
 		}
 		T result = this.front.getElement();
 		this.front = this.front.getNext();

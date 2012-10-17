@@ -6,7 +6,7 @@ import static org.hamcrest.Matchers.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nadeem.app.dsa.exception.EmptyCollectionException;
+import com.nadeem.app.dsa.exception.CollectionEmptyException;
 
 public class ArrayStackTest {
 
@@ -39,7 +39,7 @@ public class ArrayStackTest {
 		assertThat(arrayStack.size(), greaterThan(100));
 	}
 	
-	@Test(expected=EmptyCollectionException.class)
+	@Test(expected=CollectionEmptyException.class)
 	public void popThrowsExceptionIfEmptyCollection() throws Exception {
 		this.arrayStack.pop();
 	}
@@ -60,7 +60,7 @@ public class ArrayStackTest {
 		this.arrayStack.pop();
 	}
 	
-	@Test(expected=EmptyCollectionException.class)
+	@Test(expected=CollectionEmptyException.class)
 	public void peekThrowsExceptionIfEmptyCollection() throws Exception {
 		this.arrayStack.peek();
 	}

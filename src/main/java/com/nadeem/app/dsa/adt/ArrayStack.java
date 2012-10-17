@@ -2,7 +2,7 @@ package com.nadeem.app.dsa.adt;
 
 import java.util.Arrays;
 
-import com.nadeem.app.dsa.exception.EmptyCollectionException;
+import com.nadeem.app.dsa.exception.CollectionEmptyException;
 
 public class ArrayStack<T> implements Stack<T> {
 
@@ -36,7 +36,7 @@ public class ArrayStack<T> implements Stack<T> {
 
 	public T pop() {
 		if (isEmpty()) {
-			throw new EmptyCollectionException();
+			throw new CollectionEmptyException();
 		}
 		this.top--;
 		T result = this.elements[this.top];
@@ -57,7 +57,7 @@ public class ArrayStack<T> implements Stack<T> {
 
 	public T peek() {
 		if (isEmpty()) {
-			throw new EmptyCollectionException();
+			throw new CollectionEmptyException();
 		}
 		return this.elements[top - 1];
 	}

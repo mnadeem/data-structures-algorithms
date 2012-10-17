@@ -6,7 +6,7 @@ import static org.hamcrest.Matchers.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nadeem.app.dsa.exception.EmptyCollectionException;
+import com.nadeem.app.dsa.exception.CollectionEmptyException;
 
 public class LinkedQueueTest {
 	
@@ -19,7 +19,6 @@ public class LinkedQueueTest {
 	
 	@Test
 	public void queueShouldBeEmpty() throws Exception {
-		
 		assertThat(queue.size(), is(0));
 	}
 
@@ -32,7 +31,7 @@ public class LinkedQueueTest {
 		assertThat(queue.size(), is(2));
 	}
 
-	@Test(expected= EmptyCollectionException.class)
+	@Test(expected= CollectionEmptyException.class)
 	public void dequeueThrowsExceptionOnEmptyQueue() throws Exception {
 		queue.dequeue();
 	}

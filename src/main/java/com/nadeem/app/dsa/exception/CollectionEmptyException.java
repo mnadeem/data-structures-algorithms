@@ -1,10 +1,10 @@
 package com.nadeem.app.dsa.exception;
 
-public class EmptyCollectionException extends RuntimeException {
+public class CollectionEmptyException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public EmptyCollectionException() {
+	public CollectionEmptyException() {
 		super("Collection Can't be empty");
 	}
 }
