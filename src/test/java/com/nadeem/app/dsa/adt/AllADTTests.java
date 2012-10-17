@@ -7,7 +7,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ ArrayStackTest.class,
 	LinkedStackTest.class,
-	LinkedQueueTest.class})
+	LinkedQueueTest.class,
+	CircularArrayQueueTest.class})
 public class AllADTTests {
 
 }

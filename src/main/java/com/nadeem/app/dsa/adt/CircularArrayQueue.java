@@ -14,9 +14,9 @@ public class CircularArrayQueue<T> implements Queue<T> {
 	@SuppressWarnings("unchecked")
 	public CircularArrayQueue() {
 		this.elements = (T[]) new Object[DEFAULT_CAPACITY];
-		this.count = 0;
-		this.front = 0;
-		this.rare = 0;
+		this.count 	= 0;
+		this.front 	= 0;
+		this.rare 	= 0;
 	}
 
 	public final void enqueue(final T element) {
