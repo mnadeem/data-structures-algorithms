@@ -4,7 +4,7 @@ import com.nadeem.app.dsa.exception.CollectionEmptyException;
 
 public class DropOutStack<T> implements Stack<T> {
 	private static final int DEFAULT_CAPACITY = 10;
-	private T elements[];
+	private T[] elements;
 	private int top;
 	private int count;
 
@@ -13,42 +13,42 @@ public class DropOutStack<T> implements Stack<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public DropOutStack(int size) {
+	public DropOutStack(final int size) {
 		assert size > 0;
 		this.elements 	= ((T[]) new Object[size]);
 		this.top 		= 0;
 		this.count 		= 0;
 	}
 
-	public void push(T element) {
+	public final void push(final T element) {
 		this.elements[top] = element;
 		this.top = (this.top + 1) % this.elements.length;
 		if (this.count != this.elements.length) {
-			this.count ++;
+			this.count++;
 		}
 	}
 
-	public T pop() {
+	public final T pop() {
 		if (isEmpty()) {
 			throw new CollectionEmptyException();
 		}
 		this.top = (this.top + this.elements.length - 1) % this.elements.length;
 		T result = this.elements[this.top];
 		this.elements[this.top] = null;
-		
-		this.count --;
+
+		this.count--;
 		return result;
 	}
 
-	public int size() {
+	public final int size() {
 		return this.count;
 	}
 
-	public T peek() {
+	public final T peek() {
 		return this.elements[this.top - 1];
 	}
 
-	public boolean isEmpty() {
+	public final boolean isEmpty() {
 		return this.count == 0;
 	}
 }

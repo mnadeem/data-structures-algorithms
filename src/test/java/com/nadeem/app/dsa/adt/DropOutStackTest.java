@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.nadeem.app.dsa.exception.CollectionEmptyException;
 
 public class DropOutStackTest {
-	
+
 	private Stack<String> dropOutStack;
 	@Before
 	public void doBeforeEachTestCase() {
@@ -35,13 +35,13 @@ public class DropOutStackTest {
 	public void shouldThrowCollectionEmptyException() throws Exception {
 		this.dropOutStack.pop();
 	}
-	
+
 	@Test
 	public void peekShouldReturnElementA() throws Exception {
 		this.dropOutStack.push("A");
 		assertThat(this.dropOutStack.peek(), is("A"));
 	}
-	
+
 	@Test
 	public void poppedElementIsA() throws Exception {
 		this.dropOutStack.push("A");
@@ -55,7 +55,7 @@ public class DropOutStackTest {
 		this.dropOutStack.push("D");
 		assertThat(this.dropOutStack.pop(), is("D"));
 	}
-	
+
 	@Test
 	public void fullBlownTest() throws Exception {
 		this.dropOutStack.push("A");
