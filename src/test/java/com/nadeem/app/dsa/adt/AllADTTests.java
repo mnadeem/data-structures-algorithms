@@ -8,7 +8,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ ArrayStackTest.class,
 	LinkedStackTest.class,
 	LinkedQueueTest.class,
-	CircularArrayQueueTest.class})
+	CircularArrayQueueTest.class,
+	DropOutStackTest.class})
 public class AllADTTests {
 
 }
