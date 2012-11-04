@@ -1,5 +1,6 @@
-package com.nadeem.app.dsa.adt;
+package com.nadeem.app.dsa.adt.impl;
 
+import com.nadeem.app.dsa.adt.Queue;
 import com.nadeem.app.dsa.exception.CollectionEmptyException;
 import com.nadeem.app.dsa.support.LinearNode;
 

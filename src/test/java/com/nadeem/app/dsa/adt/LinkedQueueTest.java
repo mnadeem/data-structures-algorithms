@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.nadeem.app.dsa.adt.impl.LinkedQueue;
 import com.nadeem.app.dsa.exception.CollectionEmptyException;
 
 public class LinkedQueueTest {

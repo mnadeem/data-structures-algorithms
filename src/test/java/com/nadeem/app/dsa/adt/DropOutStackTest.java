@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.nadeem.app.dsa.adt.impl.DropOutStack;
 import com.nadeem.app.dsa.exception.CollectionEmptyException;
 
 public class DropOutStackTest {

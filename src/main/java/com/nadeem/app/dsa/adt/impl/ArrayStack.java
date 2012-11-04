@@ -1,7 +1,8 @@
-package com.nadeem.app.dsa.adt;
+package com.nadeem.app.dsa.adt.impl;
 
 import java.util.Arrays;
 
+import com.nadeem.app.dsa.adt.Stack;
 import com.nadeem.app.dsa.exception.CollectionEmptyException;
 
 public class ArrayStack<T> implements Stack<T> {

@@ -22,11 +22,15 @@ public class LinearNode<T> {
 		return this.element;
 	}
 
+	public void setElement(T element) {
+		this.element = element;
+	}
+
 	public final LinearNode<T> getNext() {
 		return this.next;
 	}
 
-	public void setNext(LinearNode<T> next) {
+	public void setNext(final LinearNode<T> next) {
 		this.next = next;
 	}
 }

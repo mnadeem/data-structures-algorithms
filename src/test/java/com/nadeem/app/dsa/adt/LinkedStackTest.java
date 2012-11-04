@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.*;
 
 import org.junit.Test;
 
+import com.nadeem.app.dsa.adt.impl.LinkedStack;
 import com.nadeem.app.dsa.exception.CollectionEmptyException;
 
 public class LinkedStackTest {
