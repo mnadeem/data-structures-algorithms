@@ -1,6 +1,6 @@
 package com.nadeem.app.dsa.adt;
 
-import java.util.Iterator;
+import com.nadeem.app.dsa.iterator.Iterator;
 
 public interface List<E> extends Iterator<E> {
 
@@ -11,7 +11,4 @@ public interface List<E> extends Iterator<E> {
 	boolean rempve(E element);
 	boolean removeFirst();
 	boolean removeLast();
-
-	E first();
-	E last();
 }

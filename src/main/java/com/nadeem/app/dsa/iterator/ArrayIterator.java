@@ -1,33 +1,33 @@
 package com.nadeem.app.dsa.iterator;
 
 public class ArrayIterator<T> implements Iterator<T> {
-	
+
 	private T[] elements;
 	private int startIndex;
 	private int endIndex;
 	private int currentIndex;
 
 	public ArrayIterator(T[] newElements) {
-		this(newElements, 0,  newElements.length -1);
+		this(newElements, 0,  newElements.length - 1);
 	}
 
 	public ArrayIterator(T[] newElements, int start, int end) {
 		this.elements 		= newElements;
 		this.startIndex 	= start;
 		this.endIndex 		= end;
-		this.currentIndex 	= startIndex;
+		this.currentIndex 	= this.startIndex;
 	}
 
 	public void first() {
-		this.currentIndex = startIndex;		
+		this.currentIndex = this.startIndex;
 	}
 
 	public void last() {
-		this.currentIndex =  endIndex;
+		this.currentIndex =  this.endIndex;
 	}
 
 	public boolean isDone() {
-		return this.currentIndex > endIndex || this.currentIndex < startIndex;
+		return this.currentIndex > this.endIndex || this.currentIndex < this.startIndex;
 	}
 
 	public void next() {
@@ -42,6 +42,6 @@ public class ArrayIterator<T> implements Iterator<T> {
 		if (isDone()) {
 			throw new ArrayIndexOutOfBoundsException();
 		}
-		return elements[currentIndex];
+		return this.elements[this.currentIndex];
 	}
 }
