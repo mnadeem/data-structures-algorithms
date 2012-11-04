@@ -9,7 +9,8 @@ import com.nadeem.app.dsa.iterator.AllIteratorTests;
 import com.nadeem.app.dsa.support.AllSupportTests;
 
 @RunWith(Suite.class)
-@SuiteClasses({AllIteratorTests.class,
+@SuiteClasses(
+	{AllIteratorTests.class,
 	AllADTTests.class,
 	AllSupportTests.class})
 public class AllTests {
