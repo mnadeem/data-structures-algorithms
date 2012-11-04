@@ -4,7 +4,7 @@ import com.nadeem.app.dsa.exception.CollectionEmptyException;
 
 public class DropOutStack<T> implements Stack<T> {
 	private static final int DEFAULT_CAPACITY = 10;
-	private T[] elements;
+	private final T[] elements;
 	private int top;
 	private int count;
 
