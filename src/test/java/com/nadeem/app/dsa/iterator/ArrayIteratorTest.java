@@ -1,7 +1,7 @@
 package com.nadeem.app.dsa.iterator;
 
 import static org.junit.Assert.*;
-
+import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,11 +10,43 @@ public class ArrayIteratorTest {
 
 	private String[] elements;
 	private Iterator<String> iterator;
-	
+
 	@Before
 	public void doBeforeEachTest() {
-		elements = new String[]{"a","b", "c","d", "e","f"};
+		elements = new String[]{"a", "b", "c", "d", "e", "f"};
 		iterator = new ArrayIterator<String>(elements);
+	}
+
+	@Test
+	public void firstElementIsA() throws Exception {
+		iterator.first();
+		assertThat(iterator.current(), is("a"));
+	}
+
+	@Test
+	public void lastElementIsF() throws Exception {
+		iterator.last();
+		assertThat(iterator.current(), is("f"));
+	}
+
+	@Test
+	public void isDoneIsFlase() throws Exception {
+		iterator.first();
+		assertThat(iterator.isDone(), is(false));
+	}
+	
+	@Test
+	public void isDoneIsTrue() throws Exception {
+		iterator.last();
+		iterator.next();
+		assertThat(iterator.isDone(), is(true));
+	}
+	
+	@Test
+	public void nextElementIsB() throws Exception {
+		iterator.first();
+		iterator.next();
+		assertThat(iterator.current(), is("b"));
 	}
 
 	@Test
