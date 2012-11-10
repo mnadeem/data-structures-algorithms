@@ -2,7 +2,7 @@ package com.nadeem.app.dsa.adt;
 
 import com.nadeem.app.dsa.iterator.Iterator;
 
-public interface List<E> extends Iterator<E> {
+public interface List<E> {
 
 	int size();
 	boolean isEmpty();
@@ -11,4 +11,5 @@ public interface List<E> extends Iterator<E> {
 	boolean rempve(E element);
 	boolean removeFirst();
 	boolean removeLast();
+	Iterator<E> getIterator();
 }
