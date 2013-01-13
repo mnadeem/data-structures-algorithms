@@ -3,38 +3,34 @@ package com.nadeem.app.dsa.iterator;
 import com.nadeem.app.dsa.support.LinearNode;
 
 public class LinkedIterator<T> implements Iterator<T> {
-	
-	private LinearNode<T> current;
+
+	private LinearNode<T> currentNode;
 
 	public LinkedIterator(final LinearNode<T> head) {
-		this.current = head;
+		this.currentNode = head;
 	}
 
-	public void first() {
-		// TODO Auto-generated method stub
-		
+	public final T current() {
+		return this.currentNode.getElement();
 	}
 
-	public T current() {
-		// TODO Auto-generated method stub
-		return null;
+	public final void next() {
+		this.currentNode = this.currentNode.getNext();
 	}
 
-	public void next() {
-		// TODO Auto-generated method stub
-		
+	public final boolean isDone() {
+		return this.currentNode == null;
 	}
 
-	public boolean isDone() {
-		return this.current == null;
-	}
-
-	public void last() {
+	public final void last() {
 		throw new UnsupportedOperationException();
-		
 	}
 
-	public void previous() {
+	public final void previous() {
+		throw new UnsupportedOperationException();
+	}
+
+	public final void first() {
 		throw new UnsupportedOperationException();
 	}
 }

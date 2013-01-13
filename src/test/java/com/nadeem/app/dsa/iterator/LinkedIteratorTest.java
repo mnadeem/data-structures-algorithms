@@ -39,4 +39,10 @@ public class LinkedIteratorTest {
 		this.linkedIterator = new LinkedIterator<String>(new LinearNode<String>());
 		this.linkedIterator.previous();
 	}
+	
+	@Test(expected = UnsupportedOperationException.class)
+	public void firstShouldThrowUnSupportedOperationException() throws Exception {
+		this.linkedIterator = new LinkedIterator<String>(new LinearNode<String>());
+		this.linkedIterator.first();
+	}
 }
