@@ -24,4 +24,10 @@ public class LongestPalindromeSubstringTest {
 		LongestPalindromeSubstring lps = new LongestPalindromeSubstring("asabasb");
 		assertThat(lps.get(), is("sabas"));
 	}
+	
+	@Test
+	public void shouldReturnValidEvenLengthPalin() {
+		LongestPalindromeSubstring lps = new LongestPalindromeSubstring("asabbasb");
+		assertThat(lps.get(), is("sabbas"));
+	}
 }
