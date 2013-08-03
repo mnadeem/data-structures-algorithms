@@ -30,7 +30,7 @@ public class SortedCircularLinkedListTest {
 	public void listIsEmpty() throws Exception {
 		assertThat(this.linkedList.isEmpty()).isTrue();
 	}
-	//@Test
+	@Test
 	public void shouldInsertFirstElementSuccessfully() throws Exception {
 		boolean added = this.linkedList.add(1);
 		assertThat(added).isTrue();

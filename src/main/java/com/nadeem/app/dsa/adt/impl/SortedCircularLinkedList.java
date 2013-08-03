@@ -5,14 +5,32 @@ import com.nadeem.app.dsa.iterator.Iterator;
 
 public class SortedCircularLinkedList<E extends Comparable<E>> implements OrderedList<E> {
 
+	private Node<E> head;
+	private int count = 0;
+
+	private static class Node<E> {
+		private E data;
+		private Node<E> next;
+		public Node(E newData) {
+			this.data = newData;
+		}
+	}
+
+	public boolean add(E element) {
+		if (null == head) {
+			this.head = new Node<E>(element);
+			this.head.next = head;
+			this.count++;
+		}
+		return true;
+	}
+
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.count;
 	}
 
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return true;
+		return this.size() == 0;
 	}
 
 	public boolean contains(E element) {
@@ -40,8 +58,4 @@ public class SortedCircularLinkedList<E extends Comparable<E>> implements Ordere
 		return null;
 	}
 
-	public boolean add(E element) {
-		// TODO Auto-generated method stub
-		return true;
-	}
 }
