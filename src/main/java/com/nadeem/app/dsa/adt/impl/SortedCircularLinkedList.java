@@ -3,7 +3,7 @@ package com.nadeem.app.dsa.adt.impl;
 import com.nadeem.app.dsa.adt.OrderedList;
 import com.nadeem.app.dsa.iterator.Iterator;
 
-public class SortedCircularLinkedList<E> implements OrderedList<E> {
+public class SortedCircularLinkedList<E extends Comparable<E>> implements OrderedList<E> {
 
 	public int size() {
 		// TODO Auto-generated method stub
@@ -12,7 +12,7 @@ public class SortedCircularLinkedList<E> implements OrderedList<E> {
 
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	public boolean contains(E element) {
@@ -42,7 +42,6 @@ public class SortedCircularLinkedList<E> implements OrderedList<E> {
 
 	public boolean add(E element) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
-
 }

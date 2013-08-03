@@ -22,7 +22,19 @@ public class SortedCircularLinkedListTest {
 	}
 
 	@Test
-	public void listIsEmpty() throws Exception {
+	public void listIsZero() throws Exception {
 		assertThat(this.linkedList.size()).isEqualTo(0);
 	}
+
+	@Test
+	public void listIsEmpty() throws Exception {
+		assertThat(this.linkedList.isEmpty()).isTrue();
+	}
+	//@Test
+	public void shouldInsertFirstElementSuccessfully() throws Exception {
+		boolean added = this.linkedList.add(1);
+		assertThat(added).isTrue();
+		assertThat(this.linkedList.size()).isEqualTo(1);
+	}
+	
 }

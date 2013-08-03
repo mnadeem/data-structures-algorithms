@@ -2,7 +2,7 @@ package com.nadeem.app.dsa.adt;
 
 import com.nadeem.app.dsa.iterator.Iterator;
 
-public interface List<E> {
+public interface List<E extends Comparable<E>> {
 
 	int size();
 	boolean isEmpty();
