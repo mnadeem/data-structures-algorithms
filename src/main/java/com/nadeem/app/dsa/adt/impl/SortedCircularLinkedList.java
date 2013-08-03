@@ -21,14 +21,27 @@ public class SortedCircularLinkedList<E extends Comparable<E>> implements Ordere
 			this.head = new Node<E>(element);
 			this.head.next = head;			
 		} else if (shouldInsertDataBeforeHead(element)) {
-			Node<E> lastNode = lastNode();
 			Node<E> newNode = new Node<E>(element);
-			newNode.next = this.head.next;
-			lastNode.next = newNode;
+			Node<E> concernedNode = lastNode();
+			newNode.next = this.head;
+			concernedNode.next = newNode;
 			this.head = newNode;			
+		} else {
+			Node<E> newNode = new Node<E>(element);
+			Node<E> concernedNode = getConcernedNode(element);
+			newNode.next = concernedNode.next;
+			concernedNode.next = newNode;
 		}
 		this.count++;
 		return true;
+	}
+
+	private Node<E> getConcernedNode(E element) {
+		Node<E> currentNode = this.head;
+		while (currentNode.next != this.head && currentNode.next.data.compareTo(element) < 0) {
+			currentNode = currentNode.next;			
+		}
+		return currentNode;
 	}
 
 	private boolean shouldInsertDataAsHead() {
@@ -40,11 +53,11 @@ public class SortedCircularLinkedList<E extends Comparable<E>> implements Ordere
 	}
 
 	private Node<E> lastNode() {
-		Node<E> temp = this.head;
-		while (temp.next != this.head) {
-			temp = temp.next;
+		Node<E> currentNode = this.head;
+		while (currentNode.next != this.head) {
+			currentNode = currentNode.next;
 		}
-		return temp;
+		return currentNode;
 	}
 
 	public int size() {
@@ -76,8 +89,38 @@ public class SortedCircularLinkedList<E extends Comparable<E>> implements Ordere
 	}
 
 	public Iterator<E> getIterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new CircularLinkedListIterator(this.head);
 	}
+	
+	private class CircularLinkedListIterator implements Iterator<E> {
+		private Node<E> currentNode;
 
+		public CircularLinkedListIterator(Node<E> newCurrentNode) {
+			this.currentNode = newCurrentNode;
+		}
+
+		public E current() {
+			return this.currentNode.data;
+		}
+
+		public void next() {
+			this.currentNode = this.currentNode.next;			
+		}
+
+		public boolean isDone() {
+			return this.currentNode == head;
+		}
+
+		public void first() {
+			throw new UnsupportedOperationException();
+		}
+
+		public void last() {
+			throw new UnsupportedOperationException();			
+		}
+
+		public void previous() {
+			throw new UnsupportedOperationException();			
+		}		
+	}
 }

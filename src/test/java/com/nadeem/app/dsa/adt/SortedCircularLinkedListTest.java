@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nadeem.app.dsa.adt.impl.SortedCircularLinkedList;
+import com.nadeem.app.dsa.iterator.Iterator;
 
 public class SortedCircularLinkedListTest {
 	
@@ -36,6 +37,7 @@ public class SortedCircularLinkedListTest {
 		assertThat(added).isTrue();
 		assertThat(this.linkedList.size()).isEqualTo(1);
 	}
+
 	@Test
 	public void shouldSuccessfullyAddElementBeforeHead() throws Exception {
 		this.linkedList.add(4);
@@ -43,4 +45,30 @@ public class SortedCircularLinkedListTest {
 		assertThat(this.linkedList.size()).isEqualTo(2);
 	}
 	
+	@Test
+	public void shouldAddElementAfterHead() throws Exception {
+		this.linkedList.add(3);
+		this.linkedList.add(4);
+		assertThat(this.linkedList.size()).isEqualTo(2);
+		Iterator<Integer> iterator = this.linkedList.getIterator();
+		do {
+			System.out.println(iterator.current());
+			iterator.next();
+		}while(!iterator.isDone());
+	}
+	
+	@Test
+	public void sfsd() throws Exception {
+		this.linkedList.add(6);
+		this.linkedList.add(8);
+		this.linkedList.add(10);
+		this.linkedList.add(12);
+		this.linkedList.add(11);
+
+		Iterator<Integer> iterator = this.linkedList.getIterator();
+		do {
+			System.out.println(iterator.current());
+			iterator.next();
+		}while(!iterator.isDone());
+	}	
 }
