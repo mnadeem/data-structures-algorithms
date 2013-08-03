@@ -1,7 +1,6 @@
 package com.nadeem.app.dsa.adt;
 
 import static org.fest.assertions.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,13 +31,13 @@ public class SortedCircularLinkedListTest {
 		assertThat(this.linkedList.isEmpty()).isTrue();
 	}
 	@Test
-	public void shouldInsertFirstElementSuccessfully() throws Exception {
+	public void shouldSuccessfullyAddElementAsHead() throws Exception {
 		boolean added = this.linkedList.add(1);
 		assertThat(added).isTrue();
 		assertThat(this.linkedList.size()).isEqualTo(1);
 	}
 	@Test
-	public void shouldAddSecondElementSuccessfully() throws Exception {
+	public void shouldSuccessfullyAddElementBeforeHead() throws Exception {
 		this.linkedList.add(4);
 		this.linkedList.add(3);
 		assertThat(this.linkedList.size()).isEqualTo(2);

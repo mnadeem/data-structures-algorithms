@@ -17,19 +17,26 @@ public class SortedCircularLinkedList<E extends Comparable<E>> implements Ordere
 	}
 
 	public boolean add(E element) {
-		if (null == head) {
+		if (shouldInsertDataAsHead()) {
 			this.head = new Node<E>(element);
-			this.head.next = head;
-			this.count++;
-		} else if (this.head.data.compareTo(element) > 0) {
+			this.head.next = head;			
+		} else if (shouldInsertDataBeforeHead(element)) {
 			Node<E> lastNode = lastNode();
 			Node<E> newNode = new Node<E>(element);
 			newNode.next = this.head.next;
 			lastNode.next = newNode;
-			this.head = newNode;
-			this.count++;
+			this.head = newNode;			
 		}
+		this.count++;
 		return true;
+	}
+
+	private boolean shouldInsertDataAsHead() {
+		return null == this.head;
+	}
+
+	private boolean shouldInsertDataBeforeHead(E element) {
+		return this.head.data.compareTo(element) > 0;
 	}
 
 	private Node<E> lastNode() {
