@@ -96,6 +96,9 @@ public class SortedCircularLinkedList<E extends Comparable<E>> implements Ordere
 		}
 
 		public E current() {
+			if (this.currentNode == null) {
+				return null;
+			}
 			return this.currentNode.data;
 		}
 

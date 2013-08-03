@@ -54,7 +54,7 @@ public class SortedCircularLinkedListTest {
 		do {
 			System.out.println(iterator.current());
 			iterator.next();
-		}while(!iterator.isDone());
+		} while(!iterator.isDone());
 	}
 
 	@Test
