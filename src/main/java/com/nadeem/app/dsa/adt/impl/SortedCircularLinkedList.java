@@ -87,7 +87,7 @@ public class SortedCircularLinkedList<E extends Comparable<E>> implements Ordere
 	public Iterator<E> getIterator() {
 		return new CircularLinkedListIterator(this.head);
 	}
-	
+
 	private class CircularLinkedListIterator implements Iterator<E> {
 		private Node<E> currentNode;
 

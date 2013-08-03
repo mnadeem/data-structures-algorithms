@@ -56,9 +56,9 @@ public class SortedCircularLinkedListTest {
 			iterator.next();
 		}while(!iterator.isDone());
 	}
-	
+
 	@Test
-	public void sfsd() throws Exception {
+	public void iterate() throws Exception {
 		this.linkedList.add(6);
 		this.linkedList.add(8);
 		this.linkedList.add(10);
