@@ -69,23 +69,19 @@ public class SortedCircularLinkedList<E extends Comparable<E>> implements Ordere
 	}
 
 	public boolean contains(E element) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	public boolean remove(E element) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	public boolean removeFirst() {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	public boolean removeLast() {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	public Iterator<E> getIterator() {
