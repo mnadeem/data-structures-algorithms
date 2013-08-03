@@ -38,7 +38,7 @@ public class SortedCircularLinkedList<E extends Comparable<E>> implements Ordere
 		return false;
 	}
 
-	public boolean rempve(E element) {
+	public boolean remove(E element) {
 		// TODO Auto-generated method stub
 		return false;
 	}

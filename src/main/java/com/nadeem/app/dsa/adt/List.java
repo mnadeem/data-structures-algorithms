@@ -8,7 +8,7 @@ public interface List<E extends Comparable<E>> {
 	boolean isEmpty();
 	boolean contains(E element);
 
-	boolean rempve(E element);
+	boolean remove(E element);
 	boolean removeFirst();
 	boolean removeLast();
 	Iterator<E> getIterator();
