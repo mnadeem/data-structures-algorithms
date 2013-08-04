@@ -36,6 +36,11 @@ public class SortedCircularLinkedListTest {
 		boolean added = this.linkedList.add(1);
 		assertThat(added).isTrue();
 		assertThat(this.linkedList.size()).isEqualTo(1);
+
+		Iterator<Integer> iterator = this.linkedList.getIterator();
+		assertThat(iterator.current()).isEqualTo(1);
+		iterator.next();
+		assertThat(iterator.isDone()).isTrue();
 	}
 
 	@Test
@@ -43,6 +48,14 @@ public class SortedCircularLinkedListTest {
 		this.linkedList.add(4);
 		this.linkedList.add(3);
 		assertThat(this.linkedList.size()).isEqualTo(2);
+
+		Iterator<Integer> iterator = this.linkedList.getIterator();
+		assertThat(iterator.current()).isEqualTo(3);
+		iterator.next();
+		assertThat(iterator.isDone()).isFalse();
+		assertThat(iterator.current()).isEqualTo(4);
+		iterator.next();
+		assertThat(iterator.isDone()).isTrue();
 	}
 	
 	@Test
@@ -50,11 +63,14 @@ public class SortedCircularLinkedListTest {
 		this.linkedList.add(3);
 		this.linkedList.add(4);
 		assertThat(this.linkedList.size()).isEqualTo(2);
+
 		Iterator<Integer> iterator = this.linkedList.getIterator();
-		do {
-			System.out.println(iterator.current());
-			iterator.next();
-		} while(!iterator.isDone());
+		assertThat(iterator.current()).isEqualTo(3);
+		iterator.next();
+		assertThat(iterator.isDone()).isFalse();
+		assertThat(iterator.current()).isEqualTo(4);
+		iterator.next();
+		assertThat(iterator.isDone()).isTrue();
 	}
 
 	@Test
