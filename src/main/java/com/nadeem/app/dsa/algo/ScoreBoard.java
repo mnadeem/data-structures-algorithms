@@ -15,7 +15,7 @@ public class ScoreBoard {
 		numberOfEntries++;
 	}
 
-	private static class Score {
+	public static class Score {
 
 		private String name;
 		private int value;
