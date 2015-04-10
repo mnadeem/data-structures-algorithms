@@ -11,7 +11,7 @@ public class ScoreBoard {
 
 	public void addScore(String name, int value) {
 		Score score =  new Score(name, value);
-		this.scores[0] = score;
+		this.scores[numberOfEntries] = score;
 		numberOfEntries++;
 	}
 
