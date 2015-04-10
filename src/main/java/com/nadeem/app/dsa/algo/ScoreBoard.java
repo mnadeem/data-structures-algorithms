@@ -9,10 +9,19 @@ public class ScoreBoard {
 		this.scores = new Score[capacity];
 	}
 
-	public void addScore(String name, int value) {
+	public int addScore(String name, int value) {
 		Score score =  new Score(name, value);
-		this.scores[numberOfEntries] = score;
-		numberOfEntries++;
+		if (numberOfEntries < scores.length) {
+			numberOfEntries ++;
+		}
+		int index = numberOfEntries - 1;
+		while (index > 0 && scores[index - 1].getValue() < value) {
+			scores[index] = scores[index - 1];
+			index--;			
+		}
+		this.scores[index] = score;
+
+		return index;
 	}
 
 	public static class Score {
