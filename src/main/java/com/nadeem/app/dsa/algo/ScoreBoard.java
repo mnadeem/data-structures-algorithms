@@ -10,6 +10,11 @@ public class ScoreBoard {
 	}
 
 	public int addScore(String name, int value) {
+
+		if (isBoardFull() && shouldThisScoreBeIgnored(value)) {
+			return -1;
+		}
+
 		Score score =  new Score(name, value);
 		if (numberOfEntries < scores.length) {
 			numberOfEntries ++;
@@ -22,6 +27,14 @@ public class ScoreBoard {
 		this.scores[index] = score;
 
 		return index;
+	}
+
+	private boolean shouldThisScoreBeIgnored(int value) {
+		return value < this.scores[numberOfEntries - 1].getValue();
+	}
+
+	private boolean isBoardFull() {
+		return numberOfEntries - 1  == this.scores.length;
 	}
 
 	public static class Score {
