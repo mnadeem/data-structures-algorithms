@@ -16,17 +16,25 @@ public class ScoreBoard {
 		}
 
 		Score score =  new Score(name, value);
-		if (numberOfEntries < scores.length) {
+		if (thereIsSpaceForNewScore()) {
 			numberOfEntries ++;
 		}
 		int index = numberOfEntries - 1;
-		while (index > 0 && scores[index - 1].getValue() < value) {
+		while (shouldSwap(value, index)) {
 			scores[index] = scores[index - 1];
 			index--;			
 		}
 		this.scores[index] = score;
 
 		return index;
+	}
+
+	private boolean shouldSwap(int value, int index) {
+		return index > 0 && scores[index - 1].getValue() < value;
+	}
+
+	private boolean thereIsSpaceForNewScore() {
+		return numberOfEntries < scores.length;
 	}
 
 	private boolean shouldThisScoreBeIgnored(int value) {
