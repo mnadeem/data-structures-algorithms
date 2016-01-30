@@ -30,5 +30,5 @@ public class MathUtilTest {
 		int gcd = MathUtil.rGCD(111, 109);
 		assertThat(gcd, is(1));
 	}
-	
+
 }

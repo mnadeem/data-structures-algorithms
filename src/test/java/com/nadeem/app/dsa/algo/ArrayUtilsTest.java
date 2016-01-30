@@ -42,4 +42,12 @@ public class ArrayUtilsTest {
 		assertThat(seed[0], is(4));
 		assertThat(seed[7], is(3));
 	}
+
+	@Test
+	public void mutableRotationMinSwapTest() {
+		int numberOfPositions = 3;
+		ArrayUtils.<Integer>mutableRotateMinSwap(seed, numberOfPositions);
+		assertThat(seed[0], is(4));
+		assertThat(seed[7], is(3));
+	}
 }

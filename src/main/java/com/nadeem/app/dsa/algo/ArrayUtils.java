@@ -47,6 +47,27 @@ public final class ArrayUtils {
 		reverse(seed, numberOfPositions, seed.length);
 		reverse(seed, 0, seed.length);
 	}
+
+	public static <T> void mutableRotateMinSwap(T[] seed, int numberOfPositions) {
+		int length = seed.length;
+		for (int i = 0; i < MathUtil.iGCD(length, numberOfPositions); i++) {
+			T temp = seed[i];
+			int setIncrementerOne = i;
+			int setIncrementerTwo;
+			while(true) {
+				setIncrementerTwo = setIncrementerOne + numberOfPositions;
+				if(setIncrementerTwo >= length) {
+					setIncrementerTwo = setIncrementerTwo - length;
+				}
+				if (setIncrementerTwo == i) {
+					break;
+				}				
+				seed[setIncrementerOne] = seed[setIncrementerTwo];
+				setIncrementerOne = setIncrementerTwo;
+			}
+			seed[setIncrementerOne] = temp;
+		}		
+	}
 	
 	
 }
