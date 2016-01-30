@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ArrayReverserTest {
+public class ArrayUtilsTest {
 	private Integer[] seed;
 
 	@Before
@@ -16,13 +16,13 @@ public class ArrayReverserTest {
 
 	@Test
 	public void wholeArrayReverse() {
-		ArrayReverser.<Integer>reverse(seed);
+		ArrayUtils.<Integer>reverse(seed);
 		assertThat(seed[0], is(8));
 	}
 
 	@Test
 	public void partialArrayReverse() {
-		ArrayReverser.<Integer>reverse(seed, 1, 5);
+		ArrayUtils.<Integer>reverse(seed, 1, 5);
 		assertThat(seed[1], is(5));
 	}
 }

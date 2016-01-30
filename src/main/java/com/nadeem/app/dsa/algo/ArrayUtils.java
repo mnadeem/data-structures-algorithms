@@ -2,10 +2,10 @@ package com.nadeem.app.dsa.algo;
 
 import java.util.logging.Logger;
 
-public final class ArrayReverser {
-	private static final Logger LOGGER = Logger.getLogger(ArrayReverser.class.getName());
+public final class ArrayUtils {
+	private static final Logger LOGGER = Logger.getLogger(ArrayUtils.class.getName());
 	
-	private ArrayReverser () {
+	private ArrayUtils () {
 		
 	}
 	
