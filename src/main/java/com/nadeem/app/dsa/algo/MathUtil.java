@@ -15,4 +15,12 @@ public class MathUtil {
 		return remainder;
 	}
 
+	public static int rGCD(int first, int second) {
+		if (first%second==0) {
+			return second;
+		} else {
+			return rGCD(second, first%second);
+		}
+	}
+
 }
