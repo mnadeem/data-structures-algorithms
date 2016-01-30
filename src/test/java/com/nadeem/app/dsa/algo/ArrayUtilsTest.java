@@ -25,4 +25,21 @@ public class ArrayUtilsTest {
 		ArrayUtils.<Integer>reverse(seed, 1, 5);
 		assertThat(seed[1], is(5));
 	}
+
+	@Test
+	public void imMutableRotationTest() {
+		int numberOfPositions = 3;
+		Object[] result =  ArrayUtils.<Integer>immutableRotate(seed, numberOfPositions);
+		assertThat((Integer)result[0], is(4));
+		assertThat((Integer)result[7], is(3));
+		
+	}
+	
+	@Test
+	public void mutableRotationTest() {
+		int numberOfPositions = 3;
+		ArrayUtils.<Integer>mutableRotate(seed, numberOfPositions);
+		assertThat(seed[0], is(4));
+		assertThat(seed[7], is(3));
+	}
 }
