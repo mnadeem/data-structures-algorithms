@@ -49,24 +49,29 @@ public final class ArrayUtils {
 	}
 
 	public static <T> void mutableRotateMinSwap(T[] seed, int numberOfPositions) {
-		int length = seed.length;
-		for (int i = 0; i < MathUtil.iGCD(length, numberOfPositions); i++) {
-			T temp = seed[i];
-			int setIncrementerOne = i;
-			int setIncrementerTwo;
-			while(true) {
-				setIncrementerTwo = setIncrementerOne + numberOfPositions;
-				if(setIncrementerTwo >= length) {
-					setIncrementerTwo = setIncrementerTwo - length;
-				}
-				if (setIncrementerTwo == i) {
-					break;
-				}				
-				seed[setIncrementerOne] = seed[setIncrementerTwo];
-				setIncrementerOne = setIncrementerTwo;
-			}
-			seed[setIncrementerOne] = temp;
+		
+		for (int setIndex = 0; setIndex < MathUtil.iGCD(seed.length, numberOfPositions); setIndex++) {
+			swapElementsInSet(seed, numberOfPositions, setIndex);
 		}		
+	}
+
+	private static <T> void swapElementsInSet(T[] seed, int numberOfPositions, int setIndex) {
+		int length = seed.length;
+		T temp = seed[setIndex];
+		int firstIncrementor = setIndex;
+		int secondIncrementor;
+		while(true) {
+			secondIncrementor = firstIncrementor + numberOfPositions;
+			if(secondIncrementor >= length) {
+				secondIncrementor = secondIncrementor - length;
+			}
+			if (secondIncrementor == setIndex) {
+				break;
+			}				
+			seed[firstIncrementor] = seed[secondIncrementor];
+			firstIncrementor = secondIncrementor;
+		}
+		seed[firstIncrementor] = temp;
 	}
 	
 	
