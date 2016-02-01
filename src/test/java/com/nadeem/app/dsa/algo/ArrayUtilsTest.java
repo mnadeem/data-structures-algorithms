@@ -67,7 +67,7 @@ public class ArrayUtilsTest {
 	
 	@Test
 	public void insertionSortFirstTest() {
-		ArrayUtils.<Integer>mutableInsertionSort(seed);
+		ArrayUtils.<Integer>mutableBubbleSort(seed);
 		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
 		assertThat(seed, equalTo(result));
 	}

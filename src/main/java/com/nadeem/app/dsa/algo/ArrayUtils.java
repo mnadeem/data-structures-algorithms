@@ -121,6 +121,5 @@ public final class ArrayUtils {
 			swap(seed, current, current- 1);
 			current --;
 		}
-		
 	}
 }
