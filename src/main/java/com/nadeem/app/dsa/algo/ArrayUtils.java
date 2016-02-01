@@ -9,11 +9,11 @@ public final class ArrayUtils {
 
 	}
 
-	public static <T> void reverse(T[] seed) {
+	public static <T extends Comparable<? super T>> void reverse(T[] seed) {
 		reverse(seed, 0, seed.length);
 	}
 
-	public static <T> void reverse(T[] seed, int startIndexInclusive, int endIndexExclusive) {
+	public static <T extends Comparable<? super T>> void reverse(T[] seed, int startIndexInclusive, int endIndexExclusive) {
 		if (seed == null || seed.length == 0) {
 			LOGGER.warning("Nothing to rotate");
 		}
@@ -26,10 +26,10 @@ public final class ArrayUtils {
 		}
 	}
 
-	private static <T> void swap(T[] seed, int start, int end) {
-		T temp =  seed[start];
-		seed[start] = seed[end];
-		seed[end] = temp;
+	private static <T extends Comparable<? super T>> void swap(T[] seed, int firstIndex, int secondIndex) {
+		T temp =  seed[firstIndex];
+		seed[firstIndex] = seed[secondIndex];
+		seed[secondIndex] = temp;
 	}
 
 	public static <T> T[] immutableRotate(T[] seed, int numberOfPositions) {
@@ -42,7 +42,7 @@ public final class ArrayUtils {
 		return result;
 	}
 
-	public static <T>  void mutableRotate(T[] seed, int numberOfPositions) {
+	public static <T extends Comparable<? super T>>  void mutableRotate(T[] seed, int numberOfPositions) {
 		reverse(seed, 0, numberOfPositions);
 		reverse(seed, numberOfPositions, seed.length);
 		reverse(seed, 0, seed.length);
@@ -73,6 +73,54 @@ public final class ArrayUtils {
 		}
 		seed[firstIncrementor] = temp;
 	}
-	
-	
+
+	public static <T extends Comparable<? super T>> void mutableSelectionSort(T[] collection) {
+		int endIndex = collection.length;
+		for (int currentIndex = 0; currentIndex < endIndex; currentIndex++) {
+			int minIndex = minIndex(collection, currentIndex, endIndex);
+			if (currentIndex < minIndex) {
+				swap(collection, currentIndex, minIndex);
+			}
+		}		
+	}
+
+	private static <T extends Comparable<? super T>> int minIndex(T[] collection, int startIndexInclusive, int endIndexExclusive) {
+		int minIndex = startIndexInclusive;
+		for (int i = startIndexInclusive + 1; i < endIndexExclusive; i++) {
+			if (collection[i].compareTo(collection[minIndex]) < 0) {
+				minIndex = i;
+			}
+		}
+		return minIndex;
+	}
+
+	public static <T extends Comparable<? super T>> void mutableBubbleSort(T[] collection) {
+		int endIndex = collection.length - 1;
+		for (int currentIteration = 0; currentIteration < endIndex; currentIteration++) {
+			bubbleUp(collection, currentIteration, endIndex);
+		}	
+	}
+
+	private static <T extends Comparable<? super T>> void bubbleUp(T[] collection, int currentIteration, int endIndex) {
+		for (int currentIndex = endIndex; currentIndex > currentIteration; currentIndex--) {
+			if(collection[currentIndex].compareTo(collection[currentIndex-1]) < 0) {
+				swap(collection, currentIndex, currentIndex-1);
+			}
+		}
+	}
+
+	public static <T extends Comparable<? super T>> void mutableInsertionSort(T[] seed) {
+		for (int i = 1; i < seed.length; i++) {
+			insertAtCorrectPosition(seed, i);
+		}		
+	}
+
+	private static <T extends Comparable<? super T>> void insertAtCorrectPosition(T[] seed, int endIndex) {
+		int current = endIndex;
+		while (current > 0 && seed[current].compareTo(seed[current - 1]) < 0) {
+			swap(seed, current, current- 1);
+			current --;
+		}
+		
+	}
 }
