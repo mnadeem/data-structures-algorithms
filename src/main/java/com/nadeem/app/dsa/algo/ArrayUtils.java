@@ -49,7 +49,7 @@ public final class ArrayUtils {
 	}
 
 	public static <T> void mutableRotateMinSwap(T[] seed, int numberOfPositions) {
-		
+
 		for (int setIndex = 0; setIndex < MathUtil.iGCD(seed.length, numberOfPositions); setIndex++) {
 			swapElementsInSet(seed, numberOfPositions, setIndex);
 		}		
@@ -109,17 +109,20 @@ public final class ArrayUtils {
 		}
 	}
 
-	public static <T extends Comparable<? super T>> void mutableInsertionSort(T[] seed) {
-		for (int i = 1; i < seed.length; i++) {
-			insertAtCorrectPosition(seed, i);
+	public static <T extends Comparable<? super T>> void mutableInsertionSort(T[] collection) {
+		for (int index = 1; index < collection.length; index++)	{
+			insert(collection, index);
 		}		
 	}
 
-	private static <T extends Comparable<? super T>> void insertAtCorrectPosition(T[] seed, int endIndex) {
-		int current = endIndex;
-		while (current > 0 && seed[current].compareTo(seed[current - 1]) < 0) {
-			swap(seed, current, current- 1);
-			current --;
+	private static <T extends Comparable<? super T>> void insert(T[] collection, int index) {
+		T value = collection[index];
+		int position = index;
+		// Shift larger values to the right
+		while (position > 0 && collection[position-1].compareTo(value) > 0)	{
+			collection[position] = collection[position-1];
+			position--;
 		}
+		collection[position] = value;//Insert into proper location
 	}
 }
