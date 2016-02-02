@@ -153,6 +153,17 @@ public final class ArrayUtils {
 	}
 
 	public static <T extends Comparable<? super T>> void mergeArray(T[] collection, int low, int mid, int high) {
+		T[] tmp = doMerge(collection, low, mid, high);
+		copyResult(collection, tmp);
+	}
+
+	private static <T extends Comparable<? super T>>  void copyResult(T[] collection, T[] tmp) {
+		for (int i = 0; i < tmp.length; i++) {
+			collection[i] = tmp[i];
+		}
+	}
+
+	private static <T extends Comparable<? super T>> T[] doMerge(T[] collection, int low, int mid, int high) {
 		int index = 0;
 		int leftIndex = low;
 		int rightIndex = mid + 1;
@@ -169,8 +180,6 @@ public final class ArrayUtils {
 				tmp[index++]=collection[rightIndex++];
 			}
 		}
-		for (int i = 0; i < tmp.length; i++) {
-			collection[i] = tmp[i];
-		}
+		return tmp;
 	}
 }
