@@ -152,7 +152,7 @@ public final class ArrayUtils {
 		collection[inner] = value;
 	}
 
-	public static <T extends Comparable<? super T>> void mergeArray(T[] collection, int low, int mid, int high) {
+	public static <T extends Comparable<? super T>> void merge(T[] collection, int low, int mid, int high) {
 		T[] tmp = doMerge(collection, low, mid, high);
 		copyResult(collection, tmp);
 	}
@@ -181,5 +181,33 @@ public final class ArrayUtils {
 			}
 		}
 		return tmp;
+	}
+
+	public static <T extends Comparable<? super T>>  void inPlaceMerge(T[] collection, int low, int mid, int high) {
+		int left = low;
+		int right = mid + 1;
+		
+		if(collection[mid].equals(collection[right])) {
+			return ;//Skip the merge if required
+		}
+		while (left <= mid && right <= high) {
+			
+			
+			if (collection[left].compareTo(collection[right]) <= 0) {
+				left ++;
+			} else {
+				T tmp = collection[right];
+				rotateRight(collection, left, right - left);
+				collection[left] = tmp;
+				left ++;
+				right ++;
+				mid ++;
+			}
+		}		
+	}
+
+	private static <T extends Comparable<? super T>> void rotateRight(T[] collection, int left, int numberOfElements) {
+		System.arraycopy(collection, left, collection, left+1, numberOfElements);
+		
 	}
 }

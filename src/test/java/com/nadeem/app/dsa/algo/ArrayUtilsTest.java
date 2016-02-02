@@ -82,8 +82,17 @@ public class ArrayUtilsTest {
 	@Test
 	public void mergeArrayFirstTest() {
 		Integer[] collection = new Integer[]{5,6,7,8,1,2,3,4};
-		ArrayUtils.<Integer>mergeArray(collection, 0,3,7);
+		ArrayUtils.<Integer>merge(collection, 0,3,7);
 		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
 		assertThat(collection, equalTo(result));
 	}
+	
+	@Test
+	public void inPlaceMergeFirstTest() {
+		Integer[] collection = new Integer[]{5,6,7,8,1,2,3,4};
+		ArrayUtils.<Integer>inPlaceMerge(collection, 0,3,7);
+		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
+		assertThat(collection, equalTo(result));
+	}
+	
 }
