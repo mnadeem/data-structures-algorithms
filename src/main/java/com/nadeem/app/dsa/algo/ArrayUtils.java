@@ -111,11 +111,11 @@ public final class ArrayUtils {
 
 	public static <T extends Comparable<? super T>> void mutableInsertionSort(T[] collection) {
 		for (int index = 1; index < collection.length; index++)	{
-			insert(collection, index);
+			shiftAndInsert(collection, 1, index);
 		}		
 	}
 
-	private static <T extends Comparable<? super T>> void insert(T[] collection, int index) {
+	static <T extends Comparable<? super T>> void insert(T[] collection, int index) {
 		T value = collection[index];
 		int position = index;
 		// Shift larger values to the right
@@ -124,5 +124,53 @@ public final class ArrayUtils {
 			position--;
 		}
 		collection[position] = value;//Insert into proper location
+	}
+
+	public static <T extends Comparable<? super T>> void mutableShellSort(T[] collection) {
+		int interval = 1;
+		int length = collection.length;
+		while (interval < length / 3) {
+			interval = interval * 3 + 1;
+		}
+		while (interval > 0) {
+			for (int outer = interval; outer < length; outer++) {
+				shiftAndInsert(collection, interval, outer);
+			}
+			interval = (interval - 1)/3;
+		}
+	}
+
+	private static <T extends Comparable<? super T>> void shiftAndInsert(T[] collection, int interval, int outer) {
+		T value = collection[outer];
+		int inner= outer;
+		// Shift larger values to the right
+		while(inner > 0  && collection[inner - interval].compareTo(value) > 0) {
+			collection[inner]= collection[inner - interval];
+			inner = inner- interval;
+		}
+		//insert the number at correct, whole position
+		collection[inner] = value;
+	}
+
+	public static <T extends Comparable<? super T>> void mergeArray(T[] collection, int low, int mid, int high) {
+		int index = 0;
+		int leftIndex = low;
+		int rightIndex = mid + 1;
+		@SuppressWarnings("unchecked")
+		T[] tmp = (T[])new Comparable[high - low + 1];
+		while(leftIndex <=mid || rightIndex <=high) {
+			if(leftIndex > mid) {
+				tmp[index++] = collection[rightIndex++];
+			} else if(rightIndex > high) {
+				tmp[index++] = collection[leftIndex++];
+			} else	if (collection[leftIndex].compareTo(collection[rightIndex]) < 0) {
+				tmp[index++]=collection[leftIndex++];
+			} else {
+				tmp[index++]=collection[rightIndex++];
+			}
+		}
+		for (int i = 0; i < tmp.length; i++) {
+			collection[i] = tmp[i];
+		}
 	}
 }

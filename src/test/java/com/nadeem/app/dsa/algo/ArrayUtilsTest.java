@@ -34,7 +34,7 @@ public class ArrayUtilsTest {
 		assertThat((Integer)result[7], is(3));
 		
 	}
-	
+
 	@Test
 	public void mutableRotationTest() {
 		int numberOfPositions = 3;
@@ -50,26 +50,40 @@ public class ArrayUtilsTest {
 		assertThat(seed[0], is(1));
 		assertThat(seed[7], is(3));
 	}
-	
+
 	@Test
 	public void selectionSortFirstTest() {
 		ArrayUtils.<Integer>mutableSelectionSort(seed);
 		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
 		assertThat(seed, equalTo(result));
 	}
-	
+
 	@Test
 	public void bubbleSortFirstTest() {
 		ArrayUtils.<Integer>mutableBubbleSort(seed);
 		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
 		assertThat(seed, equalTo(result));
 	}
-	
+
 	@Test
 	public void insertionSortFirstTest() {
 		ArrayUtils.<Integer>mutableInsertionSort(seed);
 		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
 		assertThat(seed, equalTo(result));
 	}
-	
+
+	@Test
+	public void shellSortFirstTest() {
+		ArrayUtils.<Integer>mutableShellSort(seed);
+		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
+		assertThat(seed, equalTo(result));
+	}
+
+	@Test
+	public void mergeArrayFirstTest() {
+		Integer[] collection = new Integer[]{5,6,7,8,1,2,3,4};
+		ArrayUtils.<Integer>mergeArray(collection, 0,3,7);
+		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
+		assertThat(collection, equalTo(result));
+	}
 }
