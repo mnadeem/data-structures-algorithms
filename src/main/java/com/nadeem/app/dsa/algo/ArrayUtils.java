@@ -182,7 +182,13 @@ public final class ArrayUtils {
 		}
 		return tmp;
 	}
-
+	/**
+	 * Refer this http://www.cs.nthu.edu.tw/~wkhon/algo08-tutorials/tutorial1b.pdf
+	 * @param collection
+	 * @param low
+	 * @param mid
+	 * @param high
+	 */
 	public static <T extends Comparable<? super T>>  void inPlaceMerge(T[] collection, int low, int mid, int high) {
 		int left = low;
 		int right = mid + 1;
@@ -190,24 +196,21 @@ public final class ArrayUtils {
 		if(collection[mid].equals(collection[right])) {
 			return ;//Skip the merge if required
 		}
-		while (left <= mid && right <= high) {
-			
-			
+		while (left <= mid && right <= high) {			
+			// Select from left:  no change, just advance left
 			if (collection[left].compareTo(collection[right]) <= 0) {
 				left ++;
-			} else {
-				T tmp = collection[right];
+			} else { // Select from right:  rotate [left..right] and correct
+				T tmp = collection[right]; // Will move to [left]
 				rotateRight(collection, left, right - left);
 				collection[left] = tmp;
-				left ++;
-				right ++;
-				mid ++;
+				// EVERYTHING has moved up by one
+				left ++; right ++; mid ++;
 			}
 		}		
 	}
 
 	private static <T extends Comparable<? super T>> void rotateRight(T[] collection, int left, int numberOfElements) {
-		System.arraycopy(collection, left, collection, left+1, numberOfElements);
-		
+		System.arraycopy(collection, left, collection, left+1, numberOfElements);		
 	}
 }
