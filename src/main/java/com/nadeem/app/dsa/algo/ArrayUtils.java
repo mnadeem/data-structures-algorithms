@@ -154,13 +154,14 @@ public final class ArrayUtils {
 
 	public static <T extends Comparable<? super T>> void merge(T[] collection, int low, int mid, int high) {
 		T[] tmp = doMerge(collection, low, mid, high);
-		copyResult(collection, tmp);
+		copyResult(collection, tmp, low);
 	}
 
-	private static <T extends Comparable<? super T>>  void copyResult(T[] collection, T[] tmp) {
+	private static <T extends Comparable<? super T>>  void copyResult(T[] collection, T[] tmp, int start) {
 		for (int i = 0; i < tmp.length; i++) {
-			collection[i] = tmp[i];
+			collection[start+i] = tmp[i];
 		}
+		//System.arraycopy(tmp, 0, collection, start, tmp.length);
 	}
 
 	private static <T extends Comparable<? super T>> T[] doMerge(T[] collection, int low, int mid, int high) {
@@ -212,5 +213,18 @@ public final class ArrayUtils {
 
 	private static <T extends Comparable<? super T>> void rotateRight(T[] collection, int left, int numberOfElements) {
 		System.arraycopy(collection, left, collection, left+1, numberOfElements);		
+	}
+
+	public static <T extends Comparable<? super T>> void recursiveMergeSort(T[] seed) {
+		recursiveMergeSort(seed, 0, seed.length - 1);
+	}
+
+	private static <T extends Comparable<? super T>> void recursiveMergeSort(T[] seed, int start, int end) {
+		if (start < end) {		
+			int mid = (start + end)/2;
+			recursiveMergeSort(seed, start, mid);
+			recursiveMergeSort(seed, mid+1, end);
+			merge(seed, start, mid, end);
+		}
 	}
 }

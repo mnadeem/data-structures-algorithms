@@ -86,7 +86,7 @@ public class ArrayUtilsTest {
 		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
 		assertThat(collection, equalTo(result));
 	}
-	
+
 	@Test
 	public void inPlaceMergeFirstTest() {
 		Integer[] collection = new Integer[]{5,6,7,8,1,2,3,4};
@@ -95,4 +95,10 @@ public class ArrayUtilsTest {
 		assertThat(collection, equalTo(result));
 	}
 	
+	@Test
+	public void recursiveMergeSortFirstTest() {
+		ArrayUtils.<Integer>recursiveMergeSort(seed);
+		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
+		assertThat(seed, equalTo(result));
+	}
 }
