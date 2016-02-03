@@ -100,5 +100,13 @@ public class ArrayUtilsTest {
 		ArrayUtils.<Integer>recursiveMergeSort(seed);
 		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
 		assertThat(seed, equalTo(result));
+	
+	}
+	
+	@Test
+	public void iterativeMergeSortFirstTest() {
+		ArrayUtils.<Integer>iterativeMergeSort(seed);
+		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
+		assertThat(seed, equalTo(result));	
 	}
 }

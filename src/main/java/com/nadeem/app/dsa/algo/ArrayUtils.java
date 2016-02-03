@@ -227,4 +227,15 @@ public final class ArrayUtils {
 			merge(seed, start, mid, end);
 		}
 	}
+
+	public static <T extends Comparable<? super T>> void iterativeMergeSort(T[] seed) {
+	
+		for (int i = 1; i <seed.length; i=i+i)
+	    {
+	        for (int j = 0; j < seed.length - i; j = j + i+i)
+	        {
+	        	inPlaceMerge(seed, j, j + i-1, Math.min(j+i + i -1, seed.length -1));
+	        }
+	    }		
+	}
 }
