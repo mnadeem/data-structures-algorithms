@@ -1,5 +1,7 @@
 package com.nadeem.app.dsa.algo;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.logging.Logger;
 
 public final class ArrayUtils {
@@ -278,6 +280,32 @@ public final class ArrayUtils {
         swap(seed, left, hi);
 
         return left;
+	}
+
+	public static <T extends Comparable<? super T>> void iterativeQuickSort(T[] seed) {
+		doIterativeQuickSort(seed, 0, seed.length -1);
+	}
+
+	private static <T extends Comparable<? super T>> void doIterativeQuickSort(T[] seed, int lo, int hi) {
+		Deque<Integer> stack = new ArrayDeque<Integer>();
+		stack.push(lo);
+		stack.push(hi);
+
+		while (!stack.isEmpty()) {
+			int high = stack.pop();
+			int low = stack.pop();
+
+			int partitionIndex = inplacePartitionIndex(seed, low, high);
+
+			if (partitionIndex - 1 > low) {
+				stack.push(low);
+				stack.push(partitionIndex - 1);
+			}
+			if (partitionIndex + 1 < high) {
+				stack.push(partitionIndex + 1);
+				stack.push(high);
+			}			
+		}
 	}
 
 }
