@@ -245,37 +245,39 @@ public final class ArrayUtils {
 
 	private static <T extends Comparable<? super T>> void doRercursiveQuickSort(T[] seed, int low, int high) {
 		if (low < high) {
-			int partitionIndex = partitionIndex(seed, low, high);
-			doRercursiveQuickSort(seed, low, partitionIndex -1);
+			int partitionIndex = inplacePartitionIndex(seed, low, high);
+			doRercursiveQuickSort(seed, low, partitionIndex - 1);
 			doRercursiveQuickSort(seed, partitionIndex+1, high);			
 		}
 	}
 
-	private static <T extends Comparable<? super T>> int partitionIndex(T[] seed, int lo, int hi) {
+	private static <T extends Comparable<? super T>> int inplacePartitionIndex(T[] seed, int lo, int hi) {
 		int left = lo;
-        int right = hi + 1;
-        T partitionElement = seed[lo];
-        while (true) { 
+        int right = hi - 1;
+        T partitionElement = seed[hi];
+        while (left <=right) { 
 
-            // find item on lo to swap
-            while ((seed[++left].compareTo(partitionElement) < 0))
-                if (left == hi) break;
+        	// scan until reaching value equal or larger than pivot (or right marker)
+            while (left <= right &&(seed[left].compareTo(partitionElement) < 0))
+                left++;
 
-            // find item on hi to swap
-            while (seed[--right].compareTo(partitionElement) > 0)
-                if (right == lo) break;      // redundant since a[lo] acts as sentinel
+            // scan until reaching value equal or smaller than pivot (or left marker)
+            while (left <= right &&(seed[right].compareTo(partitionElement) > 0))
+                right--;
 
             // check if pointers cross
-            if (left >= right) break;
-
-            swap(seed, left, right);
+            if (left <= right) { // indices did not strictly cross
+            	// so swap values and shrink range
+            	swap(seed, left, right);
+	            left++;
+	            right--;
+            }
         }
 
-        // put partitioning item partitionElement at a[right]
-        swap(seed, lo, right);
+        // put pivot into its final place (currently marked by left index)
+        swap(seed, left, hi);
 
-        // now, a[lo .. right-1] <= a[right] <= a[right+1 .. hi]
-        return right;
+        return left;
 	}
 
 }
