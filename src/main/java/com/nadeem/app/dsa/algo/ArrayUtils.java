@@ -229,7 +229,7 @@ public final class ArrayUtils {
 	}
 
 	public static <T extends Comparable<? super T>> void iterativeMergeSort(T[] seed) {
-	
+
 		for (int i = 1; i <seed.length; i=i+i)
 	    {
 	        for (int j = 0; j < seed.length - i; j = j + i+i)
@@ -238,4 +238,44 @@ public final class ArrayUtils {
 	        }
 	    }		
 	}
+
+	public static <T extends Comparable<? super T>> void recursiveQuickSort(T[] seed) {
+		doRercursiveQuickSort(seed, 0, seed.length - 1);		
+	}
+
+	private static <T extends Comparable<? super T>> void doRercursiveQuickSort(T[] seed, int low, int high) {
+		if (low < high) {
+			int partitionIndex = partitionIndex(seed, low, high);
+			doRercursiveQuickSort(seed, low, partitionIndex -1);
+			doRercursiveQuickSort(seed, partitionIndex+1, high);			
+		}
+	}
+
+	private static <T extends Comparable<? super T>> int partitionIndex(T[] seed, int lo, int hi) {
+		int left = lo;
+        int right = hi + 1;
+        T partitionElement = seed[lo];
+        while (true) { 
+
+            // find item on lo to swap
+            while ((seed[++left].compareTo(partitionElement) < 0))
+                if (left == hi) break;
+
+            // find item on hi to swap
+            while (seed[--right].compareTo(partitionElement) > 0)
+                if (right == lo) break;      // redundant since a[lo] acts as sentinel
+
+            // check if pointers cross
+            if (left >= right) break;
+
+            swap(seed, left, right);
+        }
+
+        // put partitioning item partitionElement at a[right]
+        swap(seed, lo, right);
+
+        // now, a[lo .. right-1] <= a[right] <= a[right+1 .. hi]
+        return right;
+	}
+
 }

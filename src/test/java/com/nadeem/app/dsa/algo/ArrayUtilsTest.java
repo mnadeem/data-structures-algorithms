@@ -32,7 +32,6 @@ public class ArrayUtilsTest {
 		Object[] result =  ArrayUtils.<Integer>immutableRotate(seed, numberOfPositions);
 		assertThat((Integer)result[0], is(1));
 		assertThat((Integer)result[7], is(3));
-		
 	}
 
 	@Test
@@ -106,6 +105,13 @@ public class ArrayUtilsTest {
 	@Test
 	public void iterativeMergeSortFirstTest() {
 		ArrayUtils.<Integer>iterativeMergeSort(seed);
+		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
+		assertThat(seed, equalTo(result));	
+	}
+	
+	@Test
+	public void recursiveQuickSortFirstTest() {
+		ArrayUtils.<Integer>recursiveQuickSort(seed);
 		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
 		assertThat(seed, equalTo(result));	
 	}
