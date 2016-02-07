@@ -1,8 +1,12 @@
 package com.nadeem.app.dsa.adt;
 
-import org.junit.Test;
+import org.junit.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 import com.nadeem.app.dsa.adt.impl.ArrayHeap;
+
+import mockit.Deencapsulation;
 
 public class ArrayHeapTest {
 
@@ -17,6 +21,9 @@ public class ArrayHeapTest {
 		heap.enqueue(2);
 		heap.enqueue(6);
 		heap.enqueue(7);
+		
+		Comparable<Integer>[] result= Deencapsulation.<Integer[]>getField(heap, "elements");
+		assertThat(result, equalTo(new Comparable[]{7,4,6,3,2,1,5}));
 	}
 
 }
