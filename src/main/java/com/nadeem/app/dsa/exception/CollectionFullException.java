@@ -7,5 +7,4 @@ public class CollectionFullException extends RuntimeException {
 	public CollectionFullException() {
 		super("Collection is Full");
 	}
-
 }
