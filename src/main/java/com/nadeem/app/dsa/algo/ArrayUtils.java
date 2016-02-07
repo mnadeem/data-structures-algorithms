@@ -34,10 +34,10 @@ public final class ArrayUtils {
 		seed[secondIndex] = temp;
 	}
 
-	public static <T> T[] immutableRotate(T[] seed, int numberOfPositions) {
+	public static <T extends Comparable<? super T>> T[] immutableRotate(T[] seed, int numberOfPositions) {
 		int length = seed.length;
 		@SuppressWarnings("unchecked")
-		T[] result =  (T[]) new Object[length];
+		T[] result =  (T[]) new Comparable[length];
 		for (int i = 0; i < seed.length; i++) {
 			result[i] = seed[(i+numberOfPositions)%length];
 		}
