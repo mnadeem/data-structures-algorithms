@@ -4,7 +4,7 @@ import com.nadeem.app.dsa.adt.Queue;
 import com.nadeem.app.dsa.exception.CollectionEmptyException;
 import com.nadeem.app.dsa.support.LinearNode;
 
-public class LinkedQueue<T> implements Queue<T> {
+public class LinkedQueue<T extends Comparable<? super T>> implements Queue<T> {
 
 	private int count;
 	private LinearNode<T> front, rear;

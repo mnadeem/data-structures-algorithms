@@ -9,10 +9,13 @@
 		<version.junit>4.12</version.junit>
 		<version.hamcrest>1.3</version.hamcrest>
 		<version.assertj>1.2.0</version.assertj>
-		<version.jmockit>1.16</version.jmockit>
+		<version.jmockit>1.21</version.jmockit>
+		<version.commons-lang3>3.4</version.commons-lang3>
 	</properties>
 
 	<dependencies>
+		
+		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

@@ -4,7 +4,7 @@ import com.nadeem.app.dsa.adt.Queue;
 import com.nadeem.app.dsa.exception.CollectionEmptyException;
 import com.nadeem.app.dsa.exception.CollectionFullException;
 
-public class CircularArrayQueue<T> implements Queue<T> {
+public class CircularArrayQueue<T extends Comparable<? super T>> implements Queue<T> {
 
 	private final int DEFAULT_CAPACITY = 50;
 	private T[] elements;
@@ -14,7 +14,7 @@ public class CircularArrayQueue<T> implements Queue<T> {
 
 	@SuppressWarnings("unchecked")
 	public CircularArrayQueue() {
-		this.elements = (T[]) new Object[DEFAULT_CAPACITY];
+		this.elements = (T[]) new Comparable[DEFAULT_CAPACITY];
 		this.count 	= 0;
 		this.front 	= 0;
 		this.rare 	= 0;
