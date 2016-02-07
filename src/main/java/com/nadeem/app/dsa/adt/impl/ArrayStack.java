@@ -5,7 +5,7 @@ import java.util.Arrays;
 import com.nadeem.app.dsa.adt.Stack;
 import com.nadeem.app.dsa.exception.CollectionEmptyException;
 
-public class ArrayStack<T> implements Stack<T> {
+public class ArrayStack<T extends Comparable<? super T>> implements Stack<T> {
 
 	private final int DEFAULT_CAPACITY = 50;
 
@@ -14,7 +14,7 @@ public class ArrayStack<T> implements Stack<T> {
 
 	@SuppressWarnings("unchecked")
 	public ArrayStack() {
-		this.elements	= (T[]) new Object[DEFAULT_CAPACITY];
+		this.elements	= (T[]) new Comparable[DEFAULT_CAPACITY];
 		this.top 		= 0;
 	}
 

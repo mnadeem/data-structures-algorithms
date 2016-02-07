@@ -3,7 +3,7 @@ package com.nadeem.app.dsa.adt.impl;
 import com.nadeem.app.dsa.adt.Stack;
 import com.nadeem.app.dsa.exception.CollectionEmptyException;
 
-public class DropOutStack<T> implements Stack<T> {
+public class DropOutStack<T extends Comparable<? super T>> implements Stack<T> {
 	private static final int DEFAULT_CAPACITY = 10;
 	private final T[] elements;
 	private int top;
@@ -16,7 +16,7 @@ public class DropOutStack<T> implements Stack<T> {
 	@SuppressWarnings("unchecked")
 	public DropOutStack(final int size) {
 		assert size > 0;
-		this.elements 	= ((T[]) new Object[size]);
+		this.elements 	= ((T[]) new Comparable[size]);
 		this.top 		= 0;
 		this.count 		= 0;
 	}

@@ -4,7 +4,7 @@ import com.nadeem.app.dsa.adt.Stack;
 import com.nadeem.app.dsa.exception.CollectionEmptyException;
 import com.nadeem.app.dsa.support.LinearNode;
 
-public class LinkedStack<T> implements Stack<T> {
+public class LinkedStack<T extends Comparable<? super T>> implements Stack<T> {
 
 	private LinearNode<T> top;
 	private int count;
