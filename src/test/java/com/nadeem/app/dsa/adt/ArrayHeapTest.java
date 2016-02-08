@@ -42,6 +42,8 @@ public class ArrayHeapTest {
 		assertThat(heap.dequeue(), is(6));
 		assertThat(heap.dequeue(), is(5));
 		assertThat(heap.dequeue(), is(4));
+		heap.enqueue(7);
+		assertThat(heap.dequeue(), is(7));
 		assertThat(heap.dequeue(), is(3));
 		assertThat(heap.dequeue(), is(2));
 		assertThat(heap.dequeue(), is(1));
