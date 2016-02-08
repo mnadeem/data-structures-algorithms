@@ -1,6 +1,7 @@
 package com.nadeem.app.dsa.adt.impl;
 
 import com.nadeem.app.dsa.adt.Queue;
+import com.nadeem.app.dsa.exception.CollectionEmptyException;
 import com.nadeem.app.dsa.exception.CollectionFullException;
 
 public class ArrayHeap<T extends Comparable<? super T>> implements Queue<T> {
@@ -46,7 +47,46 @@ public class ArrayHeap<T extends Comparable<? super T>> implements Queue<T> {
 
 	@Override
 	public T dequeue() {
-		return null;
+		if (isEmpty()) {
+			throw new CollectionEmptyException();
+		}
+		T maxElement = this.elements[0];
+		int elementToRemove = lastIndex--;
+		this.elements[0] = this.elements[elementToRemove];
+		this.elements[elementToRemove] = null;
+		if (this.size() > 1) {			
+			heapifyRemove(0);
+		}
+		
+		return maxElement;
+	}
+
+	private void heapifyRemove(int index) {
+		T top = this.elements[index];//save root
+		int largerChild;
+		while (!isLeaf(index)) { //while Node has at least one child
+			largerChild = largerChild(index);
+			
+			if (top.compareTo(this.elements[largerChild]) >= 0) {
+				break ;
+			}
+			this.elements[index] = this.elements[largerChild];
+			index = largerChild;
+		}
+		this.elements[index] = top;
+	}
+
+	private int largerChild(int index) {
+		int largerChild;
+		int leftChild = 2*index + 1;
+		int rightChild = leftChild + 1;
+		if(rightChild < this.lastIndex
+				&& this.elements[rightChild].compareTo(this.elements[leftChild]) > 0) {
+			largerChild = rightChild;
+		} else {
+			largerChild = leftChild;
+		}
+		return largerChild;
 	}
 
 	@Override
@@ -57,6 +97,11 @@ public class ArrayHeap<T extends Comparable<? super T>> implements Queue<T> {
 	@Override
 	public boolean isEmpty() {
 		return lastIndex == -1;
+	}
+	
+	private boolean isLeaf(int index)
+	{ 
+		return (index >= this.size()/2) && (index < this.size()); 
 	}
 
 }
