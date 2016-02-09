@@ -4,6 +4,8 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.logging.Logger;
 
+import com.nadeem.app.dsa.adt.impl.ArrayHeap;
+
 public final class ArrayUtils {
 	private static final Logger LOGGER = Logger.getLogger(ArrayUtils.class.getName());
 
@@ -305,6 +307,16 @@ public final class ArrayUtils {
 				stack.push(partitionIndex + 1);
 				stack.push(high);
 			}			
+		}
+	}
+	
+	public static <T extends Comparable<? super T>> void iterativeMaxHeapSort(T[] seed) {
+		ArrayHeap<T> heap = new ArrayHeap<T>(seed.length);
+		for (int i = 0; i < seed.length; i++) {
+			heap.enqueue(seed[i]);
+		}
+		for (int i = 0; i < seed.length; i++) {
+			seed[i] = heap.dequeue();
 		}
 	}
 

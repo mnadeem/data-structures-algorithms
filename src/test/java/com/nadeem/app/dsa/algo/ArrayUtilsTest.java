@@ -122,4 +122,11 @@ public class ArrayUtilsTest {
 		Integer[] result = new Integer[]{1,2,3,4,5,6,7,8};
 		assertThat(seed, equalTo(result));	
 	}
+	
+	@Test
+	public void iterativeHeapSortFirstTest() {
+		ArrayUtils.<Integer>iterativeMaxHeapSort(seed);
+		Integer[] result = new Integer[]{8,7,6,5,4,3,2,1};
+		assertThat(seed, equalTo(result));	
+	}
 }

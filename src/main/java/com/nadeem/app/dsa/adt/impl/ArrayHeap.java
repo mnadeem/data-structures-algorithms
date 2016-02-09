@@ -54,7 +54,7 @@ public class ArrayHeap<T extends Comparable<? super T>> implements Queue<T> {
 		int elementToRemove = lastIndex--;
 		this.elements[0] = this.elements[elementToRemove];
 		this.elements[elementToRemove] = null;
-		if (this.size() > 1) {			
+		if (this.size() >= 1) {			
 			heapifyRemove(0);
 		}
 		
@@ -80,7 +80,7 @@ public class ArrayHeap<T extends Comparable<? super T>> implements Queue<T> {
 		int largerChild;
 		int leftChild = 2*index + 1;
 		int rightChild = leftChild + 1;
-		if(rightChild < this.lastIndex
+		if(rightChild <= this.lastIndex
 				&& this.elements[rightChild].compareTo(this.elements[leftChild]) > 0) {
 			largerChild = rightChild;
 		} else {

@@ -28,22 +28,22 @@ public class ArrayHeapTest {
 	
 	@Test
 	public void dequeueTest() {
-		ArrayHeap<Integer> heap = new ArrayHeap<Integer>(7);
+		ArrayHeap<Integer> heap = new ArrayHeap<Integer>(8);
 		
-		heap.enqueue(5);
-		heap.enqueue(3);
-		heap.enqueue(1);
 		heap.enqueue(4);
 		heap.enqueue(2);
-		heap.enqueue(6);
+		heap.enqueue(3);
+		heap.enqueue(1);
+		heap.enqueue(5);
+		heap.enqueue(8);
 		heap.enqueue(7);
+		heap.enqueue(6);
 		
+		assertThat(heap.dequeue(), is(8));
 		assertThat(heap.dequeue(), is(7));
 		assertThat(heap.dequeue(), is(6));
 		assertThat(heap.dequeue(), is(5));
 		assertThat(heap.dequeue(), is(4));
-		heap.enqueue(7);
-		assertThat(heap.dequeue(), is(7));
 		assertThat(heap.dequeue(), is(3));
 		assertThat(heap.dequeue(), is(2));
 		assertThat(heap.dequeue(), is(1));
