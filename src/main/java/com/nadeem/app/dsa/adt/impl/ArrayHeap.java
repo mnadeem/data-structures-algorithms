@@ -57,7 +57,7 @@ public class ArrayHeap<T extends Comparable<? super T>> implements Queue<T> {
 		if (this.size() >= 1) {			
 			heapifyRemove(0);
 		}
-		
+
 		return maxElement;
 	}
 
