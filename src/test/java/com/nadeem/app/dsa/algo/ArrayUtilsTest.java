@@ -129,4 +129,26 @@ public class ArrayUtilsTest {
 		Integer[] result = new Integer[]{8,7,6,5,4,3,2,1};
 		assertThat(seed, equalTo(result));	
 	}
+	
+	@Test
+	public void printMatrixInSpiralOrderTest() {
+		Integer[][] matrix = new Integer[][] { { 1, 2, 3 ,4}, 
+										{ 5,6,7,8}, 
+										{ 9,10,11,12 } };
+		ArrayUtils.<Integer>printMatrixInSpiralOrder(matrix);
+		
+	}
+	
+	@Test
+	public void rotateMatrixBy90DegreesTest() {
+		Integer[][] matrix = new Integer[][] { { 1, 2, 3 }, 
+												{ 4,5,6}, 
+												{ 7,8,9} };
+		Integer[][] result = new Integer[][] { { 7,4,1}, 
+												{ 8,5,2}, 
+												{ 9,6,3} };										
+												
+		ArrayUtils.<Integer>roateMatrixBy90Degrees(matrix);
+		assertThat(matrix, equalTo(result));
+	}
 }
