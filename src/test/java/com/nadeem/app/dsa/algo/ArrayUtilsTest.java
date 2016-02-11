@@ -158,7 +158,24 @@ public class ArrayUtilsTest {
 	public void maxMinLessComparisionsTest() {
 		MaxMin<Integer> maxmin = ArrayUtils.<Integer>findMaxMin(seed);
 		assertThat(maxmin.getMin(), is(1));
-		assertThat(maxmin.getMax(), is(8));
-		
+		assertThat(maxmin.getMax(), is(8));		
+	}
+	
+	@Test
+	public void convertToArrayTest() {
+		Integer[] array= ArrayUtils.convertToArray(1234);
+		assertThat(array, equalTo(new Integer[]{1,2,3,4}));		
+	}
+	
+	@Test
+	public void arrayToIntegerTest() {
+		Integer[] array = new Integer[]{1,2,3,4};
+		assertThat(ArrayUtils.arrayToInteger(array), is(1234));
+	}
+	
+	@Test
+	public void nextHigherNumberTest() {
+		assertThat(ArrayUtils.nextHigherNumber(34722641), is(34724126));
+		assertThat(ArrayUtils.nextHigherNumber(123), is(132));
 	}
 }

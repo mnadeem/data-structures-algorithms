@@ -439,4 +439,64 @@ public final class ArrayUtils {
 		
 	}
 
+	public static int nextHigherNumber(int number) {
+		Integer[] array = convertToArray(number);
+		int pivotIndex = pivotMaxIndex(array);
+		int digitInFirstSequence = pivotIndex -1;
+		int lowerDigitIndexInSecondSequence = lowerDigitIndex(array[digitInFirstSequence], array, pivotIndex);
+		swap(array, digitInFirstSequence, lowerDigitIndexInSecondSequence);
+		doRercursiveQuickSort(array, pivotIndex, array.length - 1);
+		return arrayToInteger(array);
+	}
+	
+	public static Integer[] convertToArray(int number) {
+	    int i = 0;
+	    int length = (int) Math.log10(number);
+	    int divisor = (int) Math.pow(10, length);
+	    Integer temp[] = new Integer[length + 1];
+
+	    while (number != 0) {
+	        temp[i] = number / divisor;
+	        if (i < length) {
+	            ++i;
+	        }
+	        number = number % divisor;
+	        if (i != 0) {
+	            divisor = divisor / 10;
+	        }
+	    }
+	    return temp;
+	}
+
+	private static int pivotMaxIndex(Integer[] array) {
+		int index = array.length - 1;
+		while(index > 0) {
+			if (array[index-1] < array[index]) {
+				break;
+			}
+			index--;
+		}		
+		return index;
+	}
+
+	private static int lowerDigitIndex(int number, Integer[] array, int fromIndex) {
+		int lowerMaxIndex = fromIndex;
+		int lowerMax = array[lowerMaxIndex];
+		while (fromIndex < array.length - 1) {
+			if (array[fromIndex]> number && lowerMax > array[fromIndex]) {
+				lowerMaxIndex = fromIndex; 
+			}
+			fromIndex ++;
+		}
+		return lowerMaxIndex;
+	}
+
+	public static int arrayToInteger(Integer[] array) {
+		int number = 0;
+		for (int i = 0; i < array.length; i++) {
+			number+=array[i] * Math.pow(10, array.length-1-i);
+		}
+		return number;
+	}
+
 }
