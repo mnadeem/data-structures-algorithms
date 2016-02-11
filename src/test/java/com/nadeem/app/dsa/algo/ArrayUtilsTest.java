@@ -6,6 +6,8 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.nadeem.app.dsa.algo.ArrayUtils.MaxMin;
+
 public class ArrayUtilsTest {
 	private Integer[] seed;
 
@@ -150,5 +152,13 @@ public class ArrayUtilsTest {
 												
 		ArrayUtils.<Integer>roateMatrixBy90Degrees(matrix);
 		assertThat(matrix, equalTo(result));
+	}
+	
+	@Test
+	public void maxMinLessComparisionsTest() {
+		MaxMin<Integer> maxmin = ArrayUtils.<Integer>findMaxMin(seed);
+		assertThat(maxmin.getMin(), is(1));
+		assertThat(maxmin.getMax(), is(8));
+		
 	}
 }

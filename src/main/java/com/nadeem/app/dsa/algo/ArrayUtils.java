@@ -382,4 +382,61 @@ public final class ArrayUtils {
 		}
 	}
 
+	public static <T extends Comparable<? super T>> MaxMin<T> findMaxMin(T[] seed) {
+		int length = seed.length;
+		int start;
+		T max, min;
+		if (length%2 ==0) {
+			if (seed[0].compareTo(seed[1]) < 0 ) {
+				min = seed[0];
+				max = seed[1];
+			} else {
+				min = seed[1];
+				max = seed[0];
+			}
+			start = 2;
+		} else {
+			min = seed[0];
+			max = seed[0];
+			start = 1;
+		}
+		while (start < length-1) {
+			
+			if (seed[start].compareTo(seed[start+1]) <0) {
+				if(min.compareTo(seed[start]) > 0) {
+					min = seed[start];
+				}
+				if(max.compareTo(seed[start+1]) <0) {
+					max = seed[start+1];
+				}
+			} else {
+				if(min.compareTo(seed[start+1]) > 0) {
+					min = seed[start+1];
+				}
+				if(max.compareTo(seed[start]) <0) {
+					max = seed[start];
+				}
+			}
+			start = start +2;			
+		}		
+
+		return new MaxMin<T>(min, max);
+	}
+	
+	public final static  class MaxMin<T extends Comparable<? super T>> {
+		private T max;
+		private T min;
+		public MaxMin(T newMin, T newMax) {
+			this.min = newMin;
+			this.max = newMax;
+		}
+		public T getMax() {
+			return max;
+		}
+		public T getMin() {
+			return min;
+		}
+		
+	}
+
 }
