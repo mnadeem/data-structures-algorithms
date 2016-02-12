@@ -448,7 +448,7 @@ public final class ArrayUtils {
 		doRercursiveQuickSort(array, pivotIndex, array.length - 1);
 		return arrayToInteger(array);
 	}
-	
+
 	public static Integer[] convertToArray(int number) {
 	    int i = 0;
 	    int length = (int) Math.log10(number);
