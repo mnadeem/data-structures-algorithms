@@ -499,4 +499,28 @@ public final class ArrayUtils {
 		return number;
 	}
 
+	public static int trappedWaterVolume(int[] levels) {
+		int[] left = new int[levels.length];
+		int[] right = new int[levels.length];
+		
+		left[0] = 0;
+		for (int i = 1; i < left.length; i++) {
+			left[i] = Math.max(left[i-1], levels[i-1]);
+		}
+		
+		right[right.length - 1] = 0;
+		for (int i = right.length - 2; i >= 0; i--) {
+			right[i] = Math.max(right[i+1], levels[i+1]);
+		}
+		
+		int volume = 0;
+		for (int i = 0; i < levels.length; i++) {
+			int currentVolume = Math.min(left[i], right[i]) - levels[i];
+			if (currentVolume > 0) {
+				volume += currentVolume;
+			}
+		}		
+		return volume;
+	}
+
 }
