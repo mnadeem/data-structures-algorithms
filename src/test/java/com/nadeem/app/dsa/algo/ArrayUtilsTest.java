@@ -185,4 +185,11 @@ public class ArrayUtilsTest {
 		int volume = ArrayUtils.trappedWaterVolume(levels);
 		assertThat(volume, is(6));
 	}
+	
+	@Test
+	public void productOfValidUndicesTest() {
+		int[] levels = new int[]{2,3,4,5};
+		int[] products = ArrayUtils.product(levels);
+		assertThat(products, equalTo(new int[]{60, 40, 30, 24}));
+	}
 }

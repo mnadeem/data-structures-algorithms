@@ -499,28 +499,44 @@ public final class ArrayUtils {
 		return number;
 	}
 
-	public static int trappedWaterVolume(int[] levels) {
-		int[] left = new int[levels.length];
-		int[] right = new int[levels.length];
+	public static int trappedWaterVolume(int[] heights) {
+		int[] leftBar = new int[heights.length];
+		int[] rightBar = new int[heights.length];
 		
-		left[0] = 0;
-		for (int i = 1; i < left.length; i++) {
-			left[i] = Math.max(left[i-1], levels[i-1]);
+		leftBar[0] = 0;
+		for (int i = 1; i < leftBar.length; i++) {
+			leftBar[i] = Math.max(leftBar[i-1], heights[i-1]);
 		}
 		
-		right[right.length - 1] = 0;
-		for (int i = right.length - 2; i >= 0; i--) {
-			right[i] = Math.max(right[i+1], levels[i+1]);
+		rightBar[rightBar.length - 1] = 0;
+		for (int i = rightBar.length - 2; i >= 0; i--) {
+			rightBar[i] = Math.max(rightBar[i+1], heights[i+1]);
 		}
 		
 		int volume = 0;
-		for (int i = 0; i < levels.length; i++) {
-			int currentVolume = Math.min(left[i], right[i]) - levels[i];
+		for (int i = 0; i < heights.length; i++) {
+			int currentVolume = Math.min(leftBar[i], rightBar[i]) - heights[i];
 			if (currentVolume > 0) {
 				volume += currentVolume;
 			}
 		}		
 		return volume;
+	}
+
+	public static int[] product(int[] nums) {
+		int[] products = new int[nums.length];
+		int p =1;
+		for (int i = 0; i < nums.length; i++) {
+			products[i] = p;
+			p*=nums[i];
+		}
+		p = 1;
+		for (int i = nums.length - 1; i >= 0; i--) {
+			products[i] *= p;
+			p *=nums[i];
+		}
+		
+		return products;
 	}
 
 }
