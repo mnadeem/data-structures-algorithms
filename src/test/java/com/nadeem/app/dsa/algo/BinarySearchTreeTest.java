@@ -11,6 +11,17 @@ public class BinarySearchTreeTest {
 		bst.printInOrder(System.out);
 		System.out.println();
 		bst.printPreOrder(System.out);
+		System.out.println();
+		bst.printPostOrder(System.out);
 	}
-
+	
+	@Test
+	public void constructFromInAndPost() {
+		BinarySearchTree<Integer> bst = BinarySearchTree.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+		//bst.printInOrder(System.out);
+		System.out.println();
+		bst.printPreOrder(System.out);
+		System.out.println();
+		//bst.printPostOrder(System.out);
+	}
 }
