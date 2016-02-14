@@ -522,7 +522,7 @@ public final class ArrayUtils {
 		}		
 		return volume;
 	}
-
+	//@see <a href="http://stackoverflow.com/a/2680697/1709793">For Refrence</a>
 	public static int[] product(int[] nums) {
 		int[] products = new int[nums.length];
 		int p =1;
