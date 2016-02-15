@@ -1,6 +1,6 @@
 package com.nadeem.app.dsa.algo;
 
-import java.io.PrintStream;
+import java.util.List;
 
 import com.nadeem.app.dsa.support.BinaryTreeNode;
 
@@ -26,16 +26,17 @@ public class BinarySearchTree <T extends Comparable<? super T>> {
 			return root;
 		}
 		
-		int rootIndex = rootIndexInOrder(inOrder, inS, inE, postOrder[pE]);
-		root.setLeft(doConstruct(inOrder, inS, rootIndex - 1, postOrder, pS, pS + rootIndex-(inS + 1)));
-		root.setRight(doConstruct(inOrder, rootIndex + 1,  inE, postOrder , pS + rootIndex - inS, pE -1));
+		int divideIndex = divideIndexInOrder(inOrder, inS, inE, postOrder[pE]);
+		root.setLeft(doConstruct(inOrder, inS, divideIndex - 1, postOrder, pS, pS + divideIndex-(inS + 1)));
+		root.setRight(doConstruct(inOrder, divideIndex + 1,  inE, postOrder , pS + divideIndex - inS, pE -1));
 		
 		return root;
 	}
 
-	private static <U extends Comparable<? super U>> int rootIndexInOrder(U[] inOrder, int inS, int inE, U item) {
+	private static <U extends Comparable<? super U>> int divideIndexInOrder(U[] inOrder, int inS, int inE, U item) {
 		for (int i = 0; i < inOrder.length; i++) {
 			if (item.compareTo(inOrder[i]) == 0) {
+				
 				return i;
 			}
 		}
@@ -76,43 +77,83 @@ public class BinarySearchTree <T extends Comparable<? super T>> {
 		return high;
 	}
 
-	public void printPostOrder(PrintStream s) {
-		doPrintPostOrder(root, s);
+	public void printPostOrder(List<T> result) {
+		doPrintPostOrder(root, result);
 	}
 	
-	private void doPrintPostOrder(BinaryTreeNode<T> node, PrintStream s) {
+	private void doPrintPostOrder(BinaryTreeNode<T> node, List<T> result) {
 		if(node == null) {
 			return ;
 		}
-		doPrintPostOrder(node.getLeft(), s);
-		doPrintPostOrder(node.getRight(), s);
-		s.print(String.format("%d ", node.getData()));		
+		doPrintPostOrder(node.getLeft(), result);
+		doPrintPostOrder(node.getRight(), result);
+		result.add(node.getData());
 	}
 
-	public void printPreOrder(PrintStream s) {
-		doPrintPreOrder(root, s);
+	public void printPreOrder(List<T> result) {
+		doPrintPreOrder(root, result);
 	}
 
-	private void doPrintPreOrder(BinaryTreeNode<T> node, PrintStream s) {
+	private void doPrintPreOrder(BinaryTreeNode<T> node, List<T> result) {
 		if (node == null) {
 			return ;
 		}
-		s.print(String.format("%d ", node.getData()));
-		doPrintPreOrder(node.getLeft(), s);
-		doPrintPreOrder(node.getRight(), s);
+		result.add(node.getData());
+		doPrintPreOrder(node.getLeft(), result);
+		doPrintPreOrder(node.getRight(), result);
 	}
 
-	public void printInOrder(PrintStream s) {
-		doPrintInOrder(root, s);
+	public void printInOrder(List<T> result) {
+		doPrintInOrder(root, result);
 	}
 
-	private void doPrintInOrder(BinaryTreeNode<T> node, PrintStream s) {
+	private void doPrintInOrder(BinaryTreeNode<T> node, List<T> result) {
 		if (node == null) {
 			return ;
 		}
-		doPrintInOrder(node.getLeft(), s);
-		s.print(String.format("%d ", node.getData()));
-		doPrintInOrder(node.getRight(), s);
+		doPrintInOrder(node.getLeft(), result);
+		result.add(node.getData());
+		doPrintInOrder(node.getRight(), result);
 		
+	}
+
+	public static<U extends Comparable<? super U>> BinarySearchTree<U> fromPreAndNodeType(U[] preorder, char[] nodeType) {
+		// TODO Auto-generated method stub
+		return new BinarySearchTree<U>(doConstructFromPreAndNodeType(preorder, new Index(), nodeType));
+	}
+
+	private static<U extends Comparable<? super U>> BinaryTreeNode<U> doConstructFromPreAndNodeType(U[] preorder, Index index, char[] nodeType) {
+		if (index.isEqual(preorder.length)) {
+			return null;
+		}
+		
+		int indexVal = index.val;
+		BinaryTreeNode<U> node = new BinaryTreeNode<U>(preorder[indexVal]);
+		index.increment();
+		
+		if (nodeType[indexVal] == 'N') {
+			node.setLeft(doConstructFromPreAndNodeType(preorder, index, nodeType));
+			node.setRight(doConstructFromPreAndNodeType(preorder, index, nodeType));
+		}
+		return node;
+	}
+
+	private static class Index {
+		private int val;
+		public Index() {
+			val = 0;
+		}
+		
+		public boolean isEqual(int other) {
+			return val == other;
+		}
+		public void increment() {
+			val++;
+		}
+		
+		@Override
+		public String toString() {
+			return String.valueOf(val);
+		}
 	}
 }

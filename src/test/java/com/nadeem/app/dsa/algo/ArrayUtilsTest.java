@@ -192,4 +192,29 @@ public class ArrayUtilsTest {
 		int[] products = ArrayUtils.product(levels);
 		assertThat(products, equalTo(new int[]{60, 40, 30, 24}));
 	}
+	@Test
+	public void maxNumberOfPlatformsTest() {
+		Integer arr[] = new Integer[] { 900, 940, 950, 1100, 1500, 1800 };
+		Integer dep[] = new Integer[] { 910, 1200, 1120, 1130, 1900, 2000 };
+		int maxPlatforms = ArrayUtils.maxPlatforms(arr, dep);
+		assertThat(maxPlatforms, is(maxPlatforms));
+	}
+	
+	@Test
+	public void formBiggestNumberByConcArrayElementsTest() {
+		Integer seed[] = new Integer[] {5,54,56};
+		
+		ArrayUtils.arrangeToFormBiggestNumber(seed);
+		assertThat(seed, equalTo(new Integer[]{56,5,54}));
+		
+		Integer[] array2 = new Integer[]{54, 546, 548, 60};
+		ArrayUtils.arrangeToFormBiggestNumber(array2);
+		assertThat(array2, equalTo(new Integer[]{60,548,546,54}));
+	}
+	
+	@Test
+	public void nextGreaterElementTest() {
+		Integer[] result = ArrayUtils.nextGreaterElements(new Integer[]{98, 23, 54, 12, 20, 7, 27}, System.out);
+		assertThat(result, equalTo(new Integer[]{null, 54, null, 20, 27, 27, null}));
+	}
 }

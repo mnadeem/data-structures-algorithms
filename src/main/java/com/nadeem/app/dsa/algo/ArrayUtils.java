@@ -1,6 +1,10 @@
 package com.nadeem.app.dsa.algo;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.logging.Logger;
 
@@ -522,7 +526,10 @@ public final class ArrayUtils {
 		}		
 		return volume;
 	}
-	//@see <a href="http://stackoverflow.com/a/2680697/1709793">For Refrence</a>
+	/**
+	 * 
+	 *@see <a href="http://stackoverflow.com/a/2680697/1709793">For Refrence</a>
+	 */
 	public static int[] product(int[] nums) {
 		int[] products = new int[nums.length];
 		int p =1;
@@ -539,4 +546,68 @@ public final class ArrayUtils {
 		return products;
 	}
 
+	public static int maxPlatforms(Integer[] arr, Integer[] dep) {
+		recursiveMergeSort(arr);
+		recursiveMergeSort(dep);
+		int platforms =0;
+		int maxPlatforms = 0;
+		int arrivalIndex=0, departIndex=0;
+		while (arrivalIndex < arr.length && departIndex < arr.length) {
+			if (arr[arrivalIndex] < dep[departIndex]) {
+				platforms++;
+				arrivalIndex++;
+				if (platforms > maxPlatforms) {
+					maxPlatforms = platforms;
+				}
+			} else {
+				platforms --;
+				departIndex++;
+			}
+		}
+
+		return maxPlatforms;
+	}
+
+	public static void arrangeToFormBiggestNumber(Integer[] seed) {
+		Arrays.sort(seed, new Comparator<Integer>() {
+
+			@Override
+			public int compare(Integer o1, Integer o2) {
+				String ab = String.valueOf(o1) + String.valueOf(o2);
+				String ba = String.valueOf(o2) + String.valueOf(o1);
+				return ba.compareTo(ab);
+			}
+		});
+		
+	}
+
+	public static Integer[] nextGreaterElements(Integer[] items, PrintStream stream) {
+		Integer[] result = new Integer[items.length];
+		Deque<NextGenItem> stack = new ArrayDeque<NextGenItem>(items.length);
+		stack.push(new NextGenItem(items[0], 0));
+		for (int i = 1; i < result.length; i++) {
+			while (!stack.isEmpty() && stack.peek().element < items[i]) {
+				NextGenItem nextGen = stack.pop();
+				result[nextGen.index] = items[i];
+				//stream.println(String.format("Next Greater Element of %d is %d", nextGen.element, items[i]));
+			}
+			stack.push(new NextGenItem(items[i], i));
+		}
+		while (!stack.isEmpty()) {
+			NextGenItem nextGen = stack.pop();
+			result[nextGen.index] = null;
+			//stream.println(String.format("No Next Greater Element for  %d ", stack.pop()));			
+		}
+		
+		return result;
+	}
+	
+	private static class NextGenItem {
+		public Integer element;
+		public int index;
+		public NextGenItem(Integer ele, int ind) {
+			this.element = ele;
+			this.index = ind;
+		}
+	}
 }
