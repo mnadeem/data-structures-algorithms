@@ -1,8 +1,9 @@
 package com.nadeem.app.dsa.algo;
 
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+
+import org.junit.Test;
 
 import com.nadeem.app.dsa.support.LinearNode;
 
@@ -48,5 +49,31 @@ public class LinkedListUtilTest {
 		
 		LinearNode<Integer> result = LinkedListUtil.sum(ll1, ll2);
 		printLinkedList(result);
+	}
+
+	@Test
+	public void loopTest () {
+		boolean loopExist = LinkedListUtil.<Integer>loopExists(buildLinkedList(true));
+		assertTrue(loopExist);
+		
+		loopExist = LinkedListUtil.<Integer>loopExists(buildLinkedList(false));
+		assertFalse(loopExist);
+	}
+
+	private LinearNode<Integer> buildLinkedList(boolean cycle) {
+		
+		LinearNode<Integer> node6 = new LinearNode<Integer>(6);		
+		LinearNode<Integer> node5 = new LinearNode<Integer>(5, node6);
+		LinearNode<Integer> node4 = new LinearNode<Integer>(4, node5);
+		LinearNode<Integer> node3 = new LinearNode<Integer>(3, node4);
+		LinearNode<Integer> node2 = new LinearNode<Integer>(2, node3);
+		LinearNode<Integer> node1 = new LinearNode<Integer>(1, node2);
+
+		if (cycle) {
+			node6.setNext(node3);
+		}
+
+		return node1;
+		
 	}
 }

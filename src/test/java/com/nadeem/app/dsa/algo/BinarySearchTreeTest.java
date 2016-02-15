@@ -1,13 +1,12 @@
 package com.nadeem.app.dsa.algo;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 
 public class BinarySearchTreeTest {
 

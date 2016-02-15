@@ -87,4 +87,23 @@ public class LinkedListUtil {
 		}
 		return length;
 	}
+
+	public static <T extends Comparable<? super T>> boolean loopExists(LinearNode<T> head) {
+		if (head == null || head.getNext() == null) {
+			return false;
+		}
+		LinearNode<T> tortoise=head, hare = head.getNext();
+		while(hare != null) {
+			tortoise = tortoise.getNext();
+			if(hare.getNext() == null) {
+				return false;
+			}
+			hare = hare.getNext().getNext();
+
+			if (hare == tortoise) {
+				return true;
+			}
+		}		
+		return false;
+	}
 }
