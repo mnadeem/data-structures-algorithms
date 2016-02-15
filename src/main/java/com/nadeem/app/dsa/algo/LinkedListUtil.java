@@ -87,23 +87,36 @@ public class LinkedListUtil {
 		}
 		return length;
 	}
-
-	public static <T extends Comparable<? super T>> boolean loopExists(LinearNode<T> head) {
+	/**
+	 * 
+	 * @see <a href="http://stackoverflow.com/questions/10275587/finding-loop-in-a-singly-linked-list">For Refrence</a>	 
+	 */
+	public static <T extends Comparable<? super T>> LinearNode<T> loopExists(LinearNode<T> head) {
 		if (head == null || head.getNext() == null) {
-			return false;
+			return null;
 		}
 		LinearNode<T> tortoise=head, hare = head.getNext();
 		while(hare != null) {
 			tortoise = tortoise.getNext();
 			if(hare.getNext() == null) {
-				return false;
+				return null;
 			}
 			hare = hare.getNext().getNext();
 
 			if (hare == tortoise) {
-				return true;
+				return hare;
 			}
 		}		
-		return false;
+		return null;
+	}
+
+	public static<T extends Comparable<? super T>> void removeCycle(LinearNode<T> head, LinearNode<T> meetingPoint) {
+		LinearNode<T> ptr1 = head;
+		LinearNode<T> ptr2 = meetingPoint;
+		while (ptr1 != ptr2.getNext()) {
+			ptr1 = ptr1.getNext();
+			ptr2 = ptr2.getNext();
+		}
+		ptr2.setNext(null);
 	}
 }

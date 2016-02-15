@@ -53,11 +53,14 @@ public class LinkedListUtilTest {
 
 	@Test
 	public void loopTest () {
-		boolean loopExist = LinkedListUtil.<Integer>loopExists(buildLinkedList(true));
-		assertTrue(loopExist);
+		LinearNode<Integer> head = buildLinkedList(true);
+		LinearNode<Integer> meetingPoint = LinkedListUtil.<Integer>loopExists(head);
+		assertNotNull(meetingPoint);
 		
-		loopExist = LinkedListUtil.<Integer>loopExists(buildLinkedList(false));
-		assertFalse(loopExist);
+		LinkedListUtil.removeCycle(head, meetingPoint);
+
+		meetingPoint = LinkedListUtil.<Integer>loopExists(head);
+		assertNull(meetingPoint);
 	}
 
 	private LinearNode<Integer> buildLinkedList(boolean cycle) {
@@ -67,13 +70,11 @@ public class LinkedListUtilTest {
 		LinearNode<Integer> node4 = new LinearNode<Integer>(4, node5);
 		LinearNode<Integer> node3 = new LinearNode<Integer>(3, node4);
 		LinearNode<Integer> node2 = new LinearNode<Integer>(2, node3);
-		LinearNode<Integer> node1 = new LinearNode<Integer>(1, node2);
+		LinearNode<Integer> head = new LinearNode<Integer>(1, node2);
 
 		if (cycle) {
 			node6.setNext(node3);
 		}
-
-		return node1;
-		
+		return head;
 	}
 }
