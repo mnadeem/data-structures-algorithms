@@ -25,23 +25,7 @@ public class BinarySearchTreeTest {
 		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{2, 5, 3, 9, 11, 12, 10, 7}));
 		result.clear();
 	}
-	
-	@Test
-	public void constructFromInAndPost() {
-		BinarySearchTree<Integer> bst = BinarySearchTree.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
-		List<Integer> result = new ArrayList<Integer>();
-		bst.printInOrder(result);
-		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{4, 2, 5, 1, 6, 3, 7}));
-		result.clear();
-		bst.printPreOrder(result);
-		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{1, 2, 4, 5, 3, 6, 7}));
-		result.clear();
-		bst.printPostOrder(result);			
-		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{4, 5, 2, 6, 7, 3, 1}));
-		result.clear();
 
-	}
-	
 	@Test
 	public void constructFromPreAndNodeType() {
 		BinarySearchTree<Integer> bst = BinarySearchTree.<Integer>fromPreAndNodeType(new Integer[]{10, 30, 20, 5, 15}, new char[]{'N', 'N', 'L', 'L', 'L'});

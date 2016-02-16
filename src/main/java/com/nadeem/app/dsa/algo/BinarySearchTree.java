@@ -11,37 +11,6 @@ public class BinarySearchTree <T extends Comparable<? super T>> {
 	private BinarySearchTree(BinaryTreeNode<T> newRoot) {
 		this.root = newRoot;
 	}
-	
-	public static <U extends Comparable<? super U>> BinarySearchTree<U> fromInAndPostOrder(U[] inOrder, U[] postOrder) {
-		return new BinarySearchTree<U>(doConstruct(inOrder, 0, inOrder.length -1, postOrder, 0, postOrder.length - 1));
-	}
-
-	private static <U extends Comparable<? super U>> BinaryTreeNode<U> doConstruct(U[] inOrder, int inS, int inE, U[] postOrder, int pS, int pE) {
-		if (inS > inE || pS > pE) {
-			return null;
-		}
-		BinaryTreeNode<U> root = new BinaryTreeNode<U>(postOrder[pE]);
-		
-		if (inS == inE) {
-			return root;
-		}
-		
-		int divideIndex = divideIndexInOrder(inOrder, inS, inE, postOrder[pE]);
-		root.setLeft(doConstruct(inOrder, inS, divideIndex - 1, postOrder, pS, pS + divideIndex-(inS + 1)));
-		root.setRight(doConstruct(inOrder, divideIndex + 1,  inE, postOrder , pS + divideIndex - inS, pE -1));
-		
-		return root;
-	}
-
-	private static <U extends Comparable<? super U>> int divideIndexInOrder(U[] inOrder, int inS, int inE, U item) {
-		for (int i = 0; i < inOrder.length; i++) {
-			if (item.compareTo(inOrder[i]) == 0) {
-				
-				return i;
-			}
-		}
-		return 0;
-	}
 
 	public static <U extends Comparable<? super U>> BinarySearchTree<U> fromPostOrder(U[] seed) {
 		return new BinarySearchTree<U>(doConstruct(seed, 0, seed.length - 1));
@@ -78,43 +47,15 @@ public class BinarySearchTree <T extends Comparable<? super T>> {
 	}
 
 	public void printPostOrder(List<T> result) {
-		doPrintPostOrder(root, result);
-	}
-	
-	private void doPrintPostOrder(BinaryTreeNode<T> node, List<T> result) {
-		if(node == null) {
-			return ;
-		}
-		doPrintPostOrder(node.getLeft(), result);
-		doPrintPostOrder(node.getRight(), result);
-		result.add(node.getData());
+		BinaryTreeUtil.printPostOrder(root, result);
 	}
 
 	public void printPreOrder(List<T> result) {
-		doPrintPreOrder(root, result);
-	}
-
-	private void doPrintPreOrder(BinaryTreeNode<T> node, List<T> result) {
-		if (node == null) {
-			return ;
-		}
-		result.add(node.getData());
-		doPrintPreOrder(node.getLeft(), result);
-		doPrintPreOrder(node.getRight(), result);
+		BinaryTreeUtil.printPreOrder(root, result);
 	}
 
 	public void printInOrder(List<T> result) {
-		doPrintInOrder(root, result);
-	}
-
-	private void doPrintInOrder(BinaryTreeNode<T> node, List<T> result) {
-		if (node == null) {
-			return ;
-		}
-		doPrintInOrder(node.getLeft(), result);
-		result.add(node.getData());
-		doPrintInOrder(node.getRight(), result);
-		
+		BinaryTreeUtil.printInOrder(root, result);
 	}
 
 	public static<U extends Comparable<? super U>> BinarySearchTree<U> fromPreAndNodeType(U[] preorder, char[] nodeType) {
