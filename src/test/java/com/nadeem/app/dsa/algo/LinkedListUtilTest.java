@@ -70,7 +70,8 @@ public class LinkedListUtilTest {
 		LinearNode<Integer> node4 = new LinearNode<Integer>(4, node5);
 		LinearNode<Integer> node3 = new LinearNode<Integer>(3, node4);
 		LinearNode<Integer> node2 = new LinearNode<Integer>(2, node3);
-		LinearNode<Integer> head = new LinearNode<Integer>(1, node2);
+		LinearNode<Integer> node1 = new LinearNode<Integer>(1, node2);
+		LinearNode<Integer> head = new LinearNode<Integer>(0, node1);
 
 		if (cycle) {
 			node6.setNext(node3);

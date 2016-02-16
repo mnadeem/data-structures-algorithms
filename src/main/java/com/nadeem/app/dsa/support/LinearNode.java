@@ -33,4 +33,8 @@ public class LinearNode<T> {
 	public void setNext(final LinearNode<T> next) {
 		this.next = next;
 	}
+	@Override
+	public String toString() {
+		return String.valueOf(this.element);
+	}
 }
