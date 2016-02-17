@@ -29,9 +29,18 @@ public class BinaryTreeUtilTest {
 	}
 
 	@Test
-	public void test() {
+	public void recursiveMirrorTest() {
 		BinaryTreeNode<Integer> bt = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
 		BinaryTreeNode<Integer> mirror = BinaryTreeUtil.<Integer>rMirror(bt);
+		List<Integer> result = new ArrayList<Integer>();
+		BinaryTreeUtil.printInOrder(mirror, result);
+		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{7,3,6,1,5,2,4}));
+	}
+	
+	@Test
+	public void iterativeMirrorTest() {
+		BinaryTreeNode<Integer> bt = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+		BinaryTreeNode<Integer> mirror = BinaryTreeUtil.<Integer>iMirror(bt);
 		List<Integer> result = new ArrayList<Integer>();
 		BinaryTreeUtil.printInOrder(mirror, result);
 		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{7,3,6,1,5,2,4}));

@@ -37,6 +37,26 @@ public class BinaryTreeNode<T> {
 
 	public void setRight(BinaryTreeNode<T> right) {
 		this.right = right;
-	}	
+	}
 	
+	public boolean isLeafNode() {
+		return this.getLeft() == null && this.getRight() == null;
+	}
+
+	public boolean hasBothChildren() {
+		return this.getLeft() != null && this.getRight() != null;
+	}
+
+	public boolean hasLeftChild() {
+		return this.getLeft() != null;
+	}
+	
+	public boolean hasRightChild() {
+		return this.getRight() != null;
+	}
+	
+	@Override
+	public String toString() {
+		return String.valueOf(this.getData());
+	}
 }

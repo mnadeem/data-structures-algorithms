@@ -1,5 +1,7 @@
 package com.nadeem.app.dsa.algo;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 
 import com.nadeem.app.dsa.support.BinaryTreeNode;
@@ -78,5 +80,38 @@ public class BinaryTreeUtil {
 		printInOrder(node.getLeft(), result);
 		result.add(node.getData());
 		printInOrder(node.getRight(), result);
+	}
+
+	public static <T extends Comparable<? super T>> BinaryTreeNode<T> iMirror(BinaryTreeNode<T> root) {
+		if (root == null) {
+			return null;
+		}
+		Deque<BinaryTreeNode<T>> stack = new ArrayDeque<BinaryTreeNode<T>>();
+		stack.push(root);
+
+		while(!stack.isEmpty()) {
+			processNodes(stack);
+		}
+		return root;
+	}
+
+	private static <T extends Comparable<? super T>> void processNodes(Deque<BinaryTreeNode<T>> stack) {
+		BinaryTreeNode<T> node = stack.pop();
+		swapChildren(node);
+		if (node.hasBothChildren()) {
+			stack.push(node.getLeft());
+			stack.push(node.getRight());
+		}  else if(node.hasBothChildren()){
+			stack.push(node.getLeft());
+			stack.push(node.getRight());
+		} else if (node.hasRightChild()){
+			stack.push(node.getRight());
+		}		
+	}
+
+	private static <T extends Comparable<? super T>> void swapChildren(BinaryTreeNode<T> root) {
+		BinaryTreeNode<T> temp = root.getLeft();
+		root.setLeft(root.getRight());
+		root.setRight(temp);
 	}
 }
