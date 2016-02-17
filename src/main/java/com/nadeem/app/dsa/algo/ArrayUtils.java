@@ -609,4 +609,15 @@ public final class ArrayUtils {
 			this.index = ind;
 		}
 	}
+
+	public static int maxSum(int[] array) {
+		int currentSum=array[0], maxSum = array[0];
+		for (int i = 1; i < array.length; i++) {
+			currentSum = Math.max(currentSum + array[i], array[i]);
+			if (currentSum > maxSum) {
+				maxSum = currentSum;
+			}
+		}
+		return maxSum;
+	}
 }

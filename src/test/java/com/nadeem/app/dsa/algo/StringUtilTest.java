@@ -9,6 +9,6 @@ public final class StringUtilTest {
 	public void anagramTest() {
 		assertTrue(StringUtil.isAnagram("keep" , "PeeK"));
 		assertFalse(StringUtil.isAnagram("Hello", "hell"));
-		assertTrue(StringUtil.isAnagram("SiLeNt", "LisTen"));		
+		assertTrue(StringUtil.isAnagram("SiLeNt caT", "LisTen cat"));		
 	}
 }

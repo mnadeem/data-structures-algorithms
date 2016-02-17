@@ -217,4 +217,13 @@ public class ArrayUtilsTest {
 		Integer[] result = ArrayUtils.nextGreaterElements(new Integer[]{98, 23, 54, 12, 20, 7, 27}, System.out);
 		assertThat(result, equalTo(new Integer[]{null, 54, null, 20, 27, 27, null}));
 	}
+	
+	@Test
+	public void maxSumArrayTest() {
+		int maxSum = ArrayUtils.maxSum(new int[]{-2,1,-3,4,-1,2,1,-5,4});
+		assertThat(maxSum, is(6));
+		
+		maxSum = ArrayUtils.maxSum(new int[]{-2,-1,-1,-4,-1,-2,-1,-5,-4});
+		assertThat(maxSum, is(-1));
+	}
 }

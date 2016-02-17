@@ -3,7 +3,9 @@ package com.nadeem.app.dsa.algo;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -44,6 +46,16 @@ public class BinaryTreeUtilTest {
 		List<Integer> result = new ArrayList<Integer>();
 		BinaryTreeUtil.printInOrder(mirror, result);
 		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{7,3,6,1,5,2,4}));
+	}
+	
+	@Test
+	public void sumTreeTest() {
+		BinaryTreeNode<Integer> bt = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{8,-2,-4,10,7,6,5}, new Integer[]{8,-4,-2,7,5,6,10});
+		BinaryTreeUtil.sumTree(bt);
+		List<Integer> result = new ArrayList<Integer>();
+		BinaryTreeUtil.printInOrder(bt, result);
+		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{0, 4, 0, 20, 0, 12, 0}));
+		//System.out.println(Arrays.toString(result.toArray()));
 	}
 
 }

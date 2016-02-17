@@ -114,4 +114,14 @@ public class BinaryTreeUtil {
 		root.setLeft(root.getRight());
 		root.setRight(temp);
 	}
+
+	public static int sumTree(BinaryTreeNode<Integer> node) {
+		if (node == null) {
+			return 0;
+		}
+		int oldVal = node.getData();
+		node.setData(sumTree(node.getLeft()) + sumTree(node.getRight()));
+
+		return oldVal + node.getData();
+	}
 }

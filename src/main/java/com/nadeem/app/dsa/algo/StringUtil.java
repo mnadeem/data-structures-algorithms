@@ -1,5 +1,8 @@
 package com.nadeem.app.dsa.algo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class StringUtil {
 
 	public static boolean isAnagram(String first, String second) {
@@ -9,7 +12,43 @@ public class StringUtil {
 		if (first.length() != second.length()) {
 			return false;
 		}
-		int count[] = buildCounter(first.toLowerCase().toCharArray(), second.toLowerCase().toCharArray());
+		return doCheckAnagramUsingHashMap(first.toLowerCase(), second.toLowerCase());
+	}
+
+	private static boolean doCheckAnagramUsingHashMap(final String first, final String second) {
+		Map<Character, Integer> counter = populateMap(first, second);
+		return validateMap(counter);
+	}
+
+	private static boolean validateMap(Map<Character, Integer> counter) {
+		for (int val : counter.values()) {
+			if (val != 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private static Map<Character, Integer> populateMap(final String first, final String second) {
+		Map<Character, Integer> counter = new HashMap<Character, Integer>();
+		for (int i = 0 ; i< first.length() ; i++) {
+			char chr1 = first.charAt(i);
+			int char1Count = getCount(counter, chr1);
+			counter.put(chr1, ++char1Count);
+			char chr2 = second.charAt(i);
+			int char2Count = getCount(counter, chr2);
+			counter.put(chr2, --char2Count);		
+		}
+		return counter;
+	}
+
+	private static int getCount(Map<Character, Integer> map, char charAt) {
+		Integer val = map.get(charAt);
+		return val == null ? 0 : val;
+	}
+
+	private static boolean doCheckAnagramUsingCouter(String first, String second) {
+		int count[] = buildCounter(first.toCharArray(), second.toCharArray());
 
 		return isCounterValid(count);
 	}
