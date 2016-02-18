@@ -5,10 +5,16 @@ import java.util.List;
 
 public class MaxSumPath {
 	private List<Integer> path;
-	private int sum;
-
-	public MaxSumPath(int sum) {
-		this.sum = sum;
+	private int maxSum;
+	private int currentSum;
+	
+	public MaxSumPath(int maxSumSoFar) {
+		this(0, maxSumSoFar);
+	}
+	
+	public MaxSumPath(int currentSum, int maxSumSoFar) {
+		this.maxSum = maxSumSoFar;
+		this.currentSum = currentSum;
 		this.path = new ArrayList<Integer>();
 	}
 
@@ -17,8 +23,8 @@ public class MaxSumPath {
 	}
 
 	public boolean updateSum(int newSum) {
-		if (newSum > sum) {
-			this.sum = newSum;
+		if (newSum > maxSum) {
+			this.maxSum = newSum;
 			return true;
 		} else {
 			return false;
@@ -29,12 +35,20 @@ public class MaxSumPath {
 		this.path.clear();
 		this.path.addAll(paths);
 	}
-	public int getSum() {
-		return sum;
+	public int getMaxSum() {
+		return maxSum;
 	}
-	
+
+	public int getCurrentSum() {
+		return currentSum;
+	}
+
+	public void setCurrentSum(int currentSum) {
+		this.currentSum = currentSum;
+	}
+
 	@Override
 	public String toString() {
-		return String.valueOf(this.sum);
+		return String.valueOf(this.maxSum);
 	}
 }

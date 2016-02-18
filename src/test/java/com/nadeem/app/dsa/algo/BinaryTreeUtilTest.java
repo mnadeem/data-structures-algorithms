@@ -96,7 +96,7 @@ public class BinaryTreeUtilTest {
 	public void maxSumPathFromRootTest() {
 		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,-6,1,7,3}, new Integer[]{4,-6,5,2,7,3,1});
 		MaxSumPath sumPath = BinaryTreeUtil.maxSumPathFromRoot(node);
-		assertThat(sumPath.getSum(), is(11));
+		assertThat(sumPath.getMaxSum(), is(11));
 		assertThat(sumPath.getPath().toArray(new Integer[0]), equalTo(new Integer[]{1,3,7}));	
 	}
 	
@@ -105,5 +105,9 @@ public class BinaryTreeUtilTest {
 		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,-6,1,7,3}, new Integer[]{4,-6,5,2,7,3,1});
 		int sum = BinaryTreeUtil.maxSumBetweenTwoLeaves(node);
 		assertThat(sum, is(18));
+		
+		node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,6,1,7,3}, new Integer[]{4,6,5,2,7,3,1});
+		sum = BinaryTreeUtil.maxSumBetweenTwoLeaves(node);
+		assertThat(sum, is(24));
 	}
 }
