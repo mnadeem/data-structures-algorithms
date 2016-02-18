@@ -164,7 +164,7 @@ public class BinaryTreeUtil {
 		return false;
 	}
 
-	public static int maxSum(BinaryTreeNode<Integer> node) {		
+	public static int maxSumFromRoot(BinaryTreeNode<Integer> node) {		
 		return findMaxSum(node);
 	}
 
@@ -201,4 +201,26 @@ public class BinaryTreeUtil {
 		}		
 		paths.remove(node.getData());
 	}
+
+	public static int maxSumBetweenTwoLeaves(BinaryTreeNode<Integer> node) {
+		MaxSumPath maxSum = new MaxSumPath(0);
+		doFindMaxSumBtnTwoLeaves(node, maxSum);
+		return maxSum.getSum();
+	}
+
+	private static int doFindMaxSumBtnTwoLeaves(BinaryTreeNode<Integer> node, MaxSumPath maxSum) {
+		if (node == null) {
+			return 0;
+		} else if(node.isLeafNode()) {
+			return node.getData();
+		} else {
+			int leftSum = doFindMaxSumBtnTwoLeaves(node.getLeft(), maxSum);
+			int rightSum = doFindMaxSumBtnTwoLeaves(node.getRight(), maxSum);
+			int currentSum = Math.max(leftSum +rightSum + node.getData(), Math.max(leftSum, rightSum));
+			maxSum.updateSum(currentSum);
+
+			return Math.max(leftSum, rightSum) + node.getData();
+		}
+	}
+	
 }
