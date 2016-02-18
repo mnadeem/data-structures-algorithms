@@ -1,6 +1,7 @@
 package com.nadeem.app.dsa.algo;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
@@ -123,5 +124,81 @@ public class BinaryTreeUtil {
 		node.setData(sumTree(node.getLeft()) + sumTree(node.getRight()));
 
 		return oldVal + node.getData();
+	}
+
+	public static <T extends Comparable<? super T>> List<List<T>> printAllPaths(BinaryTreeNode<T> node) {
+		List <List<T>> paths = new ArrayList<List<T>>();
+		doPrintAllPaths(node, paths, new ArrayList<T>());
+		return paths;
+	}
+
+	private static <T extends Comparable<? super T>> void doPrintAllPaths(BinaryTreeNode<T> node, List<List<T>> allPaths, List<T> path) {
+		if (node == null) {
+			return ;
+		}
+		path.add(node.getData());
+		if (node.isLeafNode()) {
+			allPaths.add(new ArrayList<T>(path));
+		} else {
+			doPrintAllPaths(node.getLeft(), allPaths, path);
+			doPrintAllPaths(node.getRight(), allPaths, path);
+		}
+		path.remove(node.getData());
+	}
+
+	public static <T extends Comparable<? super T>> List<T> printFromLeaf(BinaryTreeNode<T> root, BinaryTreeNode<T> leaf) {
+		List<T> path =  new ArrayList<T>();
+		doPrintSpecificPath(root, leaf, path);
+		return path;
+	}
+
+	private static  <T extends Comparable<? super T>> boolean doPrintSpecificPath(BinaryTreeNode<T> node, BinaryTreeNode<T> leaf, List<T> path) {
+		if (node == null) {
+			return false;
+		}
+		// path.add(node.getData()); //For root to leaf order
+		if (node == leaf || doPrintSpecificPath(node.getLeft(), leaf, path) || doPrintSpecificPath(node.getRight(), leaf, path)) {
+			path.add(node.getData());
+			return true;
+		}
+		return false;
+	}
+
+	public static int maxSum(BinaryTreeNode<Integer> node) {		
+		return findMaxSum(node);
+	}
+
+	private static int findMaxSum(BinaryTreeNode<Integer> node) {
+		if (node == null) {
+			return 0;
+		}
+		int leftSum = findMaxSum(node.getLeft());
+		int rightSum = findMaxSum(node.getRight());
+
+		int greaterSum = leftSum > rightSum ? leftSum : rightSum;
+		return greaterSum + node.getData();
+	}
+
+	public static MaxSumPath maxSumPathFromRoot(BinaryTreeNode<Integer> node) {
+		MaxSumPath maxSumPath = new MaxSumPath(0);
+		doFindMaxSumPathFromRoot(node, 0, new ArrayList<Integer>(), maxSumPath);
+		return maxSumPath;
+	}
+	// Note: Top to bottom, we have to pass arguments as parameter, bottom up we can return argument
+	private static void doFindMaxSumPathFromRoot(BinaryTreeNode<Integer> node, int currentSum, List<Integer> paths, MaxSumPath maxSumPath) {
+		if (node == null) {
+			return;
+		}
+		currentSum += node.getData();
+		paths.add(node.getData());
+		if (node.isLeafNode()) {
+			if (maxSumPath.updateSum(currentSum)) {
+				maxSumPath.addPaths(paths);
+			} 
+		} else {
+			doFindMaxSumPathFromRoot(node.getLeft(), currentSum, paths, maxSumPath);
+			doFindMaxSumPathFromRoot(node.getRight(), currentSum, paths, maxSumPath);
+		}		
+		paths.remove(node.getData());
 	}
 }

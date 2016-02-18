@@ -1,14 +1,13 @@
 package com.nadeem.app.dsa.algo;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.*;
+import org.junit.Test;
 
 import com.nadeem.app.dsa.support.BinaryTreeNode;
 
@@ -58,4 +57,51 @@ public class BinaryTreeUtilTest {
 		//System.out.println(Arrays.toString(result.toArray()));
 	}
 
+	@Test
+	public void printAllPaths() {
+		BinaryTreeNode<Integer> bt = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,6,1,7,3}, new Integer[]{4,6,5,2,7,3,1});
+		List <List<Integer>> paths = BinaryTreeUtil.printAllPaths(bt);
+		
+		assertThat(paths.get(0).toArray(new Integer[0]), equalTo(new Integer[]{1, 2, 4}));
+		assertThat(paths.get(1).toArray(new Integer[0]), equalTo(new Integer[]{1, 2, 5, 6}));
+		assertThat(paths.get(2).toArray(new Integer[0]), equalTo(new Integer[]{1, 3, 7}));
+
+		for (List<Integer> list : paths) {			
+			for (Integer integer : list) {
+				System.out.print(String.format(" %d", integer));
+			}
+			System.out.println();
+		}
+	}
+	
+	@Test
+	public void printSpecificPath() {
+		BinaryTreeNode<Integer> bt = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,6,1,7,3}, new Integer[]{4,6,5,2,7,3,1});
+		BinaryTreeNode<Integer> node = bt.getLeft().getRight().getRight();
+		
+		List<Integer> path = BinaryTreeUtil.printFromLeaf(bt, node);
+		
+		assertThat(path.toArray(new Integer[0]), equalTo(new Integer[]{6,5,2,1}));		
+
+	}
+	
+	@Test
+	public void maxSumTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,-6,1,7,3}, new Integer[]{4,-6,5,2,7,3,1});
+		int sum = BinaryTreeUtil.maxSum(node);
+		assertThat(sum, is(11));
+	}
+	
+	@Test
+	public void maxSumPathFromRootTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,-6,1,7,3}, new Integer[]{4,-6,5,2,7,3,1});
+		MaxSumPath sumPath = BinaryTreeUtil.maxSumPathFromRoot(node);
+		assertThat(sumPath.getSum(), is(11));
+		assertThat(sumPath.getPath().toArray(new Integer[0]), equalTo(new Integer[]{1,3,7}));	
+	}
+	
+	@Test
+	public void maxSumPathBetweenTwoLeavesTest() {
+		
+	}
 }
