@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.nadeem.app.dsa.support.BinaryTreeNode;
+import com.nadeem.app.dsa.support.MaxSumPath;
 
 public class BinaryTreeUtilTest {
 
@@ -175,9 +176,16 @@ public class BinaryTreeUtilTest {
 		
 		assertThat(rightView.toArray(new Integer[0]), equalTo(new Integer[]{1,3,7}));
 
-		for (Integer integer : rightView) {
-			System.out.print(String.format(" %d", integer));
-		}
+	}
+	
+	@Test
+	public void rRightViewOfBinaryTreeTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+
+		List<Integer> rightView = BinaryTreeUtil.<Integer>rRightView(node);
+		
+		assertThat(rightView.toArray(new Integer[0]), equalTo(new Integer[]{1,3,7}));
+
 	}
 
 	private BinaryTreeNode<Integer> buildTree() {

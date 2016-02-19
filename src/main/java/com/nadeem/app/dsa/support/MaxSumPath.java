@@ -1,4 +1,4 @@
-package com.nadeem.app.dsa.algo;
+package com.nadeem.app.dsa.support;
 
 import java.util.ArrayList;
 import java.util.List;

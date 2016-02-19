@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Queue;
 
 import com.nadeem.app.dsa.support.BinaryTreeNode;
+import com.nadeem.app.dsa.support.MaxSumPath;
+import com.nadeem.app.dsa.support.MutableInteger;
 
 public class BinaryTreeUtil {
 	
@@ -326,5 +328,23 @@ public class BinaryTreeUtil {
 			}
 		}
 		return result;
+	}
+
+	public static<T extends Comparable<? super T>> List<T> rRightView(BinaryTreeNode<T> root) {
+		List<T> result = new ArrayList<T>();
+		bfsRightView(root, 1, new MutableInteger(0), result);
+		return result;
+	}
+
+	private static <T extends Comparable<? super T>> void bfsRightView(BinaryTreeNode<T> node, int currentLevel, MutableInteger  maxLevelSoFar, List<T> result) {
+		if (node == null) {
+			return ;
+		}
+		if (maxLevelSoFar.updateIfLess(currentLevel)) {
+			result.add(node.getData());
+		}
+		bfsRightView(node.getRight(), currentLevel + 1, maxLevelSoFar, result);
+		bfsRightView(node.getLeft(), currentLevel + 1, maxLevelSoFar, result);
+		
 	}	
 }
