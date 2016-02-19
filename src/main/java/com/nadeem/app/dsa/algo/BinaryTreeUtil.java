@@ -3,7 +3,9 @@ package com.nadeem.app.dsa.algo;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import com.nadeem.app.dsa.support.BinaryTreeNode;
 
@@ -218,5 +220,111 @@ public class BinaryTreeUtil {
 			int nodeMaxSum = Math.max(leftSum.getCurrentSum(), rightSum.getCurrentSum()) + node.getData();
 			return new MaxSumPath(nodeMaxSum, maxSumSoFar);
 		}
+	}
+
+	public static List<List<Integer>> rootToLeafPathsForSum(BinaryTreeNode<Integer> node, int requiredSum) {
+		List <List<Integer>> paths = new ArrayList<List<Integer>>();
+		doFindRootToLeafPathsForSum(node, 0, requiredSum, new ArrayList<Integer>(), paths);
+		return paths;
+	}
+
+	private static void doFindRootToLeafPathsForSum(BinaryTreeNode<Integer> node, int sum, int requiredSum,
+			List<Integer> path, List<List<Integer>> paths) {
+		if(node == null) {
+			return ;
+		} 
+		path.add(node.getData());
+		sum +=node.getData();
+		if (node.isLeafNode()) {
+			if (sum == requiredSum) {
+				paths.add(new ArrayList<Integer>(path));
+			}			
+		} else {
+			doFindRootToLeafPathsForSum(node.getLeft(), sum,  requiredSum, path, paths);
+			doFindRootToLeafPathsForSum(node.getRight(), sum, requiredSum, path, paths);
+			
+		}
+		path.remove(node.getData());
+	}
+
+	public static int sumNumbersFromRoot2Leaf(BinaryTreeNode<Integer> node) {
+		List<Integer> items = new ArrayList<Integer>();
+		findSumNumbersFromRoot2Leaf(node, 0, items);
+		int sum = 0;
+		for (Integer item : items) {
+			sum += item;
+		}
+		return sum;
+	}
+
+	private static void findSumNumbersFromRoot2Leaf(BinaryTreeNode<Integer> node, int sum, List<Integer> items) {
+		if (node == null) {
+			return ;
+		}
+		sum =sum *10 + node.getData();
+		if (node.isLeafNode()) {
+			items.add(sum);
+		} else {
+			findSumNumbersFromRoot2Leaf(node.getLeft(), sum, items);
+			findSumNumbersFromRoot2Leaf(node.getRight(), sum, items);
+		}		
+	}
+
+	public static int height(BinaryTreeNode<Integer> node) {
+		if (node == null) {
+			return 0;
+		}
+		int lh = height(node.getLeft());
+		int rh = height(node.getRight());
+		return Math.max(lh, rh) + 1;
+	}
+
+	public static <T extends Comparable<? super T>> List<List<T>> levelOrder(BinaryTreeNode<T> root) {
+		List<List<T>> result = new ArrayList<List<T>>();
+		if (root != null) {
+			Queue<BinaryTreeNode<T>> queue = new LinkedList<BinaryTreeNode<T>>();
+			queue.offer(root);
+			while (!queue.isEmpty()) {
+				List<T> level = new ArrayList<T>();
+				int size = queue.size();
+				for (int i = 0; i < size; i++) {
+					BinaryTreeNode<T> node = queue.poll();
+					level.add(node.getData());
+					if (node.hasLeftChild()) {
+						queue.offer(node.getLeft());
+					}
+					if (node.hasRightChild()) {
+						queue.offer(node.getRight());
+					}
+				}
+				result.add(level);				
+			}
+		}	
+		
+		return result;
+	}
+
+	public static <T extends Comparable<? super T>> List<T> iRightView(BinaryTreeNode<T> root) {
+		List<T> result = new ArrayList<T>();
+		if (root != null) {
+			Queue<BinaryTreeNode<T>> queue = new LinkedList<BinaryTreeNode<T>>();
+			queue.add(root);
+			while (!queue.isEmpty()) {
+				int size = queue.size();
+				for (int i = 0; i < size; i++) {
+					BinaryTreeNode<T> node = queue.poll();
+					if (i==0) {
+						result.add(node.getData());
+					}
+					if (node.hasRightChild()) {
+						queue.offer(node.getRight());
+					}
+					if (node.hasLeftChild()) {
+						queue.offer(node.getLeft());
+					}
+				}
+			}
+		}
+		return result;
 	}	
 }

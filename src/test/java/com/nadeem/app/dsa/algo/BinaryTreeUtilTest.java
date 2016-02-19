@@ -110,4 +110,87 @@ public class BinaryTreeUtilTest {
 		sum = BinaryTreeUtil.maxSumBetweenTwoLeaves(node);
 		assertThat(sum, is(24));
 	}
+	
+	@Test
+	public void allRoot2LeafPathsForGivenSumTest() {
+		BinaryTreeNode<Integer> bt = buildTree();
+		List <List<Integer>> paths = BinaryTreeUtil.rootToLeafPathsForSum(bt, 14);
+
+		assertThat(paths.size(), is(2));
+
+		assertThat(paths.get(0).toArray(new Integer[0]), equalTo(new Integer[]{1,2,5,6}));
+		assertThat(paths.get(1).toArray(new Integer[0]), equalTo(new Integer[]{1,3,7,3}));
+		
+		for (List<Integer> list : paths) {			
+			for (Integer integer : list) {
+				System.out.print(String.format(" %d", integer));
+			}
+			System.out.println();
+		}
+	}
+	
+	@Test
+	public void sumOfAllNumbersFormedFromRoot2LeafTest() {
+		BinaryTreeNode<Integer> bt = buildTree();
+		int sum = BinaryTreeUtil.sumNumbersFromRoot2Leaf(bt);
+
+		assertThat(sum, is(2753));
+		
+	}
+
+	@Test
+	public void heightTest() {
+		BinaryTreeNode<Integer> node = buildTree();
+		int height = BinaryTreeUtil.height(node);
+
+		assertThat(height, is(4));
+		assertThat(BinaryTreeUtil.height(null), is(0));
+		assertThat(BinaryTreeUtil.height(new BinaryTreeNode<Integer>(4)), is(1));
+	}
+	
+	@Test
+	public void iLevelOrderTraversalTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+
+		List <List<Integer>> levelOrder = BinaryTreeUtil.<Integer>levelOrder(node);
+		
+		assertThat(levelOrder.size(), is(3));
+		assertThat(levelOrder.get(0).toArray(new Integer[0]), equalTo(new Integer[]{1}));
+		assertThat(levelOrder.get(1).toArray(new Integer[0]), equalTo(new Integer[]{2,3}));
+		assertThat(levelOrder.get(2).toArray(new Integer[0]), equalTo(new Integer[]{4,5,6,7}));
+
+		for (List<Integer> list : levelOrder) {			
+			for (Integer integer : list) {
+				System.out.print(String.format(" %d", integer));
+			}
+			System.out.println();
+		}
+	}
+	
+	@Test
+	public void iRightViewOfBinaryTreeTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+
+		List<Integer> rightView = BinaryTreeUtil.<Integer>iRightView(node);
+		
+		assertThat(rightView.toArray(new Integer[0]), equalTo(new Integer[]{1,3,7}));
+
+		for (Integer integer : rightView) {
+			System.out.print(String.format(" %d", integer));
+		}
+	}
+
+	private BinaryTreeNode<Integer> buildTree() {
+		BinaryTreeNode<Integer> n4 = new BinaryTreeNode<Integer>(4);
+		BinaryTreeNode<Integer> n6 = new BinaryTreeNode<Integer>(6);
+		BinaryTreeNode<Integer> n5 = new BinaryTreeNode<Integer>(5, null, n6);
+		BinaryTreeNode<Integer> n2= new BinaryTreeNode<Integer>(2, n4, n5);
+		BinaryTreeNode<Integer> n31 = new BinaryTreeNode<Integer>(3);
+		BinaryTreeNode<Integer> n7 = new BinaryTreeNode<Integer>(7, null, n31);
+		BinaryTreeNode<Integer> n3 = new BinaryTreeNode<Integer>(3, n7, null);
+		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(1, n2, n3);
+		
+		return root;
+	}
+	
 }
