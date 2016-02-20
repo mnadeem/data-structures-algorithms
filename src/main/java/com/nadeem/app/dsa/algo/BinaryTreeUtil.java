@@ -3,9 +3,12 @@ package com.nadeem.app.dsa.algo;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
+import java.util.TreeMap;
 
 import com.nadeem.app.dsa.support.BinaryTreeNode;
 import com.nadeem.app.dsa.support.MaxSumPath;
@@ -391,4 +394,42 @@ public class BinaryTreeUtil {
 		doPrintVerticalView(node.getRight(), lineNo, hd + 1, lineResult);
 		
 	}
+
+	public static<T extends Comparable<? super T>> List<List<T>> mapBasedVerticalView(BinaryTreeNode<T> node) {
+		Map<Integer, List<BinaryTreeNode<T>>> map = new TreeMap<Integer, List<BinaryTreeNode<T>>>();
+		List<List<T>> result = new ArrayList<List<T>>();
+		populateHDMap(node, 0 , map);
+		populateResult(map, result);
+		return result;
+	}
+
+	private static<T extends Comparable<? super T>> void populateHDMap(BinaryTreeNode<T> node, int hd, Map<Integer, List<BinaryTreeNode<T>>> map) {
+		if (node == null) {
+			return ;
+		}
+		updateHDNode(node, hd, map);
+		populateHDMap(node.getLeft(), hd - 1, map);
+		populateHDMap(node.getRight(), hd + 1, map);
+
+	}
+	
+	private static <T extends Comparable<? super T>> void updateHDNode(BinaryTreeNode<T> node, Integer hd, Map<Integer, List<BinaryTreeNode<T>>> map) {
+		List<BinaryTreeNode<T>> list = map.get(hd);
+		if (list == null) {
+			list = new ArrayList<BinaryTreeNode<T>>();
+			map.put(hd, list);
+		}
+		list.add(node);
+	}
+
+	private static<T extends Comparable<? super T>> void populateResult(Map<Integer, List<BinaryTreeNode<T>>> map, List<List<T>> result) {
+		for (Map.Entry<Integer, List<BinaryTreeNode<T>>> entry : map.entrySet()) {
+			List<T> items = new ArrayList<T>();
+			for (BinaryTreeNode<T> bt :entry.getValue()) {
+				items.add(bt.getData());
+			}
+			result.add(items);
+		}
+	}
+
 }
