@@ -2,8 +2,10 @@ package com.nadeem.app.dsa.algo;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -430,6 +432,55 @@ public class BinaryTreeUtil {
 			}
 			result.add(items);
 		}
+	}
+
+	public static <T extends Comparable<? super T>> Collection<T> topView(BinaryTreeNode<T> root) {
+		Map<Integer, BinaryTreeNode<T>> map = new TreeMap<Integer, BinaryTreeNode<T>>();
+		Queue<HdBinaryTreeNode<T>> queue = new LinkedList<HdBinaryTreeNode<T>>();
+		queue.offer(new HdBinaryTreeNode<T>(root, 0));
+		
+		while (!queue.isEmpty()) {
+			HdBinaryTreeNode<T> hdNode = queue.poll();
+			
+			if (!map.containsKey(hdNode.getHd())) {
+				map.put(hdNode.getHd(), hdNode.getNode());
+			}
+			
+			if (hdNode.getNode().hasLeftChild()) {
+				queue.offer(new HdBinaryTreeNode<T>(hdNode.getNode().getLeft(), hdNode.getHd() - 1));
+			}
+			if (hdNode.getNode().hasRightChild()) {
+				queue.offer(new HdBinaryTreeNode<T>(hdNode.getNode().getRight(), hdNode.getHd() + 1));
+			}
+		}
+		
+		List<T> result = new ArrayList<T>();
+		for (Map.Entry<Integer, BinaryTreeNode<T>> t : map.entrySet()) {
+			result.add(t.getValue().getData());
+		}
+		
+		return result;
+	}
+	
+	private static class HdBinaryTreeNode<T> {
+		private BinaryTreeNode<T> node;
+		private Integer hd;
+		public HdBinaryTreeNode(BinaryTreeNode<T> node, Integer hd) {
+			this.node = node;
+			this.hd = hd;
+		}
+		public BinaryTreeNode<T> getNode() {
+			return node;
+		}
+		public void setNode(BinaryTreeNode<T> node) {
+			this.node = node;
+		}
+		public Integer getHd() {
+			return hd;
+		}
+		public void setHd(Integer hd) {
+			this.hd = hd;
+		}		
 	}
 
 }

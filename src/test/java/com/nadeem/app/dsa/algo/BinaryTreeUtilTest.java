@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.Test;
@@ -214,6 +215,15 @@ public class BinaryTreeUtilTest {
 		assertThat(rightView.get(2).toArray(new Integer[0]), equalTo(new Integer[]{1,5,6}));
 		assertThat(rightView.get(3).toArray(new Integer[0]), equalTo(new Integer[]{3}));
 		assertThat(rightView.get(4).toArray(new Integer[0]), equalTo(new Integer[]{7}));
+	}
+	
+	@Test
+	public void printTopViewTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+
+		Collection<Integer> rightView = BinaryTreeUtil.<Integer>topView(node);
+		
+		assertThat(rightView.toArray(new Integer[0]), equalTo(new Integer[]{4,2,1,3,7}));
 	}
 	
 	private BinaryTreeNode<Integer> buildTree() {
