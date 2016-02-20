@@ -7,8 +7,16 @@ public class MutableInteger {
 		this.value = val;
 	}
 
-	public boolean updateIfLess(Integer newValue) {
+	public boolean updateForMax(Integer newValue) {
 		if (this.value < newValue) {
+			this.value = newValue;
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean updateForMin(Integer newValue) {
+		if (this.value > newValue) {
 			this.value = newValue;
 			return true;
 		}

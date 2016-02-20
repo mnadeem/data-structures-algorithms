@@ -187,6 +187,20 @@ public class BinaryTreeUtilTest {
 		assertThat(rightView.toArray(new Integer[0]), equalTo(new Integer[]{1,3,7}));
 
 	}
+	
+	@Test
+	public void printVerticalViewTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+
+		List<List<Integer>> rightView = BinaryTreeUtil.<Integer>verticalView(node);
+		
+		assertThat(rightView.size(), is(5));
+		assertThat(rightView.get(0).toArray(new Integer[0]), equalTo(new Integer[]{4}));
+		assertThat(rightView.get(1).toArray(new Integer[0]), equalTo(new Integer[]{2}));
+		assertThat(rightView.get(2).toArray(new Integer[0]), equalTo(new Integer[]{1,5,6}));
+		assertThat(rightView.get(3).toArray(new Integer[0]), equalTo(new Integer[]{3}));
+		assertThat(rightView.get(4).toArray(new Integer[0]), equalTo(new Integer[]{7}));
+	}
 
 	private BinaryTreeNode<Integer> buildTree() {
 		BinaryTreeNode<Integer> n4 = new BinaryTreeNode<Integer>(4);

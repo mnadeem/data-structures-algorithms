@@ -340,11 +340,55 @@ public class BinaryTreeUtil {
 		if (node == null) {
 			return ;
 		}
-		if (maxLevelSoFar.updateIfLess(currentLevel)) {
+		if (maxLevelSoFar.updateForMax(currentLevel)) {
 			result.add(node.getData());
 		}
 		bfsRightView(node.getRight(), currentLevel + 1, maxLevelSoFar, result);
-		bfsRightView(node.getLeft(), currentLevel + 1, maxLevelSoFar, result);
+		bfsRightView(node.getLeft(), currentLevel + 1, maxLevelSoFar, result);		
+	}
+
+	public static <T extends Comparable<? super T>> List<List<T>> verticalView(BinaryTreeNode<T> node) {
+		List<List<T>> result = new ArrayList<List<T>>();
+		MutableInteger min = new MutableInteger(0);
+		MutableInteger max = new MutableInteger(0);
+		findMinMaxHD(node, min, max, 0);
+
+		printVeritcalVew(node, min.getValue(), max.getValue(), result);
+
+		return result;
+	}
+
+	private static <T extends Comparable<? super T>> void findMinMaxHD(BinaryTreeNode<T> node, MutableInteger min, MutableInteger max, int hd) {
+		if (node == null) {
+			return;
+		}
+		min.updateForMin(hd);
+		max.updateForMax(hd);
+		findMinMaxHD(node.getLeft(), min, max, hd - 1);
+		findMinMaxHD(node.getRight(), min, max, hd + 1);
+	}
+	
+	private static <T extends Comparable<? super T>> void printVeritcalVew(BinaryTreeNode<T> node, Integer min, Integer max, List<List<T>> result) {
+		if (node == null) {
+			return ;
+		}
 		
-	}	
+		for (int lineNo = min; lineNo <= max; lineNo++) {
+			List<T> lineResult = new ArrayList<T>();
+			doPrintVerticalView(node, lineNo, 0, lineResult);
+			result.add(lineResult);
+		}
+	}
+
+	private static <T extends Comparable<? super T>> void doPrintVerticalView(BinaryTreeNode<T> node, int lineNo, int hd, List<T> lineResult) {
+		if (node == null) {
+			return ;
+		}
+		if (lineNo == hd) {
+			lineResult.add(node.getData());
+		}
+		doPrintVerticalView(node.getLeft(), lineNo, hd - 1, lineResult);
+		doPrintVerticalView(node.getRight(), lineNo, hd + 1, lineResult);
+		
+	}
 }
