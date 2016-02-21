@@ -22,12 +22,12 @@ public class LinearNodeTest {
 	@Test
 	public void nextShouldBeNull() {
 		LinearNode<String> node = new LinearNode<String>("A");
-		assertNull(node.getNext());
+		assertNull(node.next());
 	}
 	
 	@Test
 	public void nextShouldNotBeNull() {
 		LinearNode<String> node = new LinearNode<String>("A", new LinearNode<String>("B"));
-		assertNotNull(node.getNext());
+		assertNotNull(node.next());
 	}
 }

@@ -16,7 +16,7 @@ public class LinkedStack<T extends Comparable<? super T>> implements Stack<T> {
 
 	public final void push(final T newElement) {
 		LinearNode<T> temp = new LinearNode<T>(newElement);
-		temp.setNext(this.top);
+		temp.next(this.top);
 		this.top = temp;
 		this.count++;
 	}
@@ -26,7 +26,7 @@ public class LinkedStack<T extends Comparable<? super T>> implements Stack<T> {
 			throw new CollectionEmptyException();
 		}
 		T result = this.top.getElement();
-		this.top = this.top.getNext();
+		this.top = this.top.next();
 		this.count--;
 		return result;
 	}

@@ -1,7 +1,5 @@
 package com.nadeem.app.dsa.algo;
 
-import java.util.LinkedList;
-
 import com.nadeem.app.dsa.support.LinearNode;
 
 public class LinkedListUtil {
@@ -11,8 +9,8 @@ public class LinkedListUtil {
 		LinearNode<T> previous = null;
 		LinearNode<T> next = null;
 		while(current != null) {
-			next = current.getNext();
-			current.setNext(previous);
+			next = current.next();
+			current.next(previous);
 			previous = current;
 			current = next;
 		}
@@ -20,12 +18,12 @@ public class LinkedListUtil {
 	}
 
 	public static <T> LinearNode<T> rReverse(LinearNode<T> head) {
-		if (head.getNext() == null) {
+		if (head.next() == null) {
 			return head;
 		}
-		LinearNode<T> newHead = rReverse(head.getNext());
-		head.getNext().setNext(head);
-		head.setNext(null);
+		LinearNode<T> newHead = rReverse(head.next());
+		head.next().next(head);
+		head.next(null);
 
 		return newHead;
 	}
@@ -35,11 +33,11 @@ public class LinkedListUtil {
 		LinearNode<T> next1, next2;
 		
 		while (curr1 != null && curr2 != null) {
-			next1 = curr1.getNext();
-			next2 = curr2.getNext();
+			next1 = curr1.next();
+			next2 = curr2.next();
 			
-			curr2.setNext(next1);
-			curr1.setNext(curr2);
+			curr2.next(next1);
+			curr1.next(curr2);
 			
 			curr1 = next1;
 			curr2 = next2;					
@@ -55,9 +53,9 @@ public class LinkedListUtil {
 		while (curr != null) {
 			++index;
 			if (index%2 == 0) {
-				mid = mid.getNext();
+				mid = mid.next();
 			}
-			curr = curr.getNext();			
+			curr = curr.next();			
 		}		
 		return mid;
 	}
@@ -83,7 +81,7 @@ public class LinkedListUtil {
 		
 		if (carry[0] != 0) {
 			LinearNode<Integer> temp= new LinearNode<Integer>(carry[0]);
-			temp.setNext(result);
+			temp.next(result);
 			result = temp;
 		}
 
@@ -101,8 +99,8 @@ public class LinkedListUtil {
 		} else if (extraNodes < 0) {
 			nextNode = doSum(null, ll2, extraNodes + 1, carry, head1, head2);
 		} else {
-			LinearNode<Integer> ll1Next = ll1 == null ? head1 : ll1.getNext();
-			LinearNode<Integer> ll2Next = ll2 == null ? head2 : ll2.getNext();
+			LinearNode<Integer> ll1Next = ll1 == null ? head1 : ll1.next();
+			LinearNode<Integer> ll2Next = ll2 == null ? head2 : ll2.next();
 			nextNode = doSum(ll1Next, ll2Next, 0, carry, head1, head2);
 		}
 		
@@ -113,7 +111,7 @@ public class LinkedListUtil {
 		carry[0] = (val1+ val2+carry[0])/10;
 
 		LinearNode<Integer> temp = new LinearNode<Integer>(sum);
-		temp.setNext(nextNode);
+		temp.next(nextNode);
 
 		return temp;
 	}
@@ -128,25 +126,53 @@ public class LinkedListUtil {
 		int length = 0;
 		while(list !=null) {
 			length++;
-			list= list.getNext();
+			list= list.next();
 		}
 		return length;
 	}
+
+	public static <T> LinearNode<T> reverseAlternateKNodes(LinearNode<T> node, int k) {
+		int count = 0;
+		LinearNode<T> curr=node, prev = null, next = null;
+		//reverse k nodes
+		while (curr != null && count < k) {
+			next = curr.next();
+			curr.next(prev);
+			prev = curr;
+			curr = next;
+			count ++;
+		}
+		// head should point to start of next k node
+		node.next(curr);
+		// skip nex knodes
+		count = 0;
+		while (curr != null && count < k- 1) {
+			curr = curr.next();
+			count ++;
+		}
+		// do it recursively
+		if (curr != null) {			
+			curr.next(reverseAlternateKNodes(curr.next(), k));
+		}
+		
+		return prev;
+	}
+	
 	/**
 	 * 
 	 * @see <a href="http://stackoverflow.com/questions/10275587/finding-loop-in-a-singly-linked-list">For Refrence</a>	 
 	 */
 	public static <T extends Comparable<? super T>> LinearNode<T> loopExists(LinearNode<T> head) {
-		if (head == null || head.getNext() == null) {
+		if (head == null || head.next() == null) {
 			return null;
 		}
-		LinearNode<T> tortoise=head, hare = head.getNext();
+		LinearNode<T> tortoise=head, hare = head.next();
 		while(hare != null) {
-			tortoise = tortoise.getNext();
-			if(hare.getNext() == null) {
+			tortoise = tortoise.next();
+			if(hare.next() == null) {
 				return null;
 			}
-			hare = hare.getNext().getNext();
+			hare = hare.next().next();
 
 			if (hare == tortoise) {
 				return hare;
@@ -158,19 +184,17 @@ public class LinkedListUtil {
 	public static<T extends Comparable<? super T>> void removeCycle(LinearNode<T> head, LinearNode<T> meetingPoint) {
 		LinearNode<T> ptr1 = head;
 		LinearNode<T> ptr2 = meetingPoint;
-		while (ptr1 != ptr2.getNext()) {
-			ptr1 = ptr1.getNext();
-			ptr2 = ptr2.getNext();
+		while (ptr1 != ptr2.next()) {
+			ptr1 = ptr1.next();
+			ptr2 = ptr2.next();
 		}
-		ptr2.setNext(null);
+		ptr2.next(null);
 	}
 
 	public static <T> LinearNode<T> fold(LinearNode<T> head) {
 		LinearNode<T> mid = LinkedListUtil.middleNode(head);
-		LinearNode<T> reversed = LinkedListUtil.rReverse(mid.getNext());
+		LinearNode<T> reversed = LinkedListUtil.rReverse(mid.next());
 		LinkedListUtil.merge(head, reversed);
 		return head;
 	}
-
-
 }

@@ -17,12 +17,12 @@ public class CircularLinkedQueue<T extends Comparable<? super T>> implements Que
 		LinearNode<T> temp = new LinearNode<T>(element);
 		if (this.rear == null) {
 			this.rear = temp;
-			this.rear.setNext(this.rear);
+			this.rear.next(this.rear);
 		} else {
-			temp.setNext(this.rear.getNext());
-			this.rear.setNext(temp);
+			temp.next(this.rear.next());
+			this.rear.next(temp);
 		}
-		this.rear =this.rear.getNext();
+		this.rear =this.rear.next();
 		this.count ++;
 	}
 
@@ -36,12 +36,12 @@ public class CircularLinkedQueue<T extends Comparable<? super T>> implements Que
 		LinearNode<T> item;
 		if (isEmpty()) {
 			throw new CollectionEmptyException();
-		} else if (this.rear == rear.getNext()) {
+		} else if (this.rear == rear.next()) {
 			item = this.rear;
 			this.rear = null;
 		} else {
-			item = rear.getNext();
-			this.rear.setNext(item.getNext());
+			item = rear.next();
+			this.rear.next(item.next());
 		}
 		this.count --;
 		return item.getElement();

@@ -26,11 +26,11 @@ public class LinearNode<T> {
 		this.element = element;
 	}
 
-	public final LinearNode<T> getNext() {
+	public final LinearNode<T> next() {
 		return this.next;
 	}
 
-	public void setNext(final LinearNode<T> next) {
+	public void next(final LinearNode<T> next) {
 		this.next = next;
 	}
 	@Override

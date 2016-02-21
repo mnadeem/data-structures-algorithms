@@ -1,9 +1,9 @@
 package com.nadeem.app.dsa.algo;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
-
-import java.util.LinkedList;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
@@ -49,33 +49,7 @@ public class LinkedListUtilTest {
 		head = LinkedListUtil.fold(head);
 		assertLinkedList(head, 1,8,2,7,3,6,4,5);
 	}
-	
-	private <T extends Comparable<? super T>>  void assertLinkedList(LinearNode<T> node, T... arr) {
-		for (int i = 0; i < arr.length; i++) {
-			assertThat(node.getElement(), is(arr[i]));
-			node = node.getNext();
-		}		
-	}
 
-	private static void printLinkedList(LinearNode<Integer> head) {
-		LinearNode<Integer> current = head;
-		while(current != null) {
-			System.out.println(String.format("%d ", current.getElement()));
-			current = current.getNext();
-		}
-		
-	}
-
-	private LinearNode<Integer> buildLinkedList(int... items) {
-		LinearNode<Integer> previous = new LinearNode<Integer>(items[0]);
-		LinearNode<Integer> head = previous;
-		for (int i = 1; i < items.length; i++) {
-			previous.setNext(new LinearNode<Integer>(items[i]));
-			previous = previous.getNext();
-		}
-		return head;
-	}
-	
 	@Test
 	public void linkedListLengthTest() {
 		LinearNode<Integer> list = buildLinkedList(9,2,3,4);
@@ -83,6 +57,13 @@ public class LinkedListUtilTest {
 		assertThat(length, is(4));
 	}
 	
+	@Test
+	public void reverseAlternateKNodes() {
+		LinearNode<Integer> head = buildLinkedList(1,2,3,4,5,6,7,8,9,10);
+		head = LinkedListUtil.reverseAlternateKNodes(head, 3);
+		assertLinkedList(head, 3,2,1,4,5,6,9,8,7,10);
+	}
+
 	@Test
 	public void linkedListSumTest() {
 		LinearNode<Integer> ll1 = buildLinkedList(9,2,3,4);
@@ -104,6 +85,32 @@ public class LinkedListUtilTest {
 		assertNull(meetingPoint);
 	}
 
+	private static void printLinkedList(LinearNode<Integer> head) {
+		LinearNode<Integer> current = head;
+		while(current != null) {
+			System.out.println(String.format("%d ", current.getElement()));
+			current = current.next();
+		}
+		
+	}
+
+	private LinearNode<Integer> buildLinkedList(int... items) {
+		LinearNode<Integer> previous = new LinearNode<Integer>(items[0]);
+		LinearNode<Integer> head = previous;
+		for (int i = 1; i < items.length; i++) {
+			previous.next(new LinearNode<Integer>(items[i]));
+			previous = previous.next();
+		}
+		return head;
+	}
+	
+	private <T extends Comparable<? super T>>  void assertLinkedList(LinearNode<T> node, T... arr) {
+		for (int i = 0; i < arr.length; i++) {
+			assertThat(node.getElement(), is(arr[i]));
+			node = node.next();
+		}		
+	}
+
 	private LinearNode<Integer> buildLinkedList(boolean cycle) {
 		
 		LinearNode<Integer> node6 = new LinearNode<Integer>(6);		
@@ -115,7 +122,7 @@ public class LinkedListUtilTest {
 		LinearNode<Integer> head = new LinearNode<Integer>(0, node1);
 
 		if (cycle) {
-			node6.setNext(node3);
+			node6.next(node3);
 		}
 		return head;
 	}
