@@ -3,6 +3,8 @@ package com.nadeem.app.dsa.algo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+
 import org.junit.Test;
 
 import com.nadeem.app.dsa.support.LinearNode;
@@ -39,6 +41,13 @@ public class LinkedListUtilTest {
 		assertThat(mid.getElement(), is(3));
 		mid = LinkedListUtil.middleNode(buildLinkedList(1,2,3,4,5));
 		assertThat(mid.getElement(), is(3));
+	}
+	
+	@Test
+	public void foldLinkedList() {
+		LinearNode<Integer> head = buildLinkedList(1,2,3,4,5,6,7,8);
+		head = LinkedListUtil.fold(head);
+		assertLinkedList(head, 1,8,2,7,3,6,4,5);
 	}
 	
 	private <T extends Comparable<? super T>>  void assertLinkedList(LinearNode<T> node, T... arr) {

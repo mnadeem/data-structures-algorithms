@@ -1,5 +1,7 @@
 package com.nadeem.app.dsa.algo;
 
+import java.util.LinkedList;
+
 import com.nadeem.app.dsa.support.LinearNode;
 
 public class LinkedListUtil {
@@ -17,7 +19,7 @@ public class LinkedListUtil {
 		return previous;
 	}
 
-	public static <T extends Comparable<? super T>> LinearNode<T> rReverse(LinearNode<T> head) {
+	public static <T> LinearNode<T> rReverse(LinearNode<T> head) {
 		if (head.getNext() == null) {
 			return head;
 		}
@@ -161,6 +163,13 @@ public class LinkedListUtil {
 			ptr2 = ptr2.getNext();
 		}
 		ptr2.setNext(null);
+	}
+
+	public static <T> LinearNode<T> fold(LinearNode<T> head) {
+		LinearNode<T> mid = LinkedListUtil.middleNode(head);
+		LinearNode<T> reversed = LinkedListUtil.rReverse(mid.getNext());
+		LinkedListUtil.merge(head, reversed);
+		return head;
 	}
 
 
