@@ -17,6 +17,49 @@ public class LinkedListUtil {
 		return previous;
 	}
 
+	public static <T extends Comparable<? super T>> LinearNode<T> rReverse(LinearNode<T> head) {
+		if (head.getNext() == null) {
+			return head;
+		}
+		LinearNode<T> newHead = rReverse(head.getNext());
+		head.getNext().setNext(head);
+		head.setNext(null);
+
+		return newHead;
+	}
+
+	public static <T> LinearNode<T> merge(LinearNode<T> list1, LinearNode<T> list2) {
+		LinearNode<T> curr1 = list1, curr2 = list2;
+		LinearNode<T> next1, next2;
+		
+		while (curr1 != null && curr2 != null) {
+			next1 = curr1.getNext();
+			next2 = curr2.getNext();
+			
+			curr2.setNext(next1);
+			curr1.setNext(curr2);
+			
+			curr1 = next1;
+			curr2 = next2;					
+		}	
+		
+		return curr2;
+	}
+
+	public static <T> LinearNode<T> middleNode(LinearNode<T> head) {
+		LinearNode<T> curr= head, mid=head;
+		int index = 0;
+
+		while (curr != null) {
+			++index;
+			if (index%2 == 0) {
+				mid = mid.getNext();
+			}
+			curr = curr.getNext();			
+		}		
+		return mid;
+	}
+
 	public static<T> LinearNode<Integer> sum(LinearNode<Integer> ll1, LinearNode<Integer> ll2) {
 		if (ll1 == null) {
 			return ll2;
@@ -119,4 +162,6 @@ public class LinkedListUtil {
 		}
 		ptr2.setNext(null);
 	}
+
+
 }

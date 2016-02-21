@@ -13,7 +13,39 @@ public class LinkedListUtilTest {
 	public void reverseLinkedList() {
 		LinearNode<Integer> head = buildLinkedList(1,2,3,4);
 		head = LinkedListUtil.reverse(head);
-		printLinkedList(head);
+		assertLinkedList(head, 4,3,2,1);
+	}
+	
+	@Test
+	public void rReverseLinkedList() {
+		LinearNode<Integer> head = buildLinkedList(1,2,3,4);
+		head = LinkedListUtil.rReverse(head);
+		assertLinkedList(head, 4,3,2,1);
+	}
+
+	@Test
+	public void mergeAlternateNodesTest() {
+		LinearNode<Integer> list1 = buildLinkedList(1,2,3,4);
+		LinearNode<Integer> list2 = buildLinkedList(5,6,7,8);
+		list2 = LinkedListUtil.merge(list1, list2);
+		assertLinkedList(list1, 1,5,2,6,3,7,4,8);
+		assertNull(list2);	
+	}
+
+	@Test
+	public void findMiddleNode() {
+		LinearNode<Integer> list = buildLinkedList(1,2,3,4);
+		LinearNode<Integer> mid = LinkedListUtil.middleNode(list);
+		assertThat(mid.getElement(), is(3));
+		mid = LinkedListUtil.middleNode(buildLinkedList(1,2,3,4,5));
+		assertThat(mid.getElement(), is(3));
+	}
+	
+	private <T extends Comparable<? super T>>  void assertLinkedList(LinearNode<T> node, T... arr) {
+		for (int i = 0; i < arr.length; i++) {
+			assertThat(node.getElement(), is(arr[i]));
+			node = node.getNext();
+		}		
 	}
 
 	private static void printLinkedList(LinearNode<Integer> head) {
