@@ -226,4 +226,25 @@ public class ArrayUtilsTest {
 		maxSum = ArrayUtils.maxSum(new int[]{-2,-1,-1,-4,-1,-2,-1,-5,-4});
 		assertThat(maxSum, is(-1));
 	}
+
+	@Test
+	public void largestDifference() {
+		int price[] = {10, 22, 5, 75, 65, 80};
+		int maxProfit = ArrayUtils.largestDifference(price);
+		assertThat(maxProfit, is(75));
+	}
+	
+	@Test
+	public void firstRepeatingElementTest() {
+		int [] elements = {1,2,5,7,5,3,10,2};
+		int element = ArrayUtils.firstRepeatingElement(elements);
+		assertThat(element, is(2));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void firstRepeatingElementTestWithException() {
+		int [] elements = {1,2,5,7,3,10};
+		int element = ArrayUtils.firstRepeatingElement(elements);
+		assertThat(element, is(2));
+	}
 }

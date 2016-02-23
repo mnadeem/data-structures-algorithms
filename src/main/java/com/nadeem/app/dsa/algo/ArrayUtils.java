@@ -5,6 +5,8 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Deque;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import com.nadeem.app.dsa.adt.impl.ArrayHeap;
@@ -618,5 +620,31 @@ public final class ArrayUtils {
 			}
 		}
 		return maxSum;
+	}
+
+	public static int largestDifference(int[] data) {
+		int minElement=data[0], maxDifference=0;
+		
+		for (int i = 1; i < data.length; i++) {
+			minElement = Math.min(minElement, data[i]);
+			maxDifference = Math.max(maxDifference, data[i] - minElement);
+		}
+		return maxDifference;
+	}
+
+	public static int firstRepeatingElement(int[] elements) {
+		int index = -1;
+		Set<Integer> set = new HashSet<Integer>();
+		
+		for (int i = elements.length - 1; i >=0; i--) {
+			if (set.contains(elements[i])) {
+				index = i;
+			}
+			set.add(elements[i]);
+		}
+		if (index != -1) {
+			return elements[index];
+		}
+		throw new IllegalArgumentException("No repeating elements found");
 	}
 }
