@@ -30,5 +30,17 @@ public class MathUtilTest {
 		int gcd = MathUtil.rGCD(111, 109);
 		assertThat(gcd, is(1));
 	}
+	
+	@Test
+	public void multiplicationTest() {
+		int result = MathUtil.multiplyWithUsingAsteric(2, 6);
+		assertThat(result, is(12));
+	}
+	
+	@Test
+	public void powerTest() {
+		double result = MathUtil.powerXPowerYInLogN(2, 2);
+		assertThat(result, is(4.0));
+	}
 
 }

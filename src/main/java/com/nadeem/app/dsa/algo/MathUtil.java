@@ -22,5 +22,20 @@ public class MathUtil {
 			return rGCD(second, first%second);
 		}
 	}
-
+	
+	public static int multiplyWithUsingAsteric(int a, int b) {
+		return (int) Math.pow(10, (Math.log10(a) + Math.log10(b)));
+	}
+	
+	public static double powerXPowerYInLogN(int x, int y) {
+		if (y ==  0) {
+			return 1;
+		}
+		double d = powerXPowerYInLogN(x, y/2);
+		if (y % 2 == 0) {
+			return d*d;
+		} else {
+			return x*d*d;
+		}
+	}
 }

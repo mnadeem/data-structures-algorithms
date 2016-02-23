@@ -452,25 +452,6 @@ public final class ArrayUtils {
 		return arrayToInteger(array);
 	}
 
-	public static Integer[] convertToArray(int number) {
-	    int i = 0;
-	    int length = (int) Math.log10(number);
-	    int divisor = (int) Math.pow(10, length);
-	    Integer temp[] = new Integer[length + 1];
-
-	    while (number != 0) {
-	        temp[i] = number / divisor;
-	        if (i < length) {
-	            ++i;
-	        }
-	        number = number % divisor;
-	        if (i != 0) {
-	            divisor = divisor / 10;
-	        }
-	    }
-	    return temp;
-	}
-
 	private static int pivotMaxIndex(Integer[] array) {
 		int index = array.length - 1;
 		while(index > 0) {
@@ -494,6 +475,24 @@ public final class ArrayUtils {
 		return lowerMaxIndex;
 	}
 
+	public static Integer[] convertToArray(int number) {
+	    int i = 0;
+	    int length = (int) Math.log10(number);
+	    int divisor = (int) Math.pow(10, length);
+	    Integer temp[] = new Integer[length + 1];
+
+	    while (number != 0) {
+	        temp[i] = number / divisor;
+	        if (i < length) {
+	            ++i;
+	        }
+	        number = number % divisor;
+	        if (i != 0) {
+	            divisor = divisor / 10;
+	        }
+	    }
+	    return temp;
+	}
 	public static int arrayToInteger(Integer[] array) {
 		int number = 0;
 		for (int i = 0; i < array.length; i++) {

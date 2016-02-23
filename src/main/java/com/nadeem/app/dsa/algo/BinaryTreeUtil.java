@@ -4,8 +4,6 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -97,23 +95,22 @@ public class BinaryTreeUtil {
 			return null;
 		}
 		Deque<BinaryTreeNode<T>> stack = new ArrayDeque<BinaryTreeNode<T>>();
-		stack.push(root);
+		stack.offer(root);
 
 		while(!stack.isEmpty()) {
-			processNodes(stack);
+			processNodesForMirroring(stack);
 		}
 		return root;
 	}
 
-	private static <T extends Comparable<? super T>> void processNodes(Deque<BinaryTreeNode<T>> stack) {
-		BinaryTreeNode<T> node = stack.pop();
+	private static <T extends Comparable<? super T>> void processNodesForMirroring(Deque<BinaryTreeNode<T>> stack) {
+		BinaryTreeNode<T> node = stack.poll();
 		swapChildren(node);
 		if (node.hasBothChildren()) {
 			stack.push(node.getLeft());
 			stack.push(node.getRight());
-		}  else if(node.hasBothChildren()){
+		}  else if(node.hasLeftChild()){
 			stack.push(node.getLeft());
-			stack.push(node.getRight());
 		} else if (node.hasRightChild()){
 			stack.push(node.getRight());
 		}		
@@ -472,15 +469,9 @@ public class BinaryTreeUtil {
 		public BinaryTreeNode<T> getNode() {
 			return node;
 		}
-		public void setNode(BinaryTreeNode<T> node) {
-			this.node = node;
-		}
+		
 		public Integer getHd() {
 			return hd;
-		}
-		public void setHd(Integer hd) {
-			this.hd = hd;
-		}		
+		}			
 	}
-
 }

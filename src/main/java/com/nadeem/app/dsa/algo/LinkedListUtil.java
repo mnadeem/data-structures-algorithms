@@ -1,6 +1,7 @@
 package com.nadeem.app.dsa.algo;
 
 import com.nadeem.app.dsa.support.LinearNode;
+import com.nadeem.app.dsa.support.MultiNode;
 
 public class LinkedListUtil {
 
@@ -28,10 +29,10 @@ public class LinkedListUtil {
 		return newHead;
 	}
 
-	public static <T> LinearNode<T> merge(LinearNode<T> list1, LinearNode<T> list2) {
+	public static <T> LinearNode<T> mergeAlternatively(LinearNode<T> list1, LinearNode<T> list2) {
 		LinearNode<T> curr1 = list1, curr2 = list2;
 		LinearNode<T> next1, next2;
-		
+
 		while (curr1 != null && curr2 != null) {
 			next1 = curr1.next();
 			next2 = curr2.next();
@@ -41,8 +42,7 @@ public class LinkedListUtil {
 			
 			curr1 = next1;
 			curr2 = next2;					
-		}	
-		
+		}		
 		return curr2;
 	}
 
@@ -60,6 +60,125 @@ public class LinkedListUtil {
 		return mid;
 	}
 
+	public static <T> int length(LinearNode<T> node) {
+		int length = 0;
+		while(node != null) {
+			length++;
+			node = node.next();
+		}
+		return length;
+	}
+
+	public static <T> LinearNode<T> reverseAlternateKNodes(LinearNode<T> node, int k) {
+		int count = 0;
+		LinearNode<T> curr=node, prev = null, next = null;
+		//reverse k nodes
+		while (curr != null && count < k) {
+			next = curr.next();
+			curr.next(prev);
+			prev = curr;
+			curr = next;
+			count ++;
+		}
+		// head should point to start of next k node
+		node.next(curr);
+		// skip nex knodes
+		count = 0;
+		while (curr != null && count < k- 1) {
+			curr = curr.next();
+			count ++;
+		}
+		// do it recursively
+		if (curr != null) {			
+			curr.next(reverseAlternateKNodes(curr.next(), k));
+		}
+		
+		return prev;
+	}
+	
+	/**
+	 * 
+	 * @see <a href="http://stackoverflow.com/questions/10275587/finding-loop-in-a-singly-linked-list">For Refrence</a>	 
+	 */
+	public static <T extends Comparable<? super T>> LinearNode<T> loopExists(LinearNode<T> head) {
+		if (head == null || head.next() == null) {
+			return null;
+		}
+		LinearNode<T> tortoise=head, hare = head.next();
+		while(hare != null) {
+			if (hare == tortoise) {
+				return hare;
+			}
+			tortoise = tortoise.next();
+			if(hare.next() == null) {
+				return null;
+			}
+			hare = hare.next().next();
+		}		
+		return null;
+	}
+
+	public static<T extends Comparable<? super T>> void removeCycle(LinearNode<T> head, LinearNode<T> meetingPoint) {
+		LinearNode<T> ptr1 = head;
+		LinearNode<T> ptr2 = meetingPoint;
+		while (ptr1 != ptr2.next()) {
+			ptr1 = ptr1.next();
+			ptr2 = ptr2.next();
+		}
+		ptr2.next(null);
+	}
+
+	public static <T> LinearNode<T> fold(LinearNode<T> head) {
+		LinearNode<T> mid = LinkedListUtil.middleNode(head);
+		LinearNode<T> reversed = LinkedListUtil.rReverse(mid.next());
+		LinkedListUtil.mergeAlternatively(head, reversed);
+		return head;
+	}
+
+	public static <T extends Comparable<? super T>> LinearNode<T> mergeSorted(LinearNode<T> l1, LinearNode<T> l2) {
+		if (l1 == null) {
+			return l2;
+		} else if (l2 == null) {
+			return l1;
+		}
+		LinearNode<T> result = null;
+		if (l1.getElement().compareTo(l2.getElement()) <= 0) {
+			result = l1;
+			result.next(mergeSorted(l1.next(), l2));
+		} else {
+			result = l2;
+			result.next(mergeSorted(l1, l2.next()));
+		}		
+		return result;
+	}
+
+	public static <T extends Comparable<? super T>> MultiNode<T> flatten(MultiNode<T> root) {
+		if (root.right() == null) {
+			return root;
+		}
+		
+		root.right(flatten(root.right()));	
+				
+		return mergeSortedMultiNode(root, root.right());
+	}
+
+	private static <T extends Comparable<? super T>> MultiNode<T> mergeSortedMultiNode(MultiNode<T> l1, MultiNode<T> l2) {
+		if (l1 == null) {
+			return l2;
+		} else if(l2 == null){
+			return l1;
+		}
+		MultiNode<T> result;
+		if (l1.data().compareTo(l2.data()) < 0) {
+			result = l1;
+			result.down(mergeSortedMultiNode(l1.down(), l2));
+		} else {
+			result = l2;
+			result.down(mergeSortedMultiNode(l1, l2.down()));
+		}
+		return result;
+	}
+	
 	public static<T> LinearNode<Integer> sum(LinearNode<Integer> ll1, LinearNode<Integer> ll2) {
 		if (ll1 == null) {
 			return ll2;
@@ -120,81 +239,5 @@ public class LinkedListUtil {
 		int ls1 = length(ll1);
 		int ls2 = length(ll2);
 		return ls1-ls2;
-	}
-
-	public static <T> int length(LinearNode<T> list) {
-		int length = 0;
-		while(list !=null) {
-			length++;
-			list= list.next();
-		}
-		return length;
-	}
-
-	public static <T> LinearNode<T> reverseAlternateKNodes(LinearNode<T> node, int k) {
-		int count = 0;
-		LinearNode<T> curr=node, prev = null, next = null;
-		//reverse k nodes
-		while (curr != null && count < k) {
-			next = curr.next();
-			curr.next(prev);
-			prev = curr;
-			curr = next;
-			count ++;
-		}
-		// head should point to start of next k node
-		node.next(curr);
-		// skip nex knodes
-		count = 0;
-		while (curr != null && count < k- 1) {
-			curr = curr.next();
-			count ++;
-		}
-		// do it recursively
-		if (curr != null) {			
-			curr.next(reverseAlternateKNodes(curr.next(), k));
-		}
-		
-		return prev;
-	}
-	
-	/**
-	 * 
-	 * @see <a href="http://stackoverflow.com/questions/10275587/finding-loop-in-a-singly-linked-list">For Refrence</a>	 
-	 */
-	public static <T extends Comparable<? super T>> LinearNode<T> loopExists(LinearNode<T> head) {
-		if (head == null || head.next() == null) {
-			return null;
-		}
-		LinearNode<T> tortoise=head, hare = head.next();
-		while(hare != null) {
-			tortoise = tortoise.next();
-			if(hare.next() == null) {
-				return null;
-			}
-			hare = hare.next().next();
-
-			if (hare == tortoise) {
-				return hare;
-			}
-		}		
-		return null;
-	}
-
-	public static<T extends Comparable<? super T>> void removeCycle(LinearNode<T> head, LinearNode<T> meetingPoint) {
-		LinearNode<T> ptr1 = head;
-		LinearNode<T> ptr2 = meetingPoint;
-		while (ptr1 != ptr2.next()) {
-			ptr1 = ptr1.next();
-			ptr2 = ptr2.next();
-		}
-		ptr2.next(null);
-	}
-
-	public static <T> LinearNode<T> fold(LinearNode<T> head) {
-		LinearNode<T> mid = LinkedListUtil.middleNode(head);
-		LinearNode<T> reversed = LinkedListUtil.rReverse(mid.next());
-		LinkedListUtil.merge(head, reversed);
-		return head;
 	}
 }

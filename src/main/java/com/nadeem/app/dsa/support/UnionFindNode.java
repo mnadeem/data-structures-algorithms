@@ -1,4 +1,4 @@
-package com.nadeem.app.dsa.adt;
+package com.nadeem.app.dsa.support;
 
 public class UnionFindNode<T extends Comparable<? super T>> {
 

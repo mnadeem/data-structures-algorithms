@@ -8,6 +8,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import com.nadeem.app.dsa.support.LinearNode;
+import com.nadeem.app.dsa.support.MultiNode;
 
 public class LinkedListUtilTest {
 
@@ -29,7 +30,7 @@ public class LinkedListUtilTest {
 	public void mergeAlternateNodesTest() {
 		LinearNode<Integer> list1 = buildLinkedList(1,2,3,4);
 		LinearNode<Integer> list2 = buildLinkedList(5,6,7,8);
-		list2 = LinkedListUtil.merge(list1, list2);
+		list2 = LinkedListUtil.mergeAlternatively(list1, list2);
 		assertLinkedList(list1, 1,5,2,6,3,7,4,8);
 		assertNull(list2);	
 	}
@@ -63,7 +64,16 @@ public class LinkedListUtilTest {
 		head = LinkedListUtil.reverseAlternateKNodes(head, 3);
 		assertLinkedList(head, 3,2,1,4,5,6,9,8,7,10);
 	}
-
+	
+	@Test
+	public void mergeSortedLists() {
+		LinearNode<Integer> l1 = buildLinkedList(1,4,8,10);
+		LinearNode<Integer> l2 = buildLinkedList(2,3,5,6,9);
+		l1 = LinkedListUtil.mergeSorted(l1, l2);
+		
+		assertLinkedList(l1, 1,2,3,4,5,6,8,9,10);
+	}
+	
 	@Test
 	public void linkedListSumTest() {
 		LinearNode<Integer> ll1 = buildLinkedList(9,2,3,4);
@@ -83,6 +93,58 @@ public class LinkedListUtilTest {
 
 		meetingPoint = LinkedListUtil.<Integer>loopExists(head);
 		assertNull(meetingPoint);
+	}
+	
+	@Test
+	public void flattenListTest() {
+		MultiNode<Integer> multiList = buildMultiList();
+		MultiNode<Integer> result = LinkedListUtil.flatten(multiList);
+		assertMultiList(result, 5, 7, 8, 10, 19, 20, 22, 28, 30, 35, 40, 45, 50);
+	}
+
+	private void assertMultiList(MultiNode<Integer> result, int... arr) {
+		for (int i : arr) {
+			assertThat(result.data(), is(i));
+			result = result.down();
+		}
+	}
+	/**
+	 * 
+	 * This will create the following structure
+            5 -> 10 -> 19 -> 28
+            |    |     |     |
+            V    V     V     V
+            7    20    22    35
+            |          |     |
+            V          V     V
+            8          50    40
+            |                |
+            V                V
+            30               45
+     */
+	private MultiNode<Integer> buildMultiList() {
+		MultiNode<Integer> n45 = new MultiNode<Integer>(45);
+		MultiNode<Integer> n40 = new MultiNode<Integer>(40, n45);
+		MultiNode<Integer> n35 = new MultiNode<Integer>(35, n40);
+		MultiNode<Integer> n28 = new MultiNode<Integer>(28, n35);
+
+		MultiNode<Integer> n50 = new MultiNode<Integer>(50);
+		MultiNode<Integer> n22 = new MultiNode<Integer>(22, n50);
+		MultiNode<Integer> n19 = new MultiNode<Integer>(19, n22);
+		n19.right(n28);
+		
+		
+		MultiNode<Integer> n20 = new MultiNode<Integer>(20);
+		MultiNode<Integer> n10 = new MultiNode<Integer>(10, n20);
+		n10.right(n19);
+		
+		MultiNode<Integer> n30 = new MultiNode<Integer>(30);
+		MultiNode<Integer> n8 = new MultiNode<Integer>(8, n30);
+		MultiNode<Integer> n7 = new MultiNode<Integer>(7, n8);
+		MultiNode<Integer> n5 = new MultiNode<Integer>(5, n7);
+		n5.right(n10);
+
+		return n5;
 	}
 
 	private static void printLinkedList(LinearNode<Integer> head) {

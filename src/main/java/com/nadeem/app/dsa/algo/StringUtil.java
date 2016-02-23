@@ -47,7 +47,7 @@ public class StringUtil {
 		return val == null ? 0 : val;
 	}
 
-	private static boolean doCheckAnagramUsingCouter(String first, String second) {
+	static boolean doCheckAnagramUsingCouter(String first, String second) {
 		int count[] = buildCounter(first.toCharArray(), second.toCharArray());
 
 		return isCounterValid(count);

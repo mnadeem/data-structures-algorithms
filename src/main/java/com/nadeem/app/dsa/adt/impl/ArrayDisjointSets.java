@@ -19,7 +19,7 @@ public class ArrayDisjointSets implements DisjointSets<Integer> {
 		
 		for (int i = 0; i < parent.length; i++) {
 			this.parent[i] = i;
-			this.rank[i] = i;
+			this.rank[i] = 0;
 		}
 	}
 

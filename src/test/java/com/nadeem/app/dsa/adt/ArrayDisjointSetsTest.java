@@ -15,7 +15,8 @@ public class ArrayDisjointSetsTest {
 		
 		for (int i = 0; i <5; i++) {
 			assertThat(disjointSets.findRepresentative(i), is(i));			
-		}		
+		}
+
 	}
 	
 	@Test
