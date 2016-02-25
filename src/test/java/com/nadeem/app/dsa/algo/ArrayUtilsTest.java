@@ -1,6 +1,7 @@
 package com.nadeem.app.dsa.algo;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
@@ -227,12 +228,6 @@ public class ArrayUtilsTest {
 		assertThat(maxSum, is(-1));
 	}
 
-	@Test
-	public void largestDifference() {
-		int price[] = {10, 22, 5, 75, 65, 80};
-		int maxProfit = ArrayUtils.largestDifference(price);
-		assertThat(maxProfit, is(75));
-	}
 	
 	@Test
 	public void firstRepeatingElementTest() {
@@ -247,4 +242,45 @@ public class ArrayUtilsTest {
 		int element = ArrayUtils.firstRepeatingElement(elements);
 		assertThat(element, is(2));
 	}
+
+	@Test
+	public void largestDifference() {
+		int price[] = {10, 22, 5, 75, 65, 80};
+		int maxProfit = ArrayUtils.largestDifference(price);
+		assertThat(maxProfit, is(75));
+	}
+
+	@Test
+	public void maximizeProfitTest() {
+		int []stockValues = {1,3,1,2};
+		int profit = ArrayUtils.maximizeProfit(stockValues);
+		assertThat(profit, is(3));
+		
+		profit = ArrayUtils.maximizeProfit(new int[]{31,312,3,35,33,3,44,123,126,2,4,1});
+		assertThat(profit, is(87));
+	}
+
+	@Test
+	public void maxProfitWithOneTransactionTest() {
+		int stockPrices[] = {100,80,120,130,70,60,100,125};
+		int maxProfit = ArrayUtils.maxProfitOneTransaction(stockPrices);
+		assertThat(maxProfit, is(65));
+	}
+
+	@Test
+	public void maxProfitWithTwoTransactionsTest() {
+		int stockPrices[] = {10, 22, 5, 75, 65, 80};
+		int maxProfit = ArrayUtils.maxProfitTwoTransaction(stockPrices);
+		assertThat(maxProfit, is(87)); 
+
+		maxProfit = ArrayUtils.maxProfitTwoTransaction(new int[]{2, 30, 15, 10, 8, 25, 80});
+		assertThat(maxProfit, is(100)); 
+		
+		maxProfit = ArrayUtils.maxProfitTwoTransaction(new int[]{100, 30, 15, 10, 8, 25, 80});
+		assertThat(maxProfit, is(72)); 
+		
+		maxProfit = ArrayUtils.maxProfitTwoTransaction(new int[]{90, 80, 70, 60, 50});
+		assertThat(maxProfit, is(0)); 
+	}
+	
 }

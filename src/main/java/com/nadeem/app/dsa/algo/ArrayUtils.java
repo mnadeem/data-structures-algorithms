@@ -622,16 +622,6 @@ public final class ArrayUtils {
 		return maxSum;
 	}
 
-	public static int largestDifference(int[] data) {
-		int minElement=data[0], maxDifference=0;
-		
-		for (int i = 1; i < data.length; i++) {
-			minElement = Math.min(minElement, data[i]);
-			maxDifference = Math.max(maxDifference, data[i] - minElement);
-		}
-		return maxDifference;
-	}
-
 	public static int firstRepeatingElement(int[] elements) {
 		int index = -1;
 		Set<Integer> set = new HashSet<Integer>();
@@ -646,5 +636,60 @@ public final class ArrayUtils {
 			return elements[index];
 		}
 		throw new IllegalArgumentException("No repeating elements found");
+	}
+
+	public static int largestDifference(int[] data) {
+		int minElement=data[0], maxDifference=0;
+		
+		for (int i = 1; i < data.length; i++) {
+			minElement = Math.min(minElement, data[i]);
+			maxDifference = Math.max(maxDifference, data[i] - minElement);
+		}
+		return maxDifference;
+	}
+	// Refer http://stackoverflow.com/questions/9514191/maximizing-profit-for-given-stock-quotes
+	public static int maximizeProfit(int[] stockValues) {
+		int[] doBuy = new int[stockValues.length];
+		for (int i = 0; i < doBuy.length; i++) {
+			doBuy[i] = 1; //1 for buy, 0 for sell
+		}
+		int maxProfitSoFar = 0;
+		int profit = 0;
+		for (int i = stockValues.length - 1; i >=0; i--) {
+			if (maxProfitSoFar < stockValues[i]) {
+				doBuy[i] = 0;
+				maxProfitSoFar = stockValues[i];
+			}
+			profit += maxProfitSoFar - stockValues[i];
+		}
+		System.out.println(String.format(" %d %s", profit, Arrays.toString(doBuy)));
+		return profit;
+	}
+
+	public static int maxProfitOneTransaction(int[] stockPrices) {
+		int maxProfit = 0, minPrice = stockPrices[0];
+		for (int i = 0; i < stockPrices.length; i++) {
+			minPrice = Math.min(minPrice, stockPrices[i]);
+			maxProfit = Math.max(maxProfit, stockPrices[i] - minPrice);
+		}		
+		return maxProfit;
+	}
+
+	public static int maxProfitTwoTransaction(int[] stockPrices) {
+		int[] profit = new int[stockPrices.length];
+		int minPrice = stockPrices[0];
+		for (int i = 1; i < stockPrices.length; i++) {
+			minPrice = Math.min(minPrice, stockPrices[i]);
+			profit[i] = Math.max(profit[i - 1], stockPrices[i] - minPrice);
+		}
+		int maxProfit = 0;
+		int maxPrice = stockPrices[stockPrices.length-1];
+		int maxTotalProfit = 0;
+		for (int i = stockPrices.length-1; i > 0; i--) {
+			maxPrice = Math.max(maxPrice, stockPrices[i]);
+			maxProfit = Math.max(maxProfit, maxPrice - stockPrices[i]);
+			maxTotalProfit = Math.max(maxTotalProfit, maxProfit + profit[i - 1]);
+		}
+		return maxTotalProfit;
 	}
 }
