@@ -647,24 +647,6 @@ public final class ArrayUtils {
 		}
 		return maxDifference;
 	}
-	// Refer http://stackoverflow.com/questions/9514191/maximizing-profit-for-given-stock-quotes
-	public static int maximizeProfit(int[] stockValues) {
-		int[] doBuy = new int[stockValues.length];
-		for (int i = 0; i < doBuy.length; i++) {
-			doBuy[i] = 1; //1 for buy, 0 for sell
-		}
-		int maxProfitSoFar = 0;
-		int profit = 0;
-		for (int i = stockValues.length - 1; i >=0; i--) {
-			if (maxProfitSoFar < stockValues[i]) {
-				doBuy[i] = 0;
-				maxProfitSoFar = stockValues[i];
-			}
-			profit += maxProfitSoFar - stockValues[i];
-		}
-		System.out.println(String.format(" %d %s", profit, Arrays.toString(doBuy)));
-		return profit;
-	}
 
 	public static int maxProfitOneTransaction(int[] stockPrices) {
 		int maxProfit = 0, minPrice = stockPrices[0];
@@ -691,5 +673,121 @@ public final class ArrayUtils {
 			maxTotalProfit = Math.max(maxTotalProfit, maxProfit + profit[i - 1]);
 		}
 		return maxTotalProfit;
+	}
+
+	public static int maxProfitMultipleNonOverlappingTransaction(int[] stockPrices) {
+		int profit = 0;
+		for (int i = 1; i < stockPrices.length; i++) {
+			profit += Math.max(0, stockPrices[i] - stockPrices[i-1]);
+		}
+		return profit;
+	}
+	
+	// Refer http://stackoverflow.com/questions/9514191/maximizing-profit-for-given-stock-quotes
+	// http://stackoverflow.com/questions/9514191/maximizing-profit-for-given-stock-quotes
+	//https://github.com/benyl/leetcode/blob/master/Best%20Time%20to%20Buy%20and%20Sell%20Stock%20(I%20%26%20II%20%26%20III).cc
+	public static int maximizeProfit(int[] stockValues) {
+		int[] doBuy = new int[stockValues.length];
+		for (int i = 0; i < doBuy.length; i++) {
+			doBuy[i] = 1; //1 for buy, 0 for sell
+		}
+		int maxProfitSoFar = 0;
+		int profit = 0;
+		for (int i = stockValues.length - 1; i >=0; i--) {
+			if (maxProfitSoFar < stockValues[i]) {
+				doBuy[i] = 0;
+				maxProfitSoFar = stockValues[i];
+			}
+			profit += maxProfitSoFar - stockValues[i];
+		}
+		System.out.println(String.format(" %d %s", profit, Arrays.toString(doBuy)));
+		return profit;
+	}
+
+	public static int zeroIndexToGetMaxOnes(int[] binArray) {
+		int prevPrevIndex = -1, prevIndex = -1,currentLenght= -1, maxLenght = -1, requiredIndex = -1;
+		
+		for (int currentIndex = 0; currentIndex < binArray.length; currentIndex++) {
+			if (binArray[currentIndex] == 0) {
+				if (prevPrevIndex != -1) {
+					currentLenght = currentIndex - (prevPrevIndex + 1);
+					if (currentLenght > maxLenght) {
+						maxLenght = currentLenght;
+						requiredIndex = prevIndex;
+					}
+				}
+				prevPrevIndex = prevIndex;
+				prevIndex = currentIndex;
+			} else {// case when last element is not zero, and input contains more than 3 zeros
+				if (prevIndex != -1 && prevPrevIndex != -1) {
+					currentLenght = currentIndex - (prevPrevIndex + 1);
+					if (currentLenght > maxLenght) {
+						maxLenght = currentLenght;
+						requiredIndex = prevIndex;
+					}
+				}
+			}
+		}
+
+		if (maxLenght == -1) { // less than three zeros
+			if (prevPrevIndex != -1) { // 2 zeros
+				if (prevIndex > (binArray.length - prevPrevIndex - 1)) {
+					requiredIndex = prevPrevIndex;
+				} else {
+					requiredIndex = prevIndex;
+				}
+				
+			} else { // one zero
+				requiredIndex = prevIndex;
+			}
+		}
+		return requiredIndex;
+	}
+
+	public static int[] zeroIndexToGetMaxOnes(int[] arr, int maxZeroes) {
+		// Left and right indexes of current window
+		int wL = 0, wR = 0;
+
+		// Left index and size of the widest window
+		int bestL = 0, bestWindow = 0;
+
+		// Count of zeroes in current window
+		int zeroCount = 0;
+
+		// While right boundary of current window doesn't cross
+		// right end
+		while (wR < arr.length) {
+			// If zero count of current window is less than m,
+			// widen the window toward right
+			if (zeroCount <= maxZeroes) {
+				if (arr[wR] == 0)
+					zeroCount++;
+				wR++;
+			}
+
+			// If zero count of current window is more than m,
+			// reduce the window from left
+			if (zeroCount > maxZeroes) {
+				if (arr[wL] == 0)
+					zeroCount--;
+				wL++;
+			}
+
+			// Updqate widest window if this window size is more
+			if (wR - wL > bestWindow) {
+				bestWindow = wR - wL;
+				bestL = wL;
+			}
+		}
+
+		int result[] = new int[maxZeroes];
+		int resultIndex = 0;
+		for (int i = 0; i < bestWindow; i++) {
+			if (arr[bestL + i] == 0) {
+				result[resultIndex] = bestL + i;
+				resultIndex++;
+			}
+		}
+		return result;
 	}
 }

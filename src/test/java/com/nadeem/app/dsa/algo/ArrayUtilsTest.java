@@ -250,15 +250,6 @@ public class ArrayUtilsTest {
 		assertThat(maxProfit, is(75));
 	}
 
-	@Test
-	public void maximizeProfitTest() {
-		int []stockValues = {1,3,1,2};
-		int profit = ArrayUtils.maximizeProfit(stockValues);
-		assertThat(profit, is(3));
-		
-		profit = ArrayUtils.maximizeProfit(new int[]{31,312,3,35,33,3,44,123,126,2,4,1});
-		assertThat(profit, is(87));
-	}
 
 	@Test
 	public void maxProfitWithOneTransactionTest() {
@@ -266,7 +257,7 @@ public class ArrayUtilsTest {
 		int maxProfit = ArrayUtils.maxProfitOneTransaction(stockPrices);
 		assertThat(maxProfit, is(65));
 	}
-
+	
 	@Test
 	public void maxProfitWithTwoTransactionsTest() {
 		int stockPrices[] = {10, 22, 5, 75, 65, 80};
@@ -282,5 +273,89 @@ public class ArrayUtilsTest {
 		maxProfit = ArrayUtils.maxProfitTwoTransaction(new int[]{90, 80, 70, 60, 50});
 		assertThat(maxProfit, is(0)); 
 	}
+
+	@Test
+	public void maxProfitWithMultipleNonOverlappingTransactionsTest() {
+		int stockPrices[] = {100, 180, 260, 310, 40, 535, 695};
+		int maxProfit = ArrayUtils.maxProfitMultipleNonOverlappingTransaction(stockPrices);
+		assertThat(maxProfit, is(865)); 
+		
+		stockPrices = new int[]{1,3,1,2};
+		maxProfit = ArrayUtils.maxProfitMultipleNonOverlappingTransaction(stockPrices);
+		assertThat(maxProfit, is(3)); 
+	}
+
+	@Test
+	public void maximizeProfitTest() {
+		int []stockValues = {1,3,1,2};
+		int profit = ArrayUtils.maximizeProfit(stockValues);
+		assertThat(profit, is(3));
+	}
 	
+	@Test
+	public void replace0ToGetMaxOnesTest() {
+		int[] binArray = {1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1};
+		int index = ArrayUtils.zeroIndexToGetMaxOnes(binArray);
+		assertThat(index, is(9));
+		
+		binArray = new int[]{1,0,1,1,1,0};
+		index = ArrayUtils.zeroIndexToGetMaxOnes(binArray);
+		assertThat(index, is(1));
+		
+		binArray = new int[]{0,1,1,1,0,1};
+		index = ArrayUtils.zeroIndexToGetMaxOnes(binArray);
+		assertThat(index, is(4));
+		
+		binArray = new int[]{1,1,1,0,1,0};
+		index = ArrayUtils.zeroIndexToGetMaxOnes(binArray);
+		assertThat(index, is(3));
+		
+		binArray = new int[]{0,1,1,1,0};
+		index = ArrayUtils.zeroIndexToGetMaxOnes(binArray);
+		assertThat(index, is(4));
+		
+		binArray = new int[]{1,1,1,1,0};
+		index = ArrayUtils.zeroIndexToGetMaxOnes(binArray);
+		assertThat(index, is(4));
+		
+		binArray = new int[]{0,1,1,1,1};
+		index = ArrayUtils.zeroIndexToGetMaxOnes(binArray);
+		assertThat(index, is(0));
+	}
+
+	@Test
+	public void replaceMZeroesToGetMaxOnesTest() {
+		int binArray[] = {1, 0, 0, 1, 1, 0, 1, 0, 1, 1};
+		int m= 2;
+		int result[] = ArrayUtils.zeroIndexToGetMaxOnes(binArray, m);
+		assertThat(result, equalTo(new int[]{5,7}));
+		
+		binArray = new int[]{1,0,1,1,1,0};
+		result = ArrayUtils.zeroIndexToGetMaxOnes(binArray, 1);
+		assertThat(result, equalTo(new int[]{1}));
+		
+		binArray = new int[]{1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1};
+		result = ArrayUtils.zeroIndexToGetMaxOnes(binArray, 1);
+		assertThat(result, equalTo(new int[]{9}));
+		
+		binArray = new int[]{0,1,1,1,0,1};
+		result = ArrayUtils.zeroIndexToGetMaxOnes(binArray, 1);
+		assertThat(result, equalTo(new int[]{4}));
+		
+		binArray = new int[]{1,1,1,0,1,0};
+		result = ArrayUtils.zeroIndexToGetMaxOnes(binArray, 1);
+		assertThat(result, equalTo(new int[]{3}));
+		
+		binArray = new int[]{0,1,1,1,0};
+		result = ArrayUtils.zeroIndexToGetMaxOnes(binArray, 1);
+		assertThat(result, equalTo(new int[]{0}));
+		
+		binArray = new int[]{1,1,1,1,0};
+		result = ArrayUtils.zeroIndexToGetMaxOnes(binArray, 1);
+		assertThat(result, equalTo(new int[]{4}));
+		
+		binArray = new int[]{0,1,1,1,1};
+		result = ArrayUtils.zeroIndexToGetMaxOnes(binArray, 1);
+		assertThat(result, equalTo(new int[]{0}));
+	}
 }
