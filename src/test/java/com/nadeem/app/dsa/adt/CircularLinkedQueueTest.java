@@ -1,6 +1,9 @@
 package com.nadeem.app.dsa.adt;
 
 import org.junit.Test;
+
+import com.nadeem.app.dsa.adt.impl.CircularLinkedQueue;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 

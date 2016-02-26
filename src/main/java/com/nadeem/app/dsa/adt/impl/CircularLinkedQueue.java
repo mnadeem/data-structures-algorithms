@@ -1,5 +1,6 @@
-package com.nadeem.app.dsa.adt;
+package com.nadeem.app.dsa.adt.impl;
 
+import com.nadeem.app.dsa.adt.Queue;
 import com.nadeem.app.dsa.exception.CollectionEmptyException;
 import com.nadeem.app.dsa.support.LinearNode;
 
@@ -7,11 +8,11 @@ public class CircularLinkedQueue<T extends Comparable<? super T>> implements Que
 	
 	private LinearNode<T> rear;
 	private int count;
-	
+
 	public CircularLinkedQueue() {
 		this.count = 0;
 	}
-	
+
 	@Override
 	public void enqueue(T element) {
 		LinearNode<T> temp = new LinearNode<T>(element);
