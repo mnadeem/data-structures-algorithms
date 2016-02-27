@@ -234,6 +234,14 @@ public class BinaryTreeUtilTest {
 		
 		assertThat(verticalSum.toArray(new Integer[0]), equalTo(new Integer[]{4,2,12,3,7}));
 	}
+	
+	@Test
+	public void zigZagLevelTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+
+		BinaryTreeUtil.zigZagLevelTravelsal(node);
+		
+	}
 
 	private BinaryTreeNode<Integer> buildTree() {
 		BinaryTreeNode<Integer> n4 = new BinaryTreeNode<Integer>(4);

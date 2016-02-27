@@ -4,12 +4,12 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.TreeMap;
+import java.util.concurrent.DelayQueue;
 
 import com.nadeem.app.dsa.support.BinaryTreeNode;
 import com.nadeem.app.dsa.support.MaxSumPath;
@@ -495,5 +495,44 @@ public class BinaryTreeUtil {
 		populateVerticalSumMap(node.getLeft(), hd - 1, map);
 		
 		populateVerticalSumMap(node.getRight(), hd + 1, map);
+	}
+
+	public static <T extends Comparable<? super T>> void zigZagLevelTravelsal(BinaryTreeNode<T> node) {
+		if (node == null) {
+			return ;
+		}
+		Deque<BinaryTreeNode<T>> currentLevelStack = new ArrayDeque<BinaryTreeNode<T>>();
+		Deque<BinaryTreeNode<T>> nextLevelStack = null;
+		boolean leftToRight = true;
+		
+		currentLevelStack.push(node);
+		
+		nextLevelStack = new ArrayDeque<BinaryTreeNode<T>>();
+		while (!currentLevelStack.isEmpty()) {
+			BinaryTreeNode<T> temp = currentLevelStack.pop();
+			System.out.print(temp.getData()+ " ");
+			if (leftToRight) {
+				if (temp.hasLeftChild()) {
+					nextLevelStack.push(temp.getLeft());
+				}	
+				if (temp.hasRightChild()) {
+					nextLevelStack.push(temp.getRight());
+				}
+			} else {
+				if (temp.hasRightChild()) {
+					nextLevelStack.push(temp.getRight());
+				}
+				if (temp.hasLeftChild()) {
+					nextLevelStack.push(temp.getLeft());
+				}
+			}
+			if (currentLevelStack.isEmpty()) {
+				leftToRight = !leftToRight;
+				Deque<BinaryTreeNode<T>> tempStack = currentLevelStack;
+				currentLevelStack = nextLevelStack;
+				nextLevelStack = tempStack;
+				System.out.println();
+			}			
+		}		
 	}
 }
