@@ -225,7 +225,16 @@ public class BinaryTreeUtilTest {
 		
 		assertThat(rightView.toArray(new Integer[0]), equalTo(new Integer[]{4,2,1,3,7}));
 	}
-	
+
+	@Test
+	public void verticalSumOfBinaryTreeTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+
+		Collection<Integer> verticalSum = BinaryTreeUtil.verticalSum(node);
+		
+		assertThat(verticalSum.toArray(new Integer[0]), equalTo(new Integer[]{4,2,12,3,7}));
+	}
+
 	private BinaryTreeNode<Integer> buildTree() {
 		BinaryTreeNode<Integer> n4 = new BinaryTreeNode<Integer>(4);
 		BinaryTreeNode<Integer> n6 = new BinaryTreeNode<Integer>(6);

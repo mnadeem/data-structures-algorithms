@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -473,5 +474,26 @@ public class BinaryTreeUtil {
 		public Integer getHd() {
 			return hd;
 		}			
+	}
+
+	public static  Collection<Integer> verticalSum(BinaryTreeNode<Integer> node) {
+		Map<Integer, Integer> map = new TreeMap<Integer, Integer>();
+		populateVerticalSumMap(node, 0, map);
+	
+		return map.values();
+	}
+
+	private static void populateVerticalSumMap(BinaryTreeNode<Integer> node, int hd, Map<Integer, Integer> map) {
+		if (node == null) {
+			return ;
+		}
+		Integer hdSum  = map.get(hd);
+		if (hdSum == null) {
+			hdSum = 0;
+		}
+		map.put(hd, hdSum + node.getData());	
+		populateVerticalSumMap(node.getLeft(), hd - 1, map);
+		
+		populateVerticalSumMap(node.getRight(), hd + 1, map);
 	}
 }
