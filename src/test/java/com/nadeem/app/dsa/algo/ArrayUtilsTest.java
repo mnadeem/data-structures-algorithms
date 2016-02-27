@@ -358,4 +358,51 @@ public class ArrayUtilsTest {
 		result = ArrayUtils.zeroIndexToGetMaxOnes(binArray, 1);
 		assertThat(result, equalTo(new int[]{0}));
 	}
+	
+	@Test
+	public void maxInSortedRotatedArrayTest() {
+		int array[] = {5, 6, 1, 2, 3, 4};
+		int index = ArrayUtils.maxInSortedRotatedArray(array);
+		assertThat(index, is(1));
+
+		array = new int[]{1,2,3,4};
+		index = ArrayUtils.maxInSortedRotatedArray(array);
+		assertThat(index, is(3));
+		
+		array = new int[]{1, 2};
+		index = ArrayUtils.maxInSortedRotatedArray(array);
+		assertThat(index, is(1));
+		
+		array = new int[]{2, 1};
+		index = ArrayUtils.maxInSortedRotatedArray(array);
+		assertThat(index, is(0));
+		
+		array = new int[]{5, 6, 7, 1, 2, 3, 4};
+		index = ArrayUtils.maxInSortedRotatedArray(array);
+		assertThat(index, is(2));
+		
+		array = new int[]{3, 4, 5, 1, 2};
+		index = ArrayUtils.maxInSortedRotatedArray(array);
+		assertThat(index, is(2));
+		
+		array = new int[]{2, 3, 4, 5, 6, 7, 8, 1};
+		index = ArrayUtils.maxInSortedRotatedArray(array);
+		assertThat(index, is(6));
+		
+		array = new int[]{6, 7, 8, 1, 2, 3};
+		index = ArrayUtils.maxInSortedRotatedArray(array);
+		assertThat(index, is(2));
+		
+		array = new int[]{3, 7, 8, 5, 4, 3};
+		index = ArrayUtils.maxInSortedRotatedArray(array);
+		assertThat(index, is(2));
+		
+		array = new int[]{2, 3, 7, 8, 5, 4, 3 , 2};
+		index = ArrayUtils.maxInSortedRotatedArray(array);
+		assertThat(index, is(3));
+		
+		array = new int[]{2,3,4,5,6,7,8,6,4,3,2};
+		index = ArrayUtils.maxInSortedRotatedArray(array);
+		assertThat(index, is(6));
+	}
 }

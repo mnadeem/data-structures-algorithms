@@ -790,4 +790,30 @@ public final class ArrayUtils {
 		}
 		return result;
 	}
+
+	public static int maxInSortedRotatedArray(int[] array) {
+		return doMaxInSortedRotatedArray(array, 0, array.length - 1);
+	}
+
+	private static int doMaxInSortedRotatedArray(int[] array, int low, int high) {
+		if (low > high) {
+			return -1;
+		} else if (low == high) {
+			return low;
+		}
+		int mid = low + (high - low)/2;
+		if (low < mid && array[low] > array[low + 1]) {
+			return low;
+		} else if(mid < high && array[mid] > array [mid + 1]) {
+			return mid;
+		} else if (mid > low && array[mid] < array[mid - 1]) {
+			return mid - 1;
+		}
+
+		if (array[mid] < array[mid + 1]) {
+			return doMaxInSortedRotatedArray(array, mid + 1, high);
+		} else {
+			return doMaxInSortedRotatedArray(array, low, mid - 1);
+		}
+	}
 }
