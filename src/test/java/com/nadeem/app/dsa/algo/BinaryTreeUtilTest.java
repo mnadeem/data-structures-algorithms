@@ -242,6 +242,21 @@ public class BinaryTreeUtilTest {
 		BinaryTreeUtil.zigZagLevelTravelsal(node);
 		
 	}
+	
+	@Test
+	public void balancedTreeTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+		boolean isBalanced = BinaryTreeUtil.isTreeBalanced(node);
+		assertThat(isBalanced, equalTo(true));
+		
+		BinaryTreeNode<Integer> n4 = new BinaryTreeNode<Integer>(4);
+		BinaryTreeNode<Integer> n6 = new BinaryTreeNode<Integer>(6);
+		BinaryTreeNode<Integer> n2= new BinaryTreeNode<Integer>(2, n4, n6);
+		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(1, null, n2);
+		
+		isBalanced = BinaryTreeUtil.isTreeBalanced(root);
+		assertThat(isBalanced, equalTo(false));
+	}
 
 	private BinaryTreeNode<Integer> buildTree() {
 		BinaryTreeNode<Integer> n4 = new BinaryTreeNode<Integer>(4);

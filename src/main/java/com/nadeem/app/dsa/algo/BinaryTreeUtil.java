@@ -534,4 +534,31 @@ public class BinaryTreeUtil {
 			}			
 		}		
 	}
+
+	public static<T> boolean isTreeBalanced(BinaryTreeNode<T> node) {
+		return doCheckBalance(node) != -1;
+	}
+
+	private static <T> int doCheckBalance(BinaryTreeNode<T> node) {
+		if (node == null) {
+			return 0;
+		}
+		int left = doCheckBalance(node.getLeft());
+		
+		if (left == -1) {
+			return -1;
+		}
+		
+		int right = doCheckBalance(node.getRight());
+		
+		if (right == -1) {
+			return -1;
+		}
+		
+		if (Math.abs(left - right) > 1) {
+			return -1;
+		} else {
+			return Math.max(left, right) + 1;
+		}
+	}
 }
