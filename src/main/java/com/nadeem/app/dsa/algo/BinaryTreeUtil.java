@@ -561,4 +561,23 @@ public class BinaryTreeUtil {
 			return Math.max(left, right) + 1;
 		}
 	}
+
+	public static <T> BinaryTreeNode<T> LCA(BinaryTreeNode<T> root, BinaryTreeNode<T> a, BinaryTreeNode<T> b) {
+		if (root == null) {
+			return null;
+		}
+		
+		if (root == a || root == b) {
+			return root;
+		}
+		
+		BinaryTreeNode<T> left = LCA(root.getLeft(), a, b);
+		BinaryTreeNode<T> right = LCA(root.getRight(), a, b);
+		
+		if (left != null && right != null) {
+			return root;
+		}
+		
+		return left==null ? right : left;
+	}
 }

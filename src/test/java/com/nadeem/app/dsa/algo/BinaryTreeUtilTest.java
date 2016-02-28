@@ -257,6 +257,33 @@ public class BinaryTreeUtilTest {
 		isBalanced = BinaryTreeUtil.isTreeBalanced(root);
 		assertThat(isBalanced, equalTo(false));
 	}
+	
+	@Test
+	public void LCAtest() {
+		BinaryTreeNode<Integer> n4 = new BinaryTreeNode<Integer>(4);
+		BinaryTreeNode<Integer> n6 = new BinaryTreeNode<Integer>(6);
+		BinaryTreeNode<Integer> n5 = new BinaryTreeNode<Integer>(5, null, n6);
+		BinaryTreeNode<Integer> n2= new BinaryTreeNode<Integer>(2, n4, n5);
+		BinaryTreeNode<Integer> n31 = new BinaryTreeNode<Integer>(3);
+		BinaryTreeNode<Integer> n7 = new BinaryTreeNode<Integer>(7, null, n31);
+		BinaryTreeNode<Integer> n3 = new BinaryTreeNode<Integer>(3, n7, null);
+		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(1, n2, n3);
+		
+		BinaryTreeNode<Integer> result = BinaryTreeUtil.LCA(root, n6, n4);
+		assertThat(result, equalTo(n2));
+		
+		result = BinaryTreeUtil.LCA(root, n4, n5);
+		assertThat(result, equalTo(n2));
+		
+		result = BinaryTreeUtil.LCA(root, n4, n7);
+		assertThat(result, equalTo(root));
+		
+		result = BinaryTreeUtil.LCA(root, n5, n6);
+		assertThat(result, equalTo(n5));
+		
+		result = BinaryTreeUtil.LCA(root, new BinaryTreeNode<Integer>(700, null, null), n6);
+		assertThat(result, equalTo(n6));
+	}
 
 	private BinaryTreeNode<Integer> buildTree() {
 		BinaryTreeNode<Integer> n4 = new BinaryTreeNode<Integer>(4);
