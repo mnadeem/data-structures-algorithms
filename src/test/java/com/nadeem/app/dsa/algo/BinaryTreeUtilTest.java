@@ -269,19 +269,19 @@ public class BinaryTreeUtilTest {
 		BinaryTreeNode<Integer> n3 = new BinaryTreeNode<Integer>(3, n7, null);
 		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(1, n2, n3);
 		
-		BinaryTreeNode<Integer> result = BinaryTreeUtil.LCA(root, n6, n4);
+		BinaryTreeNode<Integer> result = BinaryTreeUtil.LCA(root, 6, 4);
 		assertThat(result, equalTo(n2));
 		
-		result = BinaryTreeUtil.LCA(root, n4, n5);
+		result = BinaryTreeUtil.LCA(root, 4, 5);
 		assertThat(result, equalTo(n2));
 		
-		result = BinaryTreeUtil.LCA(root, n4, n7);
+		result = BinaryTreeUtil.LCA(root, 4, 7);
 		assertThat(result, equalTo(root));
 		
-		result = BinaryTreeUtil.LCA(root, n5, n6);
+		result = BinaryTreeUtil.LCA(root, 5, 6);
 		assertThat(result, equalTo(n5));
 		
-		result = BinaryTreeUtil.LCA(root, new BinaryTreeNode<Integer>(700, null, null), n6);
+		result = BinaryTreeUtil.LCA(root, 700, 6);
 		assertThat(result, equalTo(n6));
 	}
 	
@@ -296,6 +296,20 @@ public class BinaryTreeUtilTest {
 		
 		distance = BinaryTreeUtil.distanceFromRoot(node, 1);
 		assertThat(distance, equalTo(0));
+	}
+	
+	@Test
+	public void distanceBetween2NodeTest() {
+		BinaryTreeNode<Integer> root = buildTree();
+		int distance = BinaryTreeUtil.distanceBetween(root, 6, 4);
+		assertThat(distance, equalTo(3));
+		
+		distance = BinaryTreeUtil.distanceBetween(root, 4, 7);
+		assertThat(distance, equalTo(4));
+		
+		distance = BinaryTreeUtil.distanceBetween(root, 2, 3);
+		assertThat(distance, equalTo(2));
+
 	}
 
 	private BinaryTreeNode<Integer> buildTree() {

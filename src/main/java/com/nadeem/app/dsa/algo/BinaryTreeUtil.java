@@ -562,12 +562,12 @@ public class BinaryTreeUtil {
 		}
 	}
 
-	public static <T> BinaryTreeNode<T> LCA(BinaryTreeNode<T> root, BinaryTreeNode<T> a, BinaryTreeNode<T> b) {
+	public static <T> BinaryTreeNode<T> LCA(BinaryTreeNode<T> root, T a, T b) {
 		if (root == null) {
 			return null;
 		}
 		
-		if (root == a || root == b) {
+		if (root.getData().equals(a) || root.getData().equals(b)) {
 			return root;
 		}
 		
@@ -596,5 +596,25 @@ public class BinaryTreeUtil {
 			return numberOfNodes + 1;
 		}		
 		return 0;
+	}
+
+	public static <T extends Comparable<? super T>> int distanceBetween(BinaryTreeNode<T> node, T n1, T n2) {
+		int n1Distance = distanceFromRoot(node, n1);
+		if (n1Distance == -1) {
+			throw new IllegalArgumentException("Invalid " + n1);
+		}
+
+		int n2Distance = distanceFromRoot(node, n2);
+		if (n2Distance == -1) {
+			throw new IllegalArgumentException("Invalid " + n2);
+		}
+		
+		BinaryTreeNode<T> lca = LCA(node, n1, n2);
+		int lcaDistance = distanceFromRoot(node, lca.getData());
+		if (lcaDistance == -1) {
+			throw new IllegalArgumentException("Invalid " + lca.getData());
+		}
+
+		return n1Distance + n2Distance - 2 * lcaDistance;
 	}
 }
