@@ -284,6 +284,19 @@ public class BinaryTreeUtilTest {
 		result = BinaryTreeUtil.LCA(root, new BinaryTreeNode<Integer>(700, null, null), n6);
 		assertThat(result, equalTo(n6));
 	}
+	
+	@Test
+	public void distanceFromRoot2NodeTest() {
+		BinaryTreeNode<Integer> node = buildTree();
+		int distance = BinaryTreeUtil.distanceFromRoot(node, 6);
+		assertThat(distance, equalTo(3));
+		
+		distance = BinaryTreeUtil.distanceFromRoot(node, 7);
+		assertThat(distance, equalTo(2));
+		
+		distance = BinaryTreeUtil.distanceFromRoot(node, 1);
+		assertThat(distance, equalTo(0));
+	}
 
 	private BinaryTreeNode<Integer> buildTree() {
 		BinaryTreeNode<Integer> n4 = new BinaryTreeNode<Integer>(4);

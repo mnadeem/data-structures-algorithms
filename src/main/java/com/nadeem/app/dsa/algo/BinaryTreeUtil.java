@@ -580,4 +580,21 @@ public class BinaryTreeUtil {
 		
 		return left==null ? right : left;
 	}
+
+	public static<T extends Comparable<? super T>> int distanceFromRoot(BinaryTreeNode<T> node, T key) {
+		return numberOfNodes(node, key) - 1;
+	}
+
+	public static<T extends Comparable<? super T>> int numberOfNodes(BinaryTreeNode<T> node, T key) {
+		if (node == null) {
+			return 0;
+		}
+		int numberOfNodes = 0;
+		if (node.getData().equals(key) 
+				|| (numberOfNodes = numberOfNodes(node.getLeft(), key)) > 0 
+				||  (numberOfNodes = numberOfNodes(node.getRight(), key)) > 0 ) {
+			return numberOfNodes + 1;
+		}		
+		return 0;
+	}
 }
