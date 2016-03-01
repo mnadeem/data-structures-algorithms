@@ -31,13 +31,13 @@ public class StringUtil {
 
 	private static Map<Character, Integer> populateMap(final String first, final String second) {
 		Map<Character, Integer> counter = new HashMap<Character, Integer>();
-		for (int i = 0 ; i< first.length() ; i++) {
+		for (int i = 0; i < first.length(); i++) {
 			char chr1 = first.charAt(i);
 			int char1Count = getCount(counter, chr1);
 			counter.put(chr1, ++char1Count);
 			char chr2 = second.charAt(i);
 			int char2Count = getCount(counter, chr2);
-			counter.put(chr2, --char2Count);		
+			counter.put(chr2, --char2Count);
 		}
 		return counter;
 	}
@@ -56,8 +56,10 @@ public class StringUtil {
 	private static int[] buildCounter(char[] firstArray, char[] secondArray) {
 		int count[] = new int[25];
 		for (int i = 0; i < firstArray.length; i++) {
-			count[buildIndex(firstArray[i])]++;  // Increment the count of the character at i
-			count[buildIndex(secondArray[i])]--; // Decrement the count of the character at i
+			count[buildIndex(firstArray[i])]++; // Increment the count of the
+												// character at i
+			count[buildIndex(secondArray[i])]--; // Decrement the count of the
+													// character at i
 		}
 		return count;
 	}
@@ -73,5 +75,26 @@ public class StringUtil {
 			}
 		}
 		return true;
+	}
+
+	public static String lexicogrSmallestPermutation(String signature) {
+		StringBuffer result = new StringBuffer();
+		int lastI = 1;
+		for (int i = 0; i < signature.length(); i++) {
+			if ('I' == signature.charAt(i)) {
+				result.append(reverse(lastI, i + 1));
+				lastI = i + 2;
+			}
+		}
+		result.append(reverse(lastI, signature.length() + 1));
+		return result.toString();
+	}
+
+	private static String reverse(int begin, int end) {
+		StringBuffer sb = new StringBuffer();
+		for (int i = end; i >= begin; i--) {
+			sb.append(i + " ");
+		}
+		return sb.toString();
 	}
 }

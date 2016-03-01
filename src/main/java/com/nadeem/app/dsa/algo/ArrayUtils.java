@@ -567,8 +567,8 @@ public final class ArrayUtils {
 
 		return maxPlatforms;
 	}
-
-	public static void arrangeToFormBiggestNumber(Integer[] seed) {
+	//Refer this http://stackoverflow.com/a/5117685/1709793
+	public static void arrangeToFormBiggestNumberLexicographically(Integer[] seed) {
 		Arrays.sort(seed, new Comparator<Integer>() {
 
 			@Override
