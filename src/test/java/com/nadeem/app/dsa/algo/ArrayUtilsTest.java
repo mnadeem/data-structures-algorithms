@@ -169,6 +169,17 @@ public class ArrayUtilsTest {
 	}
 	
 	@Test
+	public void arrangeToFormBiggestNumberLexicographicallyTest() {
+		Integer[] input = new Integer[]{9,1,95,17,5};
+		ArrayUtils.arrangeToFormBiggestNumberLexicographically(input);
+		assertThat(input, equalTo(new Integer[]{9,95,5,17,1}));
+		
+		input = new Integer[]{54,546,548,60};
+		ArrayUtils.arrangeToFormBiggestNumberLexicographically(input);
+		assertThat(input, equalTo(new Integer[]{60,548,546,54}));
+	}
+	
+	@Test
 	public void arrayToIntegerTest() {
 		Integer[] array = new Integer[]{1,2,3,4};
 		assertThat(ArrayUtils.arrayToInteger(array), is(1234));
@@ -205,11 +216,11 @@ public class ArrayUtilsTest {
 	public void formBiggestNumberByConcArrayElementsTest() {
 		Integer seed[] = new Integer[] {5,54,56};
 		
-		ArrayUtils.arrangeToFormBiggestNumber(seed);
+		ArrayUtils.arrangeToFormBiggestNumberLexicographically(seed);
 		assertThat(seed, equalTo(new Integer[]{56,5,54}));
 		
 		Integer[] array2 = new Integer[]{54, 546, 548, 60};
-		ArrayUtils.arrangeToFormBiggestNumber(array2);
+		ArrayUtils.arrangeToFormBiggestNumberLexicographically(array2);
 		assertThat(array2, equalTo(new Integer[]{60,548,546,54}));
 	}
 	
@@ -405,4 +416,5 @@ public class ArrayUtilsTest {
 		index = ArrayUtils.maxInSortedRotatedArray(array);
 		assertThat(index, is(6));
 	}
+
 }

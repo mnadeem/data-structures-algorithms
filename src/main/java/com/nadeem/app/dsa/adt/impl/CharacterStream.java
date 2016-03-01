@@ -1,5 +1,7 @@
 package com.nadeem.app.dsa.adt.impl;
 
+import java.util.BitSet;
+
 import rx.Observable;
 import rx.functions.Action1;
 
@@ -9,17 +11,17 @@ public class CharacterStream {
 
 	private Node<Character> head;
 	private Node<Character> tail;
-
-	private boolean[] repeated;//We can even use Bitset
+	
+	private BitSet repeated;
+	//private boolean[] repeated;//We can even use Bitset
 	private Node<Character>[] inDLL;
 
 	@SuppressWarnings("unchecked")
 	public CharacterStream(final Observable<Character> inputStream) {
 		
-		repeated = new boolean[MAX_CHAR];
+		repeated = new BitSet(MAX_CHAR);
 		inDLL = new Node[MAX_CHAR];
 		for (int i = 0; i < MAX_CHAR; i++) {
-			repeated[i] = false;
 			inDLL[i] = null;
 		}
 		
@@ -42,7 +44,7 @@ public class CharacterStream {
 
 	private void processStream(Character chr) {
 		int charValue = (int) chr.charValue();
-		if (!repeated[charValue]) {
+		if (!repeated.get(charValue)) {
 			
 			if (inDLL[charValue] == null) {
 				appendToTail(chr);
@@ -50,7 +52,7 @@ public class CharacterStream {
 			} else {
 				removeNode(inDLL[charValue]);
 				inDLL[charValue] = null;
-				repeated[charValue] = true;
+				repeated.set(charValue);
 			}
 		}
 	}
@@ -59,7 +61,7 @@ public class CharacterStream {
 		if (head == null) {
 			return ;
 		} 
-		
+
 		if (head == node) {
 			head = head.next;
 			//head.prev = null;
@@ -68,7 +70,7 @@ public class CharacterStream {
 			tail = tail.prev;
 			//tail.next = null;
 		}
-		
+
 		if (node.next != null) {
 			node.next.prev= node.prev;
 		}
