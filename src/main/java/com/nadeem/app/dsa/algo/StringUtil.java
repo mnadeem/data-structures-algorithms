@@ -1,6 +1,8 @@
 package com.nadeem.app.dsa.algo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StringUtil {
@@ -77,24 +79,24 @@ public class StringUtil {
 		return true;
 	}
 	// Refer https://www.careercup.com/question?id=14912744
-	public static String lexicogrSmallestPermutation(String signature) {
-		StringBuffer result = new StringBuffer();
+	public static List<Integer> lexicogrSmallestPermutation(String signature) {
+		List<Integer> result = new ArrayList<Integer>();
 		int lastI = 1;
 		for (int i = 0; i < signature.length(); i++) {
 			if ('I' == signature.charAt(i)) {
-				result.append(reverse(lastI, i + 1));
+				result.addAll(reverse(lastI, i + 1));
 				lastI = i + 2;
 			}
 		}
-		result.append(reverse(lastI, signature.length() + 1));
-		return result.toString();
+		result.addAll(reverse(lastI, signature.length() + 1));
+		return result;
 	}
 
-	private static String reverse(int begin, int end) {
-		StringBuffer sb = new StringBuffer();
+	private static List<Integer> reverse(int begin, int end) {
+		List<Integer> result = new ArrayList<Integer>();
 		for (int i = end; i >= begin; i--) {
-			sb.append(i + " ");
+			result.add(i);
 		}
-		return sb.toString();
+		return result;
 	}
 }
