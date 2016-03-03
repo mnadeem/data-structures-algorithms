@@ -22,7 +22,10 @@ public class MutableInteger {
 		}
 		return false;
 	}
-
+	public void increment() {
+		this.value = this.value + 1;
+	}
+	
 	public Integer getValue() {
 		return value;
 	}

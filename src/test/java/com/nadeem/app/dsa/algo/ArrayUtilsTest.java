@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nadeem.app.dsa.algo.ArrayUtils.MaxMin;
+import com.nadeem.app.dsa.support.MutableInteger;
 
 public class ArrayUtilsTest {
 	private Integer[] seed;
@@ -415,6 +416,27 @@ public class ArrayUtilsTest {
 		array = new int[]{2,3,4,5,6,7,8,6,4,3,2};
 		index = ArrayUtils.maxInSortedRotatedArray(array);
 		assertThat(index, is(6));
+	}
+	
+	@Test
+	public void numberOfMazePathsTest() {
+		int[][] maze = {
+						{1,-1, -1,-1}, 
+						{0, 0, 0, 0}, 
+						{-1,-1,0,-1},
+						{-1,-1,0, 0},
+						{-1,-1,2, 2}};
+		int numberOfPaths = ArrayUtils.numberOfMazePaths(maze);
+		assertThat(numberOfPaths, equalTo(2));
+		
+		 maze = new int[][]{
+					{1,-1,1,-1}, 
+					{0, 0, 0, 0}, 
+					{-1,-1,0,-1},
+					{-1,-1,0, 0},
+					{-1,-1,2, 2}};
+	numberOfPaths = ArrayUtils.numberOfMazePaths(maze);
+	assertThat(numberOfPaths, equalTo(4));
 	}
 
 }

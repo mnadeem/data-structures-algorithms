@@ -1,15 +1,19 @@
 package com.nadeem.app.dsa.algo;
 
+import java.awt.Point;
 import java.io.PrintStream;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
 import com.nadeem.app.dsa.adt.impl.ArrayHeap;
+import com.nadeem.app.dsa.support.MutableInteger;
 
 public final class ArrayUtils {
 	private static final Logger LOGGER = Logger.getLogger(ArrayUtils.class.getName());
@@ -815,5 +819,57 @@ public final class ArrayUtils {
 		} else {
 			return doMaxInSortedRotatedArray(array, low, mid - 1);
 		}
+	}
+	
+	//https://www.careercup.com/question?id=5767484059680768
+	public static int numberOfMazePaths(int[][] maze) {
+		MutableInteger numberOfPaths = new MutableInteger(0);
+		List<Point> visited = new ArrayList<Point>();
+		List<Point> endsVisited = new ArrayList<Point>();
+		for (int i = 0; i < maze[0].length; i++) {
+			visited.clear();
+			endsVisited.clear();
+			if (isValidMazeEntry(maze, 0, i)) {
+				traverseMaze(maze,  visited, endsVisited, numberOfPaths, 0, i);
+			}
+		}
+		return numberOfPaths.getValue();
+	}
+
+	private static boolean isValidMazeEntry(int[][] maze, int row, int column) {
+		int ENTRY_POINT = 1;
+		return maze[row][column] == ENTRY_POINT;
+	}
+
+	private static void traverseMaze(int[][] maze, List<Point> visited, List<Point> endsVisited, MutableInteger numberOfPaths, int row, int column) {
+		if (isValidMazeLocation(maze, visited, row, column)) {
+			visited.add(new Point(row, column));
+			if (isValidExit(maze,endsVisited,  row, column)) {
+				endsVisited.add(new Point(row, column));
+				visited.clear();
+				numberOfPaths.increment();
+			} else {
+				traverseMaze(maze,visited, endsVisited,numberOfPaths, row + 1, column);
+				traverseMaze(maze,visited,endsVisited,numberOfPaths, row -1, column);
+				traverseMaze(maze,visited,endsVisited, numberOfPaths, row, column + 1);
+				traverseMaze(maze,visited,endsVisited,numberOfPaths, row, column - 1);
+			}			
+		}
+	}
+
+	private static boolean isValidMazeLocation(int[][] maze, List<Point> visited, int row, int column) {
+		int INVALID_PATH = -1;
+		boolean result = false;
+		if (row >= 0 && row < maze.length && column >= 0 && column < maze[row].length) {
+			if (maze[row][column] != INVALID_PATH && !visited.contains(new Point(row, column))) {
+				result = true;
+			}		
+		}
+		return result;
+	}
+
+	private static boolean isValidExit(int[][] maze, List<Point> endsVisited, int row, int column) {
+		int EXIT_POINT = 2;
+		return row == maze.length-1 && maze[row][column] == EXIT_POINT && !endsVisited.contains(new Point(row, column));
 	}
 }
