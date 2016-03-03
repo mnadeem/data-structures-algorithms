@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.assertj.core.util.Preconditions;
 import org.junit.Test;
 
 import com.nadeem.app.dsa.support.BinaryTreeNode;
@@ -310,6 +311,14 @@ public class BinaryTreeUtilTest {
 		distance = BinaryTreeUtil.distanceBetween(root, 2, 3);
 		assertThat(distance, equalTo(2));
 
+	}
+	
+	@Test
+	public void printPostOrderWithoutConstructingTreeTest() {
+		int inOrder[] = {4, 2, 5, 1, 3, 6};
+		int preOrder[] = {1, 2, 4, 5, 3, 6};
+		Integer postOrder[] = BinaryTreeUtil.printPostOrderWithOutConstructingTree(inOrder, preOrder);
+		assertThat(postOrder, equalTo(new Integer[]{4, 5, 2, 6, 3, 1}));
 	}
 
 	private BinaryTreeNode<Integer> buildTree() {

@@ -617,4 +617,34 @@ public class BinaryTreeUtil {
 
 		return n1Distance + n2Distance - 2 * lcaDistance;
 	}
+
+	public static Integer[] printPostOrderWithOutConstructingTree(int[] inOrder, int[] preOrder) {
+		List<Integer> result = new ArrayList<Integer>();
+		doPrintPostOrderWithOutConstructingTree(inOrder, 0, inOrder.length-1, preOrder, new MutableInteger(0), result);
+		return result.toArray(new Integer[0]);
+	}
+
+	private static void doPrintPostOrderWithOutConstructingTree(int[] inOrder, int start, int end, int[] preOrder, MutableInteger preIndex,
+			List<Integer> result) {
+		if (start >  end) {
+			return ;
+		}
+		int rootIndex = searchInOrder(inOrder, start, end, preOrder[preIndex.getValue()]);
+		int currIndex = preIndex.getValue();
+		preIndex.increment();
+		doPrintPostOrderWithOutConstructingTree(inOrder, start, rootIndex - 1, preOrder, preIndex, result);
+		doPrintPostOrderWithOutConstructingTree(inOrder, rootIndex + 1, end, preOrder, preIndex, result);				
+		result.add(preOrder[currIndex]);
+		
+	}
+
+	private static int searchInOrder(int[] inOrder, int start, int end, int preElement) {
+		while (start <= end) {
+			if (inOrder[start] == preElement) {
+				return start;
+			}
+			start ++;			
+		}
+		return -1;
+	}
 }
