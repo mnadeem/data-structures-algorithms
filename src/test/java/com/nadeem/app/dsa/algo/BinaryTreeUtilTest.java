@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.assertj.core.util.Preconditions;
 import org.junit.Test;
 
 import com.nadeem.app.dsa.support.BinaryTreeNode;
@@ -319,6 +318,14 @@ public class BinaryTreeUtilTest {
 		int preOrder[] = {1, 2, 4, 5, 3, 6};
 		Integer postOrder[] = BinaryTreeUtil.printPostOrderWithOutConstructingTree(inOrder, preOrder);
 		assertThat(postOrder, equalTo(new Integer[]{4, 5, 2, 6, 3, 1}));
+	}
+	
+	@Test
+	public void printPreOrderWithoutConstructingTreeTest() {
+		int inOrder[] = {4, 2, 5, 1, 3, 6};
+		int postOrder[] = {4, 5, 2, 6, 3, 1};
+		Integer preOrder[] = BinaryTreeUtil.printPreOrderWithOutConstructingTree(inOrder, postOrder);
+		assertThat(preOrder, equalTo(new Integer[]{1, 2, 4, 5, 3, 6}));
 	}
 
 	private BinaryTreeNode<Integer> buildTree() {

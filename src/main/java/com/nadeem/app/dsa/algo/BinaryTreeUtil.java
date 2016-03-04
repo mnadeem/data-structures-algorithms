@@ -638,6 +638,34 @@ public class BinaryTreeUtil {
 		
 	}
 
+	public static Integer[] printPreOrderWithOutConstructingTree(int[] inOrder, int[] postOrder) {
+		List<Integer> result = new ArrayList<Integer>();
+		doPrintPreOrderWithOutConstructingTree(inOrder, 0, inOrder.length-1, postOrder, 0, postOrder.length - 1, result);
+		return result.toArray(new Integer[0]);
+	}
+
+	private static void doPrintPreOrderWithOutConstructingTree(int[] inOrder, int inStart, int inEnd, int[] postOrder,
+			int pStart, int pEnd, List<Integer> result) {
+		if (inStart > inEnd) {
+			return ;
+		}
+		
+		int rootIndex = searchInOrder(inOrder, inStart, inEnd, postOrder[pEnd]);
+		if (rootIndex == -1) {
+			return ;
+		}
+		result.add(postOrder[pEnd]);
+		if (inEnd - inStart <= 3) {
+			for (int i = pStart; i < pEnd; i++) {
+				result.add(postOrder[i]);
+			}
+		} else {
+		
+			doPrintPreOrderWithOutConstructingTree(inOrder, inStart, rootIndex - 1, postOrder, pStart, rootIndex-1, result);
+			doPrintPreOrderWithOutConstructingTree(inOrder, rootIndex + 1, inEnd, postOrder, rootIndex, pEnd - 1, result);
+		}
+	}
+
 	private static int searchInOrder(int[] inOrder, int start, int end, int preElement) {
 		while (start <= end) {
 			if (inOrder[start] == preElement) {
@@ -647,4 +675,5 @@ public class BinaryTreeUtil {
 		}
 		return -1;
 	}
+
 }
