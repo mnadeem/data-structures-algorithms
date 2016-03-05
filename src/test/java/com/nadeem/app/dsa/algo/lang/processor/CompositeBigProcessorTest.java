@@ -14,7 +14,7 @@ public class CompositeBigProcessorTest {
 
 	@Before
 	public void doBeforeEachTestCase() {
-		this.processor = new CompositeBigProcessor(64, Scale.SHORT);
+		this.processor = new CompositeBigProcessor(6, Scale.SHORT);
 	}
 	
 	@Test
