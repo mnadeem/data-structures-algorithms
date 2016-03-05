@@ -872,4 +872,23 @@ public final class ArrayUtils {
 		int EXIT_POINT = 2;
 		return row == maze.length-1 && maze[row][column] == EXIT_POINT && !endsVisited.contains(new Point(row, column));
 	}
+
+	public static Integer[] commonElementsIn3SortedArrays(int[] arr1, int[] arr2, int[] arr3) {
+		List<Integer> result = new ArrayList<Integer>();
+		int i=0, j=0, k=0;
+		while (i < arr1.length && j < arr2.length && k < arr3.length) {
+			
+			if (arr1[i] == arr2[j] && arr2[j]== arr3[k]) {
+				result.add(arr1[i]);
+				i++;j++;k++;
+			} else if (arr1[i] < arr2[j]) {
+				i++;
+			} else if (arr2[j] < arr3[k]) {
+				j++;
+			} else {
+				k++;
+			}
+		}		
+		return result.toArray(new Integer[0]);
+	}
 }

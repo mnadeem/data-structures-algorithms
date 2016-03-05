@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nadeem.app.dsa.algo.ArrayUtils.MaxMin;
-import com.nadeem.app.dsa.support.MutableInteger;
 
 public class ArrayUtilsTest {
 	private Integer[] seed;
@@ -435,8 +434,17 @@ public class ArrayUtilsTest {
 					{-1,-1,0,-1},
 					{-1,-1,0, 0},
 					{-1,-1,2, 2}};
-	numberOfPaths = ArrayUtils.numberOfMazePaths(maze);
-	assertThat(numberOfPaths, equalTo(4));
+		numberOfPaths = ArrayUtils.numberOfMazePaths(maze);
+		assertThat(numberOfPaths, equalTo(4));
+	}
+	
+	@Test
+	public void commonElementsIn3SortedArrayTest() {
+		int arr1[] = {1, 5, 10, 20, 40, 80};
+		int arr2[] = {6, 7, 20, 80, 100};
+		int arr3[] = {3, 4, 15, 20, 30, 70, 80, 120};
+		Integer result[] = ArrayUtils.commonElementsIn3SortedArrays(arr1, arr2, arr3);
+		assertThat(result, equalTo(new Integer[]{20, 80}));
 	}
 
 }
