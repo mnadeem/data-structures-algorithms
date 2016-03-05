@@ -14,7 +14,7 @@ public class CompositeBigProcessorTest {
 
 	@Before
 	public void doBeforeEachTestCase() {
-		this.processor = new CompositeBigProcessor(6, Scale.SHORT);
+		this.processor = new CompositeBigProcessor(64, Scale.SHORT);
 	}
 	
 	@Test
@@ -58,10 +58,23 @@ public class CompositeBigProcessorTest {
 	}
 	
 	@Test
-	public void hundredtest() {
+	public void hundredTest() {
 
 		assertThat(this.processor.getName(100), equalTo("one hundred"));
 		assertThat(this.processor.getName(201), equalTo("two hundred one"));
 		assertThat(this.processor.getName(999), equalTo("nine hundred ninety-nine"));
+	}
+	
+	@Test
+	public void ThousandtTest() {
+
+		assertThat(this.processor.getName(1100), equalTo("one thousand one hundred"));
+		assertThat(this.processor.getName(1201), equalTo("one thousand two hundred one"));
+		assertThat(this.processor.getName(1999), equalTo("one thousand nine hundred ninety-nine"));
+		
+		
+		assertThat(this.processor.getName(9009), equalTo("nine thousand nine"));
+		assertThat(this.processor.getName(19009), equalTo("nineteen thousand nine"));
+		assertThat(this.processor.getName(219009), equalTo("two hundred nineteen thousand nine"));
 	}
 }
