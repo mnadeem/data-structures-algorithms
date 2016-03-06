@@ -38,9 +38,18 @@ public class MathUtilTest {
 	}
 	
 	@Test
-	public void powerTest() {
-		double result = MathUtil.powerXPowerYInLogN(2, 2);
+	public void recursivePowerTest() {
+		double result = MathUtil.rXPowerYInLogN(2, 2);
 		assertThat(result, is(4.0));
+	}
+	
+	@Test
+	public void iterativePowerTest() {
+		double result = MathUtil.iXPowerYInLogN(2, 2);
+		assertThat(result, is(4.0));
+		result = MathUtil.iXPowerYInLogN(2, 5);
+		assertThat(result, is(32.0));
+		System.out.println(2 >> 1);
 	}
 
 }

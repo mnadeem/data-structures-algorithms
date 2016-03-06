@@ -27,15 +27,28 @@ public class MathUtil {
 		return (int) Math.pow(10, (Math.log10(a) + Math.log10(b)));
 	}
 	
-	public static double powerXPowerYInLogN(int x, int y) {
-		if (y ==  0) {
+	public static double rXPowerYInLogN(int a, int n) {
+		if (n ==  0) {
 			return 1;
 		}
-		double d = powerXPowerYInLogN(x, y/2);
-		if (y % 2 == 0) {
-			return d*d;
+		double result = rXPowerYInLogN(a, n/2);
+		if (n % 2 == 0) {
+			return result*result;
 		} else {
-			return x*d*d;
+			return a*result*result;
 		}
+	}
+
+	public static double iXPowerYInLogN(int a, int n) {
+		double result = 1;
+		while(n > 0) {
+			if (n % 2 == 1) {
+				result = result * a;
+			}
+			a = a * a;
+			n = n >> 1;
+		}
+		
+		return result;
 	}
 }
