@@ -4,6 +4,7 @@ public class BinaryTreeNode<T> {
 	private T data;
 	private BinaryTreeNode<T> left;
 	private BinaryTreeNode<T> right;
+	private BinaryTreeNode<T> next;
 	
 	public BinaryTreeNode(T newData) {
 		this.data = newData;
@@ -39,6 +40,14 @@ public class BinaryTreeNode<T> {
 		this.right = right;
 	}
 	
+	public BinaryTreeNode<T> getNext() {
+		return next;
+	}
+
+	public void setNext(BinaryTreeNode<T> next) {
+		this.next = next;
+	}
+
 	public boolean isLeafNode() {
 		return this.getLeft() == null && this.getRight() == null;
 	}

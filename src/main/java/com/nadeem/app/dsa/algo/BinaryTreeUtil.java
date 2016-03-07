@@ -13,6 +13,7 @@ import java.util.TreeMap;
 import com.nadeem.app.dsa.support.BinaryTreeNode;
 import com.nadeem.app.dsa.support.MaxSumPath;
 import com.nadeem.app.dsa.support.MutableInteger;
+import com.nadeem.app.dsa.support.MutableValue;
 
 public class BinaryTreeUtil {
 	
@@ -674,6 +675,19 @@ public class BinaryTreeUtil {
 			start ++;			
 		}
 		return -1;
+	}
+
+	public static <T extends Comparable<? super T>> void populateInOrderTraversalOfAllNodes(BinaryTreeNode<T> node) {
+		doPopulateInOrderTraversalOfAllNodes(node, new MutableValue<BinaryTreeNode<T>>(null));
+	}
+
+	private static <T extends Comparable<? super T>>  void doPopulateInOrderTraversalOfAllNodes(BinaryTreeNode<T> node, MutableValue<BinaryTreeNode<T>> next) {
+		if (node != null) {			
+			doPopulateInOrderTraversalOfAllNodes(node.getRight(), next);
+			node.setNext(next.getValue());
+			next.setValue(node);
+			doPopulateInOrderTraversalOfAllNodes(node.getLeft(), next);
+		}
 	}
 
 }

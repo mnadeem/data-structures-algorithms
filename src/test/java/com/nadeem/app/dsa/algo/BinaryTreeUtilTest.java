@@ -6,7 +6,9 @@ import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -326,6 +328,34 @@ public class BinaryTreeUtilTest {
 		int postOrder[] = {4, 5, 2, 6, 3, 1};
 		Integer preOrder[] = BinaryTreeUtil.printPreOrderWithOutConstructingTree(inOrder, postOrder);
 		assertThat(preOrder, equalTo(new Integer[]{1, 2, 4, 5, 3, 6}));
+	}
+
+	@Test
+	public void populateInOrderTraversalOfAllNodesTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+		BinaryTreeUtil.populateInOrderTraversalOfAllNodes(node);
+		
+		Map<Integer, Integer> inOrderSuccessorMapping = new LinkedHashMap<Integer, Integer>();
+		
+		doPopulate(node, inOrderSuccessorMapping);
+		
+		assertThat(inOrderSuccessorMapping.get(4), equalTo(2));
+		assertThat(inOrderSuccessorMapping.get(2), equalTo(5));
+		assertThat(inOrderSuccessorMapping.get(5), equalTo(1));
+		assertThat(inOrderSuccessorMapping.get(1), equalTo(6));
+		assertThat(inOrderSuccessorMapping.get(6), equalTo(3));
+		assertThat(inOrderSuccessorMapping.get(3), equalTo(7));
+		
+	}
+
+	private void doPopulate(BinaryTreeNode<Integer> node, Map<Integer, Integer> inOrderSuccessorMapping) {
+		if (node != null) {
+			doPopulate(node.getLeft(), inOrderSuccessorMapping);
+			if (node.getNext() != null) {				
+				inOrderSuccessorMapping.put(node.getData(), node.getNext().getData());
+			}
+			doPopulate(node.getRight(), inOrderSuccessorMapping);
+		}		
 	}
 
 	private BinaryTreeNode<Integer> buildTree() {
