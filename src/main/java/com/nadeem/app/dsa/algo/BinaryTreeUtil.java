@@ -521,8 +521,40 @@ public class BinaryTreeUtil {
 		
 		populateVerticalSumMap(node.getRight(), hd + 1, map);
 	}
+	
 
-	public static <T extends Comparable<? super T>> void zigZagLevelTravelsal(BinaryTreeNode<T> node) {
+	public static <T extends Comparable<? super T>> List<List<T>> rZigZagTraversal(BinaryTreeNode<T> node) {
+		List<List<T>> result = new ArrayList<List<T>>();
+		List<T> levelOrder;
+		int height = height(node);
+		boolean l2r= true;
+		for (int level = 1; level <= height; level++) {
+			levelOrder = new ArrayList<T>();
+			doRZigZagTraversal(node, level, l2r, levelOrder);
+			result.add(levelOrder);
+			l2r = !l2r;
+		}		
+		return result;
+	}
+
+	private static <T> void doRZigZagTraversal(BinaryTreeNode<T> node, int level, boolean l2r, List<T> levelOrder) {
+		if (node == null) {
+			return ;
+		} if (level == 1) {
+			levelOrder.add(node.getData());
+		} else {
+			if (l2r) {
+				doRZigZagTraversal(node.getLeft(), level - 1, l2r, levelOrder);
+				doRZigZagTraversal(node.getRight(), level - 1, l2r, levelOrder);
+			} else {
+				doRZigZagTraversal(node.getRight(), level - 1, l2r, levelOrder);
+				doRZigZagTraversal(node.getLeft(), level - 1, l2r, levelOrder);
+			}
+		}
+		
+	}
+
+	public static <T extends Comparable<? super T>> void iZigZagLevelTravelsal(BinaryTreeNode<T> node) {
 		if (node == null) {
 			return ;
 		}
