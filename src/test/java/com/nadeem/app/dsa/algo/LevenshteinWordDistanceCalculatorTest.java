@@ -8,11 +8,11 @@ import org.junit.*;
 
 public class LevenshteinWordDistanceCalculatorTest {
 
-	private LevenshteinWordDistanceCalculator calculator;
+	private MELevenshteinWordDistanceCalculator calculator;
 
 	@Before
 	public void doBeforeEachTestCase() {
-		this.calculator = LevenshteinWordDistanceCalculator.DEFAULT;
+		this.calculator = MELevenshteinWordDistanceCalculator.DEFAULT;
 	}
 
 	@Test
