@@ -17,5 +17,25 @@ public class MatrixUtilTest {
 		int longestPathLength = MatrixUtil.longestPath(mat);
 		assertThat(longestPathLength, is(equalTo(4)));
 	}
+	
+	@Test
+	public void countIslandsTest() {
+		int[][] m = { { 1, 1, 0, 0 },
+					  { 0, 0, 0, 1 },
+					  { 0, 0, 1, 1 }
+					};
+		int result = MatrixUtil.numberOfIslands(m);
+		assertThat(result, equalTo(2));
+		
+		m = new int[][]{ {1, 1, 0, 0, 0},
+				  {0, 1, 0, 0, 1},
+				  {0, 0, 0, 1, 1},
+				  {0, 0, 0, 0, 0},
+				  {0, 0, 0, 0, 1}
+				};
+		result = MatrixUtil.numberOfIslands(m);
+		assertThat(result, equalTo(3));
+		
+	}
 
 }

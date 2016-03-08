@@ -39,22 +39,22 @@ public class MELevenshteinWordDistanceCalculator {
 	 * https://en.wikipedia.org/wiki/Levenshtein_distance
 	 */
 	public int calculate(CharSequence s, CharSequence t) {                          
-	    int len0 = s.length() + 1;                                                     
-	    int len1 = t.length() + 1;                                                     
+	    int sourceLength = s.length() + 1;                                                     
+	    int targetLength = t.length() + 1;                                                     
 	                                                                                    
 	    // the array of distances                                                       
-	    int[] cost = new int[len0]; // v0                                                     
-	    int[] newcost = new int[len0];// v1                                                  
+	    int[] cost = new int[sourceLength]; // v0                                                     
+	    int[] newcost = new int[sourceLength];// v1                                                  
 	                                                                                    
 	    // initialize cost (the previous row of distances)
 	    // this row is A[0][i]: edit distance for an empty s
 	    // the distance is just the number of characters to delete from t
-	    for (int i = 0; i < len0; i++) cost[i] = i;                                     
+	    for (int i = 0; i < sourceLength; i++) cost[i] = i;                                     
 	                                                                                    
 	    // dynamically computing the array of distances                                  
 	                                                                                    
 	    // transformation cost for each letter in s1                                    
-	    for (int j = 1; j < len1; j++) {   
+	    for (int j = 1; j < targetLength; j++) {   
 	    	
 	    	// calculate v1 (current row distances) from the previous row v0
 	        // first element of v1 is A[i+1][0]
@@ -62,7 +62,7 @@ public class MELevenshteinWordDistanceCalculator {
 	        newcost[0] = j;                                                             
 	                                                                                    
 	        // transformation cost for each letter in s0                                
-	        for(int i = 1; i < len0; i++) {                                             
+	        for(int i = 1; i < sourceLength; i++) {                                             
 	            // matching current letters in both strings                             
 	            // keep minimum cost 
 	            newcost[i] = minimumCost(s, t, cost, newcost, j, i);
@@ -73,7 +73,7 @@ public class MELevenshteinWordDistanceCalculator {
 	    }                                                                               
 	                                                                                    
 	    // the distance is the cost for transforming all letters in both strings        
-	    return cost[len0 - 1];                                                          
+	    return cost[sourceLength - 1];                                                          
 	}
 
 	private int minimumCost(CharSequence s, CharSequence t, int[] cost, int[] newcost, int j, int i) {
