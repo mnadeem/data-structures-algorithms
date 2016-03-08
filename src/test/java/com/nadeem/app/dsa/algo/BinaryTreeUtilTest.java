@@ -153,6 +153,17 @@ public class BinaryTreeUtilTest {
 	}
 	
 	@Test
+	public void rLevelOrderTraversalTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+		List <List<Integer>> levelOrder = BinaryTreeUtil.<Integer>rLevelOrder(node);
+		
+		assertThat(levelOrder.size(), is(3));
+		assertThat(levelOrder.get(0).toArray(new Integer[0]), equalTo(new Integer[]{1}));
+		assertThat(levelOrder.get(1).toArray(new Integer[0]), equalTo(new Integer[]{2,3}));
+		assertThat(levelOrder.get(2).toArray(new Integer[0]), equalTo(new Integer[]{4,5,6,7}));
+	}
+	
+	@Test
 	public void iLevelOrderTraversalTest() {
 		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
 

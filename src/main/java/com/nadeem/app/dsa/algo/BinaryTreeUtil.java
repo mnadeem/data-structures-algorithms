@@ -275,13 +275,38 @@ public class BinaryTreeUtil {
 		}		
 	}
 
-	public static int height(BinaryTreeNode<Integer> node) {
+	public static  <T extends Comparable<? super T>> int height(BinaryTreeNode<T> node) {
 		if (node == null) {
 			return 0;
 		}
 		int lh = height(node.getLeft());
 		int rh = height(node.getRight());
 		return Math.max(lh, rh) + 1;
+	}
+	
+
+	public static  <T extends Comparable<? super T>> List<List<T>> rLevelOrder(BinaryTreeNode<T> node) {
+		List<List<T>> result = new ArrayList<List<T>>();
+		List<T> levelOrder;
+		int height = height(node);
+		for (int level = 1; level <= height; level++) {
+			levelOrder = new ArrayList<T>();
+			doRLevelOrder(node, level, levelOrder);
+			result.add(levelOrder);			
+		}
+		return result;
+	}
+
+	private static <T> void doRLevelOrder(BinaryTreeNode<T> node, int level, List<T> levelOrder) {
+		if (node == null) {
+			return ;
+		}
+		if (level == 1) {
+			levelOrder.add(node.getData());
+		}
+		doRLevelOrder(node.getLeft(), level - 1, levelOrder);
+		doRLevelOrder(node.getRight(), level - 1, levelOrder);
+		
 	}
 
 	public static <T extends Comparable<? super T>> List<List<T>> levelOrder(BinaryTreeNode<T> root) {
