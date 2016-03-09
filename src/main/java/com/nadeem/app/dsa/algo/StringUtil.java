@@ -99,4 +99,22 @@ public class StringUtil {
 		}
 		return result;
 	}
+
+	public static List<String> permutations(String input) {
+		List<String> result = new ArrayList<String>();
+		findPermutations("", input, result);
+		return result;
+	}
+
+	private static void findPermutations(String prefix, String input, List<String> result) {
+		int length = input.length();
+		if (length == 0 && prefix.length() > 0) {
+			result.add(prefix);
+		} else {
+			for (int i = 0; i < length; i++) {
+				findPermutations(prefix+ input.charAt(i), input.substring(0, i) + input.substring(i+1), result);
+			}
+		}
+		
+	}
 }

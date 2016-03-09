@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -46,5 +47,14 @@ public final class StringUtilTest {
 		
 		result = StringUtil.lexicogrSmallestPermutation("IIID");
 		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{1, 2, 3, 5, 4}));
+	}
+
+	@Test 
+	public void permutationsTest() {
+		List<String> permutations = StringUtil.permutations("AB");
+		assertThat(permutations, equalTo(Arrays.asList("AB", "BA")));
+		
+		permutations = StringUtil.permutations("ABC");
+		assertThat(permutations, equalTo(Arrays.asList("ABC", "ACB", "BAC","BCA","CAB", "CBA")));
 	}
 }
