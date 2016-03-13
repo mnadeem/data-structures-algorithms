@@ -468,5 +468,20 @@ public class ArrayUtilsTest {
         result = ArrayUtils.commonElementsInNSortedArrays(arr);
       	assertThat(result, equalTo(new Integer[]{23, 566}));
 	}
+	
+	@Test
+	public void findMissingNumberInSortedSequenceTest() {
+		int[] array = new int[]{3, 4, 5, 6, 7, 8, 10};
+		int result = ArrayUtils.findMissingInSortedSeq(array, 0, array.length - 1);
+		assertThat(result, equalTo(9));
+		
+		/*array = new int[]{1, 3, 4, 5, 6, 7, 8, 9, 10};
+		result = ArrayUtils.findMissingInSortedSeq(array, 0, array.length - 1);
+		assertThat(result, equalTo(2));*/
+		
+		/*array = new int[]{2, 3, 4, 5, 6, 7, 8, 9, 10};
+		result = ArrayUtils.findMissingInSortedSeq(array, 0, array.length - 1);
+		assertThat(result, equalTo(1));*/
+	}
 
 }

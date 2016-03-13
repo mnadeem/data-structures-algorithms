@@ -1,9 +1,7 @@
-package com.nadeem.app.dsa.algo.impl;
+package com.nadeem.app.dsa.algo;
 
 import java.util.Deque;
 import java.util.LinkedList;
-
-import com.nadeem.app.dsa.algo.ExpressionConverter;
 
 public class PostfixToInfixConverter implements ExpressionConverter {
 

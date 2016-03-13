@@ -922,4 +922,14 @@ public final class ArrayUtils {
 
 		return result.toArray(new Integer[0]);
 	}
+	
+	public static int findMissingInSortedSeq(int[] intArray, int left, int right) {
+	    if (right == left + 1) return intArray[right] - 1;
+	    int pivot = left + (right - left) / 2;
+	    if (intArray[pivot] == intArray[left] + (intArray[right] - intArray[left]) / 2 - (right - left) % 2)
+	        return findMissingInSortedSeq(intArray, pivot, right);
+	    else 
+	        return findMissingInSortedSeq(intArray, left, pivot);
+	}
+
 }

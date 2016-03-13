@@ -1,16 +1,17 @@
-package com.nadeem.app.dsa.adt;
+package com.nadeem.app.dsa.algo.stream;
 
 import org.junit.Test;
+
+import com.nadeem.app.dsa.algo.stream.RunningFirstNonRepeatingCharacter;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
-
-import com.nadeem.app.dsa.adt.impl.CharacterStream;
 
 import rx.Observable;
 import rx.Observable.OnSubscribe;
 import rx.Subscriber;
 
-public class CharacterStreamTest {
+public class RunningFirstNonRepeatingCharacterTest {
 
 	@Test
 	public void firstNonRepeatingCharInAStreamTest() {
@@ -33,7 +34,7 @@ public class CharacterStreamTest {
 			}			
 		});
 		
-		CharacterStream charStream = new CharacterStream(observable);
+		RunningFirstNonRepeatingCharacter charStream = new RunningFirstNonRepeatingCharacter(observable);
 		assertThat(charStream.firstNonRepeating(), equalTo('Z'));
 	}
 }

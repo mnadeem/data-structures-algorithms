@@ -747,4 +747,45 @@ public class BinaryTreeUtil {
 		}
 	}
 
+	public static <T> void populateRightNeighbour(BinaryTreeNode<T> node) {
+		if (node == null) {
+			return ;
+		}
+
+		if (node.hasLeftChild()) {
+			if (node.hasRightChild()) {
+				node.getLeft().setNext(node.getRight());
+			} else {
+				BinaryTreeNode<T> parentNeighbour = node.getNext();
+				while (parentNeighbour != null) {
+					if (parentNeighbour.hasLeftChild()) {
+						node.getLeft().setNext(parentNeighbour.getLeft());
+						break;
+					} else if (parentNeighbour.hasRightChild()) {
+						node.getLeft().setNext(parentNeighbour.getRight());
+						break;
+					} else {
+						parentNeighbour = parentNeighbour.getNext();
+					}					
+				}
+			}
+		}
+		
+		if (node.hasRightChild()) {
+			BinaryTreeNode<T> parentNeighbour = node.getNext();
+			while (parentNeighbour != null) {
+				if (parentNeighbour.hasLeftChild()) {
+					node.getRight().setNext(parentNeighbour.getLeft());
+					break;
+				} else if (parentNeighbour.hasRightChild()) {
+					node.getRight().setNext(parentNeighbour.getRight());
+					break;
+				} else {
+					parentNeighbour = parentNeighbour.getNext();
+				}					
+			}
+		}
+		populateRightNeighbour(node.getRight());
+		populateRightNeighbour(node.getLeft());
+	}
 }

@@ -1,10 +1,11 @@
-package com.nadeem.app.dsa.algo.impl;
+package com.nadeem.app.dsa.algo;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
 import com.nadeem.app.dsa.algo.ExpressionConverter;
+import com.nadeem.app.dsa.algo.PostfixToInfixConverter;
 
 public class PostfixToInfixConverterTest {
 	

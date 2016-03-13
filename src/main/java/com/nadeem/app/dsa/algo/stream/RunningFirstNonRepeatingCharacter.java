@@ -1,11 +1,11 @@
-package com.nadeem.app.dsa.adt.impl;
+package com.nadeem.app.dsa.algo.stream;
 
 import java.util.BitSet;
 
 import rx.Observable;
 import rx.functions.Action1;
 
-public class CharacterStream {
+public class RunningFirstNonRepeatingCharacter {
 	
 	private static int  MAX_CHAR =  256;
 
@@ -17,7 +17,7 @@ public class CharacterStream {
 	private Node<Character>[] inDLL;
 
 	@SuppressWarnings("unchecked")
-	public CharacterStream(final Observable<Character> inputStream) {
+	public RunningFirstNonRepeatingCharacter(final Observable<Character> inputStream) {
 		
 		repeated = new BitSet(MAX_CHAR);
 		inDLL = new Node[MAX_CHAR];

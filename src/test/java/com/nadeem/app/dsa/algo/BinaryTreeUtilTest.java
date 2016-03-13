@@ -369,6 +369,13 @@ public class BinaryTreeUtilTest {
 		assertThat(inOrderSuccessorMapping.get(3), equalTo(7));
 		
 	}
+	
+	@Test
+	public void populateRightNeighbourTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+		BinaryTreeUtil.populateRightNeighbour(node);
+		
+	}
 
 	private void doPopulate(BinaryTreeNode<Integer> node, Map<Integer, Integer> inOrderSuccessorMapping) {
 		if (node != null) {
