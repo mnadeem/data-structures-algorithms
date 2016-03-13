@@ -475,13 +475,19 @@ public class ArrayUtilsTest {
 		int result = ArrayUtils.findMissingInSortedSeq(array, 0, array.length - 1);
 		assertThat(result, equalTo(9));
 		
-		/*array = new int[]{1, 3, 4, 5, 6, 7, 8, 9, 10};
+		array = new int[]{1, 3, 4, 5, 6, 7, 8, 9, 10};
 		result = ArrayUtils.findMissingInSortedSeq(array, 0, array.length - 1);
-		assertThat(result, equalTo(2));*/
+		assertThat(result, equalTo(2));
 		
 		/*array = new int[]{2, 3, 4, 5, 6, 7, 8, 9, 10};
 		result = ArrayUtils.findMissingInSortedSeq(array, 0, array.length - 1);
 		assertThat(result, equalTo(1));*/
 	}
-
+	
+	@Test
+	public void tranisitionPointOf0And1Test() {
+		int[] array = new int[] {0,0,0,0,0,1,1,1};
+		int result = ArrayUtils.transitionPoint(array);
+		assertThat(result, equalTo(5));
+	}
 }

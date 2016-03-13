@@ -932,4 +932,30 @@ public final class ArrayUtils {
 	        return findMissingInSortedSeq(intArray, left, pivot);
 	}
 
+	public static int transitionPoint(int[] array) {
+		return findTransitionPoint(array, 0 , array.length - 1);
+	}
+
+	private static int findTransitionPoint(int[] array, int startIndex, int endIndex) {
+		int start = startIndex;
+		int end = startIndex + 1;
+		while (end < endIndex && array[end] != 1) {
+			start = end;
+			end <<= 1;			
+		}
+		int mid = (start + end) / 2;
+		
+		while(start < end && array[start + 1] != 1) {
+			if (array[mid] == 0) {
+				start = mid + 1;
+			} else {
+				end = mid;
+			}
+		}
+		if (start == end) {
+			return -1;
+		}
+		
+		return start + 1;
+	}
 }
