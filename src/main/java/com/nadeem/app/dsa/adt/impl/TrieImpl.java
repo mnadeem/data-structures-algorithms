@@ -1,15 +1,16 @@
 package com.nadeem.app.dsa.adt.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.nadeem.app.dsa.adt.Trie;
 
 public class TrieImpl implements Trie {
-	
+
 	private Node root;
-	private int size = 0;
-	
+
 	public TrieImpl() {
 		this.root = new Node();
 	}
@@ -24,10 +25,14 @@ public class TrieImpl implements Trie {
 	public void insert(String word) {
 		this.root.add(word);
 	}
-	
+
 	public int frequency(String word) {
 		Node  node = root.search(word);
 		return node != null ? node.frequency :  0;
+	}
+	
+	public List<TrieEntry> getAll() {
+		return this.root.getWords();
 	}
 
 	@Override
@@ -35,14 +40,10 @@ public class TrieImpl implements Trie {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@Override
-	public int size() {
-		return size;
-	}
 	
 	private static class Node {
 		private Character value;
+		private Node parent;
 		private Map<Character, Node> children;
 		private boolean isWord;
 		private int frequency;
@@ -52,9 +53,10 @@ public class TrieImpl implements Trie {
 			this.isWord = false;
 		}
 		
-		public Node (Character chr) {
+		public Node (Character chr, Node parent) {
 			this();
 			this.value = chr;
+			this.parent = parent;
 		}
 
 		Character getValue() {
@@ -67,7 +69,7 @@ public class TrieImpl implements Trie {
 		void add(String word) {
 			char charAt = word.charAt(0);
 			if (!this.children.containsKey(charAt)) {
-				Node temp = new Node(charAt);
+				Node temp = new Node(charAt, this);
 				this.children.put(charAt, temp);
 			}
 
@@ -78,6 +80,7 @@ public class TrieImpl implements Trie {
 				this.get(charAt).frequency++;				
 			}
 		}
+
 		Node search(String word) {
 			Node node = this;
 			for (int i = 0; i < word.length(); i++) {
@@ -88,9 +91,24 @@ public class TrieImpl implements Trie {
 			return node;
 		}
 
+		List<TrieEntry> getWords() {
+			List<TrieEntry> list = new ArrayList<TrieEntry>();
+
+			if (isWord) {
+				list.add(new TrieEntry(toString(), this.frequency));
+			}
+
+			if (!this.children.isEmpty()) {
+				for (Node node : this.children.values()) {
+					list.addAll(node.getWords());
+				}
+			}
+			return list;
+		}
+
 		@Override
-		public String toString() {
-			return String.valueOf(getValue());
+		public String toString() {			
+			return this.parent == null ? "" : parent.toString()+ String.valueOf(getValue());
 		}
 	}
 }

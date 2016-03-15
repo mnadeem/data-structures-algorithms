@@ -8,7 +8,6 @@ public class RunningMedian {
 	PriorityQueue<Integer> lower = new PriorityQueue<Integer>(10, new MaxHeapComparator());
 	PriorityQueue<Integer> higher = new PriorityQueue<Integer>();
 
-
 	public void insert(Integer data) {
 		if (lower.isEmpty() && higher.isEmpty()) {
 			lower.add(data);
