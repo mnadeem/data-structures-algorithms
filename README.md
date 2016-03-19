@@ -1,4 +1,4 @@
 data-structures-algorithms
 ==========================
 
-This project will explore data structures and algorithms in Java
+This project will explore data structures and algorithms using Java
