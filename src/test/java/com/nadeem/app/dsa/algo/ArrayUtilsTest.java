@@ -469,4 +469,13 @@ public class ArrayUtilsTest {
 		assertThat(maxmin.getMin(), is(1));
 		assertThat(maxmin.getMax(), is(8));		
 	}
+	
+	@Test
+	public void connectRopesWithMinCostTest() {
+		int minCost = ArrayUtils.connectRopesWithMinCost(new int[]{4,3,2,6});
+		assertThat(minCost, equalTo(29));
+		
+		minCost = ArrayUtils.connectRopesWithMinCost(new int[]{3, 1, 2});
+		assertThat(minCost, equalTo(9));
+	}
 }

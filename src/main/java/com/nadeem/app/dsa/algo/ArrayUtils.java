@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -897,5 +898,21 @@ public final class ArrayUtils {
 			return min;
 		}
 
+	}
+
+	public static int connectRopesWithMinCost(int[] costs) {
+		PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>();
+		for (int i = 0; i < costs.length; i++) {
+			minHeap.add(costs[i]);
+		}
+		int minCost = 0;
+		while(minHeap.size() > 1) {
+			int first = minHeap.poll();
+			int second = minHeap.poll();
+			int combined = first + second;
+			minCost += combined;
+			minHeap.add(combined);
+		}
+		return minCost;
 	}
 }
