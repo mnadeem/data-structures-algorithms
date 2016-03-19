@@ -37,5 +37,37 @@ public class MatrixUtilTest {
 		assertThat(result, equalTo(3));
 		
 	}
+	
+	@Test
+	public void printMatrixInSpiralOrderTest() {
+		Integer[][] matrix = new Integer[][] { { 1, 2, 3 ,4}, 
+										{ 5,6,7,8}, 
+										{ 9,10,11,12 } };
+										MatrixUtil.<Integer>printMatrixInSpiralOrder(matrix);
+		
+	}
+	
+	@Test
+	public void rotateMatrixBy90DegreesTest() {
+		Integer[][] matrix = new Integer[][] { { 1, 2, 3 }, 
+												{ 4,5,6}, 
+												{ 7,8,9} };
+		Integer[][] result = new Integer[][] { { 7,4,1}, 
+												{ 8,5,2}, 
+												{ 9,6,3} };										
+												
+												MatrixUtil.<Integer>roateMatrixBy90Degrees(matrix);
+		assertThat(matrix, equalTo(result));
+	}
+
+	@Test
+	public void countNegativesInSortedMatrix() {
+		Integer[][] matrix = new Integer[][] { { -2, -1, 3 ,4}, 
+											   { -5,6,7,8}, 
+											   { -9,-8,11,12 } };
+											   
+		int count = MatrixUtil.countNegativesInSortedMatrix(matrix);
+		assertThat(count, equalTo(5));
+	}
 
 }
