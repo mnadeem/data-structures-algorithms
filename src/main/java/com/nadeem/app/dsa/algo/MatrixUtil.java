@@ -174,16 +174,18 @@ public class MatrixUtil {
 	}
 
 	public static int countNegativesInSortedMatrix(Integer[][] matrix) {
-		int rows = matrix.length;
+		int row = 0;
+		int column =  matrix[row].length - 1;
 		int count = 0;
-		for (int row = 0; row < rows; row++) {
-			for (int column = matrix[row].length - 1; column >= 0; column--) {
-				if (matrix[row][column] < 0) {
-					count = count + column + 1;
-					break;
-				}
+		 while (row < matrix.length && column >= 0) {
+			 if (matrix[row][column] < 0) {
+				count = count + column + 1;
+				row ++;
+			} else {
+				column --;
 			}
-		}		
+		 }
+	
 		return count;
 	}
 

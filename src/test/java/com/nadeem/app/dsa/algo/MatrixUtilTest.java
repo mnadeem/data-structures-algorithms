@@ -62,12 +62,12 @@ public class MatrixUtilTest {
 
 	@Test
 	public void countNegativesInSortedMatrix() {
-		Integer[][] matrix = new Integer[][] { { -2, -1, 3 ,4}, 
-											   { -5,6,7,8}, 
-											   { -9,-8,11,12 } };
+		Integer[][] matrix = new Integer[][] { { -3, -2, -1,  1}, 
+											   { -2,  2,  3,  4}, 
+											   { 4,   5,  7,  8 } };
 											   
 		int count = MatrixUtil.countNegativesInSortedMatrix(matrix);
-		assertThat(count, equalTo(5));
+		assertThat(count, equalTo(4));
 	}
 
 }
