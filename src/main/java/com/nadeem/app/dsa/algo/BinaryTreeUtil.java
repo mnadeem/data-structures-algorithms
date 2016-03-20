@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -787,5 +788,25 @@ public class BinaryTreeUtil {
 		}
 		populateRightNeighbour(node.getRight());
 		populateRightNeighbour(node.getLeft());
+	}
+
+	public static List<Integer> diagonalSum(BinaryTreeNode<Integer> node) {
+		List<Integer> result = new ArrayList<Integer>();
+		HashMap<Integer, Integer> sumMap = new HashMap<Integer, Integer>();
+		doFindDiagonalSum(node, 0, sumMap);
+		result.addAll(sumMap.values());
+		return result;
+	}
+
+	private static void doFindDiagonalSum(BinaryTreeNode<Integer> node, int distance, HashMap<Integer, Integer> sumMap) {
+		if (node == null) {
+			return ;
+		}
+		doFindDiagonalSum(node.getLeft(), distance + 1, sumMap);
+		int prevSum = sumMap.get(distance) == null ? 0 : sumMap.get(distance);
+		sumMap.put(distance, prevSum + node.getData());
+		
+		doFindDiagonalSum(node.getRight(), distance, sumMap);
+		
 	}
 }
