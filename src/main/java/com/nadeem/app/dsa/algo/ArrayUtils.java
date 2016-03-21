@@ -915,4 +915,57 @@ public final class ArrayUtils {
 		}
 		return minCost;
 	}
+	//http://www.geeksforgeeks.org/minimum-number-of-swaps-required-for-arranging-pairs-adjacent-to-each-other/
+	public static int minSwapToBringPairsAdjecent(Integer[] arr, Integer[] pairs) {
+		Integer[] index = new Integer[arr.length];
+		for (int i = 1; i < index.length; i++) {
+			index[i] = i;
+		}
+		
+		return doFindMinSwapsToBringPairsAdjecent(arr, pairs, index, 1, arr.length - 1);
+	}
+
+	private static int doFindMinSwapsToBringPairsAdjecent(Integer[] arr, Integer[] pairs, Integer[] index, int start, int end) {
+		if (start > end) {
+			return 0;
+		}
+		
+		if (pairs[arr[start]] == arr[start + 1]) {
+			return doFindMinSwapsToBringPairsAdjecent(arr, pairs, index, start + 2, end);
+		}
+		
+		int secondIndex = start + 1;
+		int secondElement = arr[secondIndex];
+		
+		int firstElePairedEleIndex = index[pairs[arr[start]]];
+		int firstElePairedElement = arr[firstElePairedEleIndex];
+		
+		swap(arr, secondIndex, firstElePairedEleIndex);
+		updateIndex(index, secondElement, firstElePairedEleIndex, firstElePairedElement, secondIndex);
+		
+		int a = doFindMinSwapsToBringPairsAdjecent(arr, pairs, index, start + 2, end);
+		swap(arr, firstElePairedEleIndex, secondIndex);
+		updateIndex(index, firstElePairedElement, firstElePairedEleIndex, secondElement, secondIndex);
+		
+		int firstIndex = start;
+		int firstElement = arr[firstIndex];
+		int secondPairedEleIndex = index[pairs[arr[start + 1]]];
+		int secondPairedElement = arr[secondPairedEleIndex];
+		
+		swap(arr, firstIndex, secondPairedEleIndex);
+		updateIndex(index, firstElement, secondPairedEleIndex, secondPairedElement, firstIndex);
+		
+		int b = doFindMinSwapsToBringPairsAdjecent(arr, pairs, index, start + 2, end);
+		
+		swap(arr, secondPairedEleIndex, firstIndex);
+		updateIndex(index, secondPairedElement, secondPairedEleIndex, firstElement, firstIndex);
+		
+		return 1 + Math.min(a, b);
+	}
+
+	private static void updateIndex(Integer[] index, int secondElement, int firstElePairedEleIndex,
+			int firstElePairedElement, int secondIndex) {
+		index[secondElement] = firstElePairedEleIndex;
+		index[firstElePairedElement] = secondIndex;		
+	}
 }

@@ -478,4 +478,20 @@ public class ArrayUtilsTest {
 		minCost = ArrayUtils.connectRopesWithMinCost(new int[]{3, 1, 2});
 		assertThat(minCost, equalTo(9));
 	}
+	
+	@Test
+	public void minSwapToBringPairsAdjecentTest() {
+		// For simplicity, it is assumed that arr[0] is
+	    // not used.  The elements from index 1 to n are
+	    // only valid elements
+	    Integer arr[] = {0, 3, 5, 6, 4, 1, 2};
+	 
+	    // if (a, b) is pair than we have assigned elements
+	    // in array such that pairs[a] = b and pairs[b] = a
+	    //{1->3, 2->6, 4->5}  // 1 is partner of 3 and so on
+	    Integer pairs[] = {0, 3, 6, 1, 5, 4, 2};
+	    
+	    int swapsRequired = ArrayUtils.minSwapToBringPairsAdjecent(arr, pairs);
+	    assertThat(swapsRequired, equalTo(2));
+	}
 }
