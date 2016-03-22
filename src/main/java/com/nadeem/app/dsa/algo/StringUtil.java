@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class StringUtil {
 
@@ -116,5 +117,23 @@ public class StringUtil {
 			}
 		}
 		
+	}
+
+	public static String wordBreak(String input, Set<String> dictionary) {
+		if (dictionary.contains(input)) {
+			return input;
+		}
+		int len = input.length();
+		for (int i = 1; i < len; i++) {
+			String prefix = input.substring(0, i);
+			if (dictionary.contains(prefix)) {
+				String suffix = input.substring(i, len);
+				String segSuffix = wordBreak(suffix, dictionary);
+				if (segSuffix != null) {
+					return prefix + " " + segSuffix;
+				}
+			}
+		}
+		return null;
 	}
 }

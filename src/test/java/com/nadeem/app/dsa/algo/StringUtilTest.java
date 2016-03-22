@@ -6,7 +6,9 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -56,5 +58,20 @@ public final class StringUtilTest {
 		
 		permutations = StringUtil.permutations("ABC");
 		assertThat(permutations, equalTo(Arrays.asList("ABC", "ACB", "BAC","BCA","CAB", "CBA")));
+	}
+	
+	@Test
+	public void wordBreakTest() {
+		String result = StringUtil.wordBreak("applepieball", dictionary());
+		assertThat(result, equalTo("apple pie ball"));
+	}
+
+
+	private Set<String> dictionary() {
+		Set<String> dict = new HashSet<String>();
+		dict.add("apple");
+		dict.add("pie");
+		dict.add("ball");
+		return dict;
 	}
 }
