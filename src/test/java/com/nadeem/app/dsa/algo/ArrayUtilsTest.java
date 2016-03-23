@@ -494,4 +494,13 @@ public class ArrayUtilsTest {
 	    int swapsRequired = ArrayUtils.minSwapToBringPairsAdjecent(arr, pairs);
 	    assertThat(swapsRequired, equalTo(2));
 	}
+
+	@Test
+	public void maxsInWindowsOfSizeKTest() {
+		Integer[] result = ArrayUtils.maxsInEveryWindows(new int[]{1, 2, 3, 1, 4, 5, 2, 3, 6}, 3);
+		assertThat(result, equalTo(new Integer[]{3, 3, 4, 5, 5, 5, 6}));
+		
+		result = ArrayUtils.maxsInEveryWindows(new int[]{8, 5, 10, 7, 9, 4, 15, 12, 90, 13}, 4);
+		assertThat(result, equalTo(new Integer[]{10, 10, 10, 15, 15, 90, 90}));
+	}
 }
