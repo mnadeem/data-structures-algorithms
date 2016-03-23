@@ -503,4 +503,11 @@ public class ArrayUtilsTest {
 		result = ArrayUtils.maxsInEveryWindows(new int[]{8, 5, 10, 7, 9, 4, 15, 12, 90, 13}, 4);
 		assertThat(result, equalTo(new Integer[]{10, 10, 10, 15, 15, 90, 90}));
 	}
+	
+	@Test
+	public void maxSumOfElementWithIndexAfterRotationsTest() {
+		int arr[] = {10, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+		int result = ArrayUtils.maxSumOfElementsWithIndexAfterRotations(arr);
+		assertThat(result, equalTo(330));
+	}
 }

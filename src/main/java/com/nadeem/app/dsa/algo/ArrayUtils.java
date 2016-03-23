@@ -1004,4 +1004,25 @@ public final class ArrayUtils {
 
 		return result.toArray(new Integer[0]);
 	}
+
+	public static int maxSumOfElementsWithIndexAfterRotations(int[] arr) {
+		int arraySum = 0;
+		int sumIntoIndex = 0;
+		int maxSoFar = 0;
+		int n = arr.length;
+		
+		for (int i = 0; i < n; i++) {
+			arraySum = arraySum + arr[i];
+			sumIntoIndex = sumIntoIndex + arr[i] * i;
+		}
+		maxSoFar = sumIntoIndex;
+		for (int i = 1; i < n; i++) {
+			sumIntoIndex = sumIntoIndex + arraySum - n * arr[n - i];
+			if (sumIntoIndex > maxSoFar) {
+				maxSoFar = sumIntoIndex;
+			}
+		}
+		
+		return maxSoFar;
+	}
 }
