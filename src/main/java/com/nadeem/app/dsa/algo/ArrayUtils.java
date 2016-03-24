@@ -1025,4 +1025,26 @@ public final class ArrayUtils {
 		
 		return maxSoFar;
 	}
+	
+	//http://www.ideserve.co.in/learn/set-partition-problem-recursion
+	public static boolean rTwoSubSetsWithEqualSumExists(int[] set) {
+		int sum = 0;
+		for (int i = 0; i < set.length; i++) {
+			sum += set[i];
+		}
+		if (sum % 2 !=0) {
+			return false;
+		}
+		return partitionSet(sum/2, 0, set);
+	}
+
+	private static boolean partitionSet(int sum, int currentIndex, int[] set) {
+		if (sum == 0) {
+			return true;
+		}
+		if (currentIndex == set.length - 1) {
+			return false;
+		}
+		return partitionSet(sum - set[currentIndex], currentIndex + 1, set) || partitionSet(sum, currentIndex + 1, set);
+	}
 }

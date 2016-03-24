@@ -510,4 +510,11 @@ public class ArrayUtilsTest {
 		int result = ArrayUtils.maxSumOfElementsWithIndexAfterRotations(arr);
 		assertThat(result, equalTo(330));
 	}
+	
+	@Test
+	public void rTwoSubSetsWithEqualSumTest() {
+		int set[] = {1, 5, 11, 5};
+		boolean result = ArrayUtils.rTwoSubSetsWithEqualSumExists(set);
+		assertThat(result, equalTo(true));
+	}
 }
