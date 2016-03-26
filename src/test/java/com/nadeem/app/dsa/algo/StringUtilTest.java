@@ -74,4 +74,16 @@ public final class StringUtilTest {
 		dict.add("ball");
 		return dict;
 	}
+	
+	@Test
+	public void shortestSubstringContainingAllCharsTest() {
+		String result = StringUtil.shortestSubstrContainingAllChars("acbbaca", "aba");
+		assertThat(result, equalTo("baca"));
+		
+		result = StringUtil.shortestSubstrContainingAllChars("acbbADOBECODEBANCaca", "ABC");
+		assertThat(result, equalTo("BANC"));
+		
+		result = StringUtil.shortestSubstrContainingAllChars("this is a test string", "tist");
+		assertThat(result, equalTo("t stri"));
+	}
 }

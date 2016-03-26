@@ -1027,6 +1027,7 @@ public final class ArrayUtils {
 	}
 	
 	//http://www.ideserve.co.in/learn/set-partition-problem-recursion
+	//http://www.cs.cornell.edu/~wdtseng/icpc/notes/dp3.pdf
 	public static boolean rTwoSubSetsWithEqualSumExists(int[] set) {
 		int sum = 0;
 		for (int i = 0; i < set.length; i++) {
