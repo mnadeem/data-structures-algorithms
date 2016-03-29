@@ -59,7 +59,6 @@ public class BinarySearchTree <T extends Comparable<? super T>> {
 	}
 
 	public static<U extends Comparable<? super U>> BinarySearchTree<U> fromPreAndNodeType(U[] preorder, char[] nodeType) {
-		// TODO Auto-generated method stub
 		return new BinarySearchTree<U>(doConstructFromPreAndNodeType(preorder, new Index(), nodeType));
 	}
 
