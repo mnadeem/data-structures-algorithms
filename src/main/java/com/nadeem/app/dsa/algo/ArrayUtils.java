@@ -1,7 +1,5 @@
 package com.nadeem.app.dsa.algo;
 
-import java.awt.Point;
-import java.io.PrintStream;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +12,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import com.nadeem.app.dsa.adt.impl.ArrayHeap;
-import com.nadeem.app.dsa.support.MutableInteger;
 
 public final class ArrayUtils {
 	private static final Logger LOGGER = Logger.getLogger(ArrayUtils.class.getName());
@@ -331,7 +328,7 @@ public final class ArrayUtils {
 	}
 
 	
-
+	// http://stackoverflow.com/a/9368702/1709793
 	public static int nextHigherNumber(int number) {
 		Integer[] array = convertToArray(number);
 		int pivotIndex = pivotMaxIndex(array);
@@ -340,6 +337,25 @@ public final class ArrayUtils {
 		swap(array, digitInFirstSequence, lowerDigitIndexInSecondSequence);
 		doRercursiveQuickSort(array, pivotIndex, array.length - 1);
 		return arrayToInteger(array);
+	}
+
+	public static Integer[] convertToArray(int number) {
+	    int i = 0;
+	    int length = (int) Math.log10(number);
+	    int divisor = (int) Math.pow(10, length);
+	    Integer temp[] = new Integer[length + 1];
+
+	    while (number != 0) {
+	        temp[i] = number / divisor;
+	        if (i < length) {
+	            ++i;
+	        }
+	        number = number % divisor;
+	        if (i != 0) {
+	            divisor = divisor / 10;
+	        }
+	    }
+	    return temp;
 	}
 
 	private static int pivotMaxIndex(Integer[] array) {
@@ -365,24 +381,6 @@ public final class ArrayUtils {
 		return lowerMaxIndex;
 	}
 
-	public static Integer[] convertToArray(int number) {
-	    int i = 0;
-	    int length = (int) Math.log10(number);
-	    int divisor = (int) Math.pow(10, length);
-	    Integer temp[] = new Integer[length + 1];
-
-	    while (number != 0) {
-	        temp[i] = number / divisor;
-	        if (i < length) {
-	            ++i;
-	        }
-	        number = number % divisor;
-	        if (i != 0) {
-	            divisor = divisor / 10;
-	        }
-	    }
-	    return temp;
-	}
 	public static int arrayToInteger(Integer[] array) {
 		int number = 0;
 		for (int i = 0; i < array.length; i++) {
@@ -469,7 +467,7 @@ public final class ArrayUtils {
 		
 	}
 
-	public static Integer[] nextGreaterElements(Integer[] items, PrintStream stream) {
+	public static Integer[] nextGreaterElements(Integer[] items) {
 		Integer[] result = new Integer[items.length];
 		Deque<NextGenItem> stack = new ArrayDeque<NextGenItem>(items.length);
 		stack.push(new NextGenItem(items[0], 0));
@@ -477,16 +475,14 @@ public final class ArrayUtils {
 			while (!stack.isEmpty() && stack.peek().element < items[i]) {
 				NextGenItem nextGen = stack.pop();
 				result[nextGen.index] = items[i];
-				//stream.println(String.format("Next Greater Element of %d is %d", nextGen.element, items[i]));
 			}
 			stack.push(new NextGenItem(items[i], i));
 		}
 		while (!stack.isEmpty()) {
 			NextGenItem nextGen = stack.pop();
 			result[nextGen.index] = null;
-			//stream.println(String.format("No Next Greater Element for  %d ", stack.pop()));			
 		}
-		
+
 		return result;
 	}
 	
@@ -517,8 +513,9 @@ public final class ArrayUtils {
 		for (int i = elements.length - 1; i >=0; i--) {
 			if (set.contains(elements[i])) {
 				index = i;
+			} else {
+				set.add(elements[i]);
 			}
-			set.add(elements[i]);
 		}
 		if (index != -1) {
 			return elements[index];
@@ -579,16 +576,16 @@ public final class ArrayUtils {
 		for (int i = 0; i < doBuy.length; i++) {
 			doBuy[i] = 1; //1 for buy, 0 for sell
 		}
-		int maxProfitSoFar = 0;
+		int maxSellingPrice = 0;
 		int profit = 0;
 		for (int i = stockValues.length - 1; i >=0; i--) {
-			if (maxProfitSoFar < stockValues[i]) {
+			if (maxSellingPrice < stockValues[i]) {
 				doBuy[i] = 0;
-				maxProfitSoFar = stockValues[i];
+				maxSellingPrice = stockValues[i];
 			}
-			profit += maxProfitSoFar - stockValues[i];
+			profit += maxSellingPrice - stockValues[i];
 		}
-		System.out.println(String.format(" %d %s", profit, Arrays.toString(doBuy)));
+		//System.out.println(String.format(" %d %s", profit, Arrays.toString(doBuy)));
 		return profit;
 	}
 
@@ -705,57 +702,7 @@ public final class ArrayUtils {
 		}
 	}
 	
-	//https://www.careercup.com/question?id=5767484059680768
-	public static int numberOfMazePaths(int[][] maze) {
-		MutableInteger numberOfPaths = new MutableInteger(0);
-		List<Point> visited = new ArrayList<Point>();
-		List<Point> endsVisited = new ArrayList<Point>();
-		for (int i = 0; i < maze[0].length; i++) {
-			visited.clear();
-			endsVisited.clear();
-			if (isValidMazeEntry(maze, 0, i)) {
-				traverseMaze(maze,  visited, endsVisited, numberOfPaths, 0, i);
-			}
-		}
-		return numberOfPaths.getValue();
-	}
-
-	private static boolean isValidMazeEntry(int[][] maze, int row, int column) {
-		int ENTRY_POINT = 1;
-		return maze[row][column] == ENTRY_POINT;
-	}
-
-	private static void traverseMaze(int[][] maze, List<Point> visited, List<Point> endsVisited, MutableInteger numberOfPaths, int row, int column) {
-		if (isValidMazeLocation(maze, visited, row, column)) {
-			visited.add(new Point(row, column));
-			if (isValidExit(maze,endsVisited,  row, column)) {
-				endsVisited.add(new Point(row, column));
-				visited.clear();
-				numberOfPaths.increment();
-			} else {
-				traverseMaze(maze,visited, endsVisited,numberOfPaths, row + 1, column);
-				traverseMaze(maze,visited,endsVisited,numberOfPaths, row -1, column);
-				traverseMaze(maze,visited,endsVisited, numberOfPaths, row, column + 1);
-				traverseMaze(maze,visited,endsVisited,numberOfPaths, row, column - 1);
-			}			
-		}
-	}
-
-	private static boolean isValidMazeLocation(int[][] maze, List<Point> visited, int row, int column) {
-		int INVALID_PATH = -1;
-		boolean result = false;
-		if (row >= 0 && row < maze.length && column >= 0 && column < maze[row].length) {
-			if (maze[row][column] != INVALID_PATH && !visited.contains(new Point(row, column))) {
-				result = true;
-			}		
-		}
-		return result;
-	}
-
-	private static boolean isValidExit(int[][] maze, List<Point> endsVisited, int row, int column) {
-		int EXIT_POINT = 2;
-		return row == maze.length-1 && maze[row][column] == EXIT_POINT && !endsVisited.contains(new Point(row, column));
-	}
+	
 
 	public static Integer[] commonElementsIn3SortedArrays(int[] arr1, int[] arr2, int[] arr3) {
 		List<Integer> result = new ArrayList<Integer>();

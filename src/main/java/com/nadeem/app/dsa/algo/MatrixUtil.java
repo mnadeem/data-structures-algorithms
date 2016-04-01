@@ -1,5 +1,11 @@
 package com.nadeem.app.dsa.algo;
 
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.nadeem.app.dsa.support.MutableInteger;
+
 public class MatrixUtil {
 
 	public static int longestPath(int[][] mat) {
@@ -19,6 +25,16 @@ public class MatrixUtil {
 		return maxLength;
 	}
 
+	private static int[][] buildTempResultArray(int rows, int columns) {
+		int temp[][] = new int[rows][columns];
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				temp[i][j] = -1;
+			}
+		}
+		return temp;
+	}
+
 	private static int findLongestPath(int[][] mat, int row, int column, int[][] temp) {
 		if(row < mat.length - 1 && mat[row][column] + 1 == mat[row+1][column]) {
 			return temp[row][column] = 1 + findLongestPath(mat, row + 1, column, temp);
@@ -34,16 +50,6 @@ public class MatrixUtil {
 		}
 
 		return temp[row][column] = 1;
-	}
-
-	private static int[][] buildTempResultArray(int rows, int columns) {
-		int temp[][] = new int[rows][columns];
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < columns; j++) {
-				temp[i][j] = -1;
-			}
-		}
-		return temp;
 	}
 
 	// http://codereview.stackexchange.com/questions/41707/count-the-one-islands-in-the-matrix
@@ -177,17 +183,67 @@ public class MatrixUtil {
 		int row = 0;
 		int column =  matrix[row].length - 1;
 		int count = 0;
-		 while (row < matrix.length && column >= 0) {
-			 if (matrix[row][column] < 0) {
+		while (row < matrix.length && column >= 0) {
+			if (matrix[row][column] < 0) {
 				count = count + column + 1;
 				row ++;
 			} else {
 				column --;
 			}
-		 }
-	
+		}
+
 		return count;
 	}
 
-	
+	//https://www.careercup.com/question?id=5767484059680768
+	public static int numberOfMazePaths(int[][] maze) {
+		MutableInteger numberOfPaths = new MutableInteger(0);
+		List<Point> visited = new ArrayList<Point>();
+		List<Point> endsVisited = new ArrayList<Point>();
+		for (int i = 0; i < maze[0].length; i++) {
+			visited.clear();
+			endsVisited.clear();
+			if (isValidMazeEntry(maze, 0, i)) {
+				traverseMaze(maze,  visited, endsVisited, numberOfPaths, 0, i);
+			}
+		}
+		return numberOfPaths.getValue();
+	}
+
+	private static boolean isValidMazeEntry(int[][] maze, int row, int column) {
+		int ENTRY_POINT = 1;
+		return maze[row][column] == ENTRY_POINT;
+	}
+
+	private static void traverseMaze(int[][] maze, List<Point> visited, List<Point> endsVisited, MutableInteger numberOfPaths, int row, int column) {
+		if (isValidMazeLocation(maze, visited, row, column)) {
+			visited.add(new Point(row, column));
+			if (isValidExit(maze,endsVisited,  row, column)) {
+				endsVisited.add(new Point(row, column));
+				visited.clear();
+				numberOfPaths.increment();
+			} else {
+				traverseMaze(maze,visited, endsVisited,numberOfPaths, row + 1, column);
+				traverseMaze(maze,visited,endsVisited,numberOfPaths, row -1, column);
+				traverseMaze(maze,visited,endsVisited, numberOfPaths, row, column + 1);
+				traverseMaze(maze,visited,endsVisited,numberOfPaths, row, column - 1);
+			}			
+		}
+	}
+
+	private static boolean isValidMazeLocation(int[][] maze, List<Point> visited, int row, int column) {
+		int INVALID_PATH = -1;
+		boolean result = false;
+		if (row >= 0 && row < maze.length && column >= 0 && column < maze[row].length) {
+			if (maze[row][column] != INVALID_PATH && !visited.contains(new Point(row, column))) {
+				result = true;
+			}		
+		}
+		return result;
+	}
+
+	private static boolean isValidExit(int[][] maze, List<Point> endsVisited, int row, int column) {
+		int EXIT_POINT = 2;
+		return row == maze.length-1 && maze[row][column] == EXIT_POINT && !endsVisited.contains(new Point(row, column));
+	}
 }

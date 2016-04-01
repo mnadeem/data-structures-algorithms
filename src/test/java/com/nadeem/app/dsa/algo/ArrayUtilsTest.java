@@ -198,7 +198,7 @@ public class ArrayUtilsTest {
 	
 	@Test
 	public void nextGreaterElementTest() {
-		Integer[] result = ArrayUtils.nextGreaterElements(new Integer[]{98, 23, 54, 12, 20, 7, 27}, System.out);
+		Integer[] result = ArrayUtils.nextGreaterElements(new Integer[]{98, 23, 54, 12, 20, 7, 27});
 		assertThat(result, equalTo(new Integer[]{null, 54, null, 20, 27, 27, null}));
 	}
 	
@@ -388,28 +388,7 @@ public class ArrayUtilsTest {
 		index = ArrayUtils.maxInSortedRotatedArray(array);
 		assertThat(index, is(6));
 	}
-	
-	@Test
-	public void numberOfMazePathsTest() {
-		int[][] maze = {
-						{1,-1, -1,-1}, 
-						{0, 0, 0, 0}, 
-						{-1,-1,0,-1},
-						{-1,-1,0, 0},
-						{-1,-1,2, 2}};
-		int numberOfPaths = ArrayUtils.numberOfMazePaths(maze);
-		assertThat(numberOfPaths, equalTo(2));
-		
-		 maze = new int[][]{
-					{1,-1,1,-1}, 
-					{0, 0, 0, 0}, 
-					{-1,-1,0,-1},
-					{-1,-1,0, 0},
-					{-1,-1,2, 2}};
-		numberOfPaths = ArrayUtils.numberOfMazePaths(maze);
-		assertThat(numberOfPaths, equalTo(4));
-	}
-	
+
 	@Test
 	public void commonElementsIn3SortedArrayTest() {
 		int arr1[] = {1, 5, 10, 20, 40, 80};

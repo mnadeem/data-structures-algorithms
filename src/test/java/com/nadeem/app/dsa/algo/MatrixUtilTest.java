@@ -69,5 +69,28 @@ public class MatrixUtilTest {
 		int count = MatrixUtil.countNegativesInSortedMatrix(matrix);
 		assertThat(count, equalTo(4));
 	}
+	
+	
+	@Test
+	public void numberOfMazePathsTest() {
+		int[][] maze = {
+						{1,-1, -1,-1}, 
+						{0, 0, 0, 0}, 
+						{-1,-1,0,-1},
+						{-1,-1,0, 0},
+						{-1,-1,2, 2}};
+		int numberOfPaths = MatrixUtil.numberOfMazePaths(maze);
+		assertThat(numberOfPaths, equalTo(2));
+		
+		 maze = new int[][]{
+					{1,-1,1,-1}, 
+					{0, 0, 0, 0}, 
+					{-1,-1,0,-1},
+					{-1,-1,0, 0},
+					{-1,-1,2, 2}};
+		numberOfPaths = MatrixUtil.numberOfMazePaths(maze);
+		assertThat(numberOfPaths, equalTo(4));
+	}
+	
 
 }

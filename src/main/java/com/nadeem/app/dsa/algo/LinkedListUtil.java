@@ -82,7 +82,7 @@ public class LinkedListUtil {
 		}
 		// head should point to start of next k node
 		node.next(curr);
-		// skip nex knodes
+		// skip next knodes
 		count = 0;
 		while (curr != null && count < k- 1) {
 			curr = curr.next();
@@ -95,7 +95,7 @@ public class LinkedListUtil {
 		
 		return prev;
 	}
-	
+
 	/**
 	 * 
 	 * @see <a href="http://stackoverflow.com/questions/10275587/finding-loop-in-a-singly-linked-list">For Refrence</a>	 
