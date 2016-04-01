@@ -789,7 +789,7 @@ public final class ArrayUtils {
 		
 		return start + 1;
 	}
-	
+
 	public static <T extends Comparable<? super T>> MaxMin<T> findMaxMin(T[] seed) {
 		int length = seed.length;
 		int start;
@@ -862,11 +862,22 @@ public final class ArrayUtils {
 		}
 		return minCost;
 	}
+	/**
+	 * Input:
+		n = 3  
+		pairs[] = {1->3, 2->6, 4->5}  // 1 is partner of 3 and so on
+		arr[] = {3, 5, 6, 4, 1, 2}
+		
+		Output: 2
+		We can get {3, 1, 5, 4, 6, 2} by swapping 5 & 6, and 6 & 1
+	 */
 	//http://www.geeksforgeeks.org/minimum-number-of-swaps-required-for-arranging-pairs-adjacent-to-each-other/
+	//https://github.com/mission-peace/interview/blob/master/src/com/interview/recursion/SetPairTogether.java
 	public static int minSwapToBringPairsAdjecent(Integer[] arr, Integer[] pairs) {
 		Integer[] index = new Integer[arr.length];
+		// Store index of each element in array index
 		for (int i = 1; i < index.length; i++) {
-			index[i] = i;
+			index[arr[i]] = i;
 		}
 		
 		return doFindMinSwapsToBringPairsAdjecent(arr, pairs, index, 1, arr.length - 1);
