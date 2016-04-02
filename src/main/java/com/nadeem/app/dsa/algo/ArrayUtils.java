@@ -879,7 +879,7 @@ public final class ArrayUtils {
 		for (int i = 1; i < index.length; i++) {
 			index[arr[i]] = i;
 		}
-		
+
 		return doFindMinSwapsToBringPairsAdjecent(arr, pairs, index, 1, arr.length - 1);
 	}
 
@@ -902,6 +902,7 @@ public final class ArrayUtils {
 		updateIndex(index, secondElement, firstElePairedEleIndex, firstElePairedElement, secondIndex);
 		
 		int a = doFindMinSwapsToBringPairsAdjecent(arr, pairs, index, start + 2, end);
+		//Backtrack
 		swap(arr, firstElePairedEleIndex, secondIndex);
 		updateIndex(index, firstElePairedElement, firstElePairedEleIndex, secondElement, secondIndex);
 		
@@ -914,7 +915,7 @@ public final class ArrayUtils {
 		updateIndex(index, firstElement, secondPairedEleIndex, secondPairedElement, firstIndex);
 		
 		int b = doFindMinSwapsToBringPairsAdjecent(arr, pairs, index, start + 2, end);
-		
+		//Backtrack
 		swap(arr, secondPairedEleIndex, firstIndex);
 		updateIndex(index, secondPairedElement, secondPairedEleIndex, firstElement, firstIndex);
 		
