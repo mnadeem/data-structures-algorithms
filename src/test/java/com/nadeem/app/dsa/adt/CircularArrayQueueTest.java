@@ -41,7 +41,11 @@ public class CircularArrayQueueTest {
 	@Test
 	public void dequeueShouldBeSucessFull() throws Exception {
 		queue.enqueue("A");
+		queue.enqueue("B");
+		queue.enqueue("C");
 		assertThat(queue.dequeue(), is("A"));
+		assertThat(queue.dequeue(), is("B"));
+		assertThat(queue.dequeue(), is("C"));
 	}
 	
 	@Test(expected=CollectionEmptyException.class)
