@@ -34,9 +34,10 @@ public class BinaryTreeUtil {
 		}
 		
 		int divideIndex = divideIndexInOrder(inOrder, inS, inE, postOrder[pE]);
+		//Because divideIndex is not the length, it needs to -(inStart+1) to get the length
 		root.setLeft(doConstruct(inOrder, inS, divideIndex - 1, postOrder, pS, pS + divideIndex-(inS + 1)));
 		root.setRight(doConstruct(inOrder, divideIndex + 1,  inE, postOrder , pS + divideIndex - inS, pE -1));
-		
+		// postStart+divideIndex-inStart = postStart+divideIndex-(inStart+1) +1
 		return root;
 	}
 
@@ -48,6 +49,64 @@ public class BinaryTreeUtil {
 			}
 		}
 		return 0;
+	}
+
+	public static Integer[] printPostOrderWithOutConstructingTree(int[] inOrder, int[] preOrder) {
+		List<Integer> result = new ArrayList<Integer>();
+		doPrintPostOrderWithOutConstructingTree(inOrder, 0, inOrder.length-1, preOrder, new MutableInteger(0), result);
+		return result.toArray(new Integer[0]);
+	}
+
+	private static void doPrintPostOrderWithOutConstructingTree(int[] inOrder, int start, int end, int[] preOrder, MutableInteger preIndex,
+			List<Integer> result) {
+		if (start >  end) {
+			return ;
+		}
+		int rootIndex = searchInOrder(inOrder, start, end, preOrder[preIndex.getValue()]);
+		int currIndex = preIndex.getValue();
+		preIndex.increment();
+		doPrintPostOrderWithOutConstructingTree(inOrder, start, rootIndex - 1, preOrder, preIndex, result);
+		doPrintPostOrderWithOutConstructingTree(inOrder, rootIndex + 1, end, preOrder, preIndex, result);				
+		result.add(preOrder[currIndex]);
+		
+	}
+
+	public static Integer[] printPreOrderWithOutConstructingTree(int[] inOrder, int[] postOrder) {
+		List<Integer> result = new ArrayList<Integer>();
+		doPrintPreOrderWithOutConstructingTree(inOrder, 0, inOrder.length-1, postOrder, 0, postOrder.length - 1, result);
+		return result.toArray(new Integer[0]);
+	}
+
+	private static void doPrintPreOrderWithOutConstructingTree(int[] inOrder, int inStart, int inEnd, int[] postOrder,
+			int pStart, int pEnd, List<Integer> result) {
+		if (inStart > inEnd) {
+			return ;
+		}
+		
+		int rootIndex = searchInOrder(inOrder, inStart, inEnd, postOrder[pEnd]);
+		if (rootIndex == -1) {
+			return ;
+		}
+		result.add(postOrder[pEnd]);
+		if (inEnd - inStart <= 3) {
+			for (int i = pStart; i < pEnd; i++) {
+				result.add(postOrder[i]);
+			}
+		} else {
+		
+			doPrintPreOrderWithOutConstructingTree(inOrder, inStart, rootIndex - 1, postOrder, pStart, rootIndex-1, result);
+			doPrintPreOrderWithOutConstructingTree(inOrder, rootIndex + 1, inEnd, postOrder, rootIndex, pEnd - 1, result);
+		}
+	}
+
+	private static int searchInOrder(int[] inOrder, int start, int end, int preElement) {
+		while (start <= end) {
+			if (inOrder[start] == preElement) {
+				return start;
+			}
+			start ++;			
+		}
+		return -1;
 	}
 
 	public static <T extends Comparable<? super T>> BinaryTreeNode<T> rMirror(BinaryTreeNode<T> root) {
@@ -677,63 +736,7 @@ public class BinaryTreeUtil {
 		return n1Distance + n2Distance - 2 * lcaDistance;
 	}
 
-	public static Integer[] printPostOrderWithOutConstructingTree(int[] inOrder, int[] preOrder) {
-		List<Integer> result = new ArrayList<Integer>();
-		doPrintPostOrderWithOutConstructingTree(inOrder, 0, inOrder.length-1, preOrder, new MutableInteger(0), result);
-		return result.toArray(new Integer[0]);
-	}
-
-	private static void doPrintPostOrderWithOutConstructingTree(int[] inOrder, int start, int end, int[] preOrder, MutableInteger preIndex,
-			List<Integer> result) {
-		if (start >  end) {
-			return ;
-		}
-		int rootIndex = searchInOrder(inOrder, start, end, preOrder[preIndex.getValue()]);
-		int currIndex = preIndex.getValue();
-		preIndex.increment();
-		doPrintPostOrderWithOutConstructingTree(inOrder, start, rootIndex - 1, preOrder, preIndex, result);
-		doPrintPostOrderWithOutConstructingTree(inOrder, rootIndex + 1, end, preOrder, preIndex, result);				
-		result.add(preOrder[currIndex]);
-		
-	}
-
-	public static Integer[] printPreOrderWithOutConstructingTree(int[] inOrder, int[] postOrder) {
-		List<Integer> result = new ArrayList<Integer>();
-		doPrintPreOrderWithOutConstructingTree(inOrder, 0, inOrder.length-1, postOrder, 0, postOrder.length - 1, result);
-		return result.toArray(new Integer[0]);
-	}
-
-	private static void doPrintPreOrderWithOutConstructingTree(int[] inOrder, int inStart, int inEnd, int[] postOrder,
-			int pStart, int pEnd, List<Integer> result) {
-		if (inStart > inEnd) {
-			return ;
-		}
-		
-		int rootIndex = searchInOrder(inOrder, inStart, inEnd, postOrder[pEnd]);
-		if (rootIndex == -1) {
-			return ;
-		}
-		result.add(postOrder[pEnd]);
-		if (inEnd - inStart <= 3) {
-			for (int i = pStart; i < pEnd; i++) {
-				result.add(postOrder[i]);
-			}
-		} else {
-		
-			doPrintPreOrderWithOutConstructingTree(inOrder, inStart, rootIndex - 1, postOrder, pStart, rootIndex-1, result);
-			doPrintPreOrderWithOutConstructingTree(inOrder, rootIndex + 1, inEnd, postOrder, rootIndex, pEnd - 1, result);
-		}
-	}
-
-	private static int searchInOrder(int[] inOrder, int start, int end, int preElement) {
-		while (start <= end) {
-			if (inOrder[start] == preElement) {
-				return start;
-			}
-			start ++;			
-		}
-		return -1;
-	}
+	
 
 	public static <T extends Comparable<? super T>> void populateInOrderTraversalOfAllNodes(BinaryTreeNode<T> node) {
 		doPopulateInOrderTraversalOfAllNodes(node, new MutableValue<BinaryTreeNode<T>>(null));

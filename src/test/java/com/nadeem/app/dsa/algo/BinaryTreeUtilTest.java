@@ -34,6 +34,22 @@ public class BinaryTreeUtilTest {
 	}
 
 	@Test
+	public void printPostOrderWithoutConstructingTreeTest() {
+		int inOrder[] = {4, 2, 5, 1, 3, 6};
+		int preOrder[] = {1, 2, 4, 5, 3, 6};
+		Integer postOrder[] = BinaryTreeUtil.printPostOrderWithOutConstructingTree(inOrder, preOrder);
+		assertThat(postOrder, equalTo(new Integer[]{4, 5, 2, 6, 3, 1}));
+	}
+	
+	@Test
+	public void printPreOrderWithoutConstructingTreeTest() {
+		int inOrder[] = {4, 2, 5, 1, 3, 6};
+		int postOrder[] = {4, 5, 2, 6, 3, 1};
+		Integer preOrder[] = BinaryTreeUtil.printPreOrderWithOutConstructingTree(inOrder, postOrder);
+		assertThat(preOrder, equalTo(new Integer[]{1, 2, 4, 5, 3, 6}));
+	}
+
+	@Test
 	public void recursiveMirrorTest() {
 		BinaryTreeNode<Integer> bt = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
 		BinaryTreeNode<Integer> mirror = BinaryTreeUtil.<Integer>rMirror(bt);
@@ -334,22 +350,6 @@ public class BinaryTreeUtilTest {
 		distance = BinaryTreeUtil.distanceBetween(root, 2, 3);
 		assertThat(distance, equalTo(2));
 
-	}
-	
-	@Test
-	public void printPostOrderWithoutConstructingTreeTest() {
-		int inOrder[] = {4, 2, 5, 1, 3, 6};
-		int preOrder[] = {1, 2, 4, 5, 3, 6};
-		Integer postOrder[] = BinaryTreeUtil.printPostOrderWithOutConstructingTree(inOrder, preOrder);
-		assertThat(postOrder, equalTo(new Integer[]{4, 5, 2, 6, 3, 1}));
-	}
-	
-	@Test
-	public void printPreOrderWithoutConstructingTreeTest() {
-		int inOrder[] = {4, 2, 5, 1, 3, 6};
-		int postOrder[] = {4, 5, 2, 6, 3, 1};
-		Integer preOrder[] = BinaryTreeUtil.printPreOrderWithOutConstructingTree(inOrder, postOrder);
-		assertThat(preOrder, equalTo(new Integer[]{1, 2, 4, 5, 3, 6}));
 	}
 
 	@Test
