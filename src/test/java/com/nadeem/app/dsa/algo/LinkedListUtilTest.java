@@ -1,6 +1,6 @@
 package com.nadeem.app.dsa.algo;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -89,7 +89,9 @@ public class LinkedListUtilTest {
 		LinearNode<Integer> meetingPoint = LinkedListUtil.<Integer>loopExists(head);
 		assertNotNull(meetingPoint);
 		
-		LinkedListUtil.removeCycle(head, meetingPoint);
+		LinearNode<Integer> cycle = LinkedListUtil.removeCycle(head, meetingPoint);
+		
+		assertThat(cycle.getElement(), equalTo(6));
 
 		meetingPoint = LinkedListUtil.<Integer>loopExists(head);
 		assertNull(meetingPoint);
