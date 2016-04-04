@@ -104,7 +104,7 @@ public class LinkedListUtil {
 		if (head == null || head.next() == null) {
 			return null;
 		}
-		LinearNode<T> tortoise=head, hare = head.next();
+		LinearNode<T> tortoise=head, hare = head;
 		while(hare != null) {
 			if (hare == tortoise) {
 				return hare;
@@ -121,7 +121,7 @@ public class LinkedListUtil {
 	public static<T extends Comparable<? super T>> void removeCycle(LinearNode<T> head, LinearNode<T> meetingPoint) {
 		LinearNode<T> ptr1 = head;
 		LinearNode<T> ptr2 = meetingPoint;
-		while (ptr1 != ptr2.next()) {
+		while (ptr1 != ptr2) {
 			ptr1 = ptr1.next();
 			ptr2 = ptr2.next();
 		}

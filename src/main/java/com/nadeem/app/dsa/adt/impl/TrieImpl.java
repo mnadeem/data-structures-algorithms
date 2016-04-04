@@ -88,7 +88,7 @@ public class TrieImpl implements Trie {
 					node = node.get(word.charAt(i));
 				} 
 			}
-			return node;
+			return node == this ?  null : node;
 		}
 
 		List<TrieEntry> getWords() {
