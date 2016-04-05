@@ -390,6 +390,13 @@ public class BinaryTreeUtilTest {
 		assertThat(BinaryTreeUtil.ipreOrder(bst).toArray(new Integer[0]), equalTo(new Integer[]{1, 2, 4, 5, 3, 6, 7}));
 		
 	}
+	
+	@Test
+	public void iterativeInOrderTest() {
+		BinaryTreeNode<Integer> bst = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+		assertThat(BinaryTreeUtil.iInOrder(bst).toArray(new Integer[0]), equalTo(new Integer[]{4, 2, 5, 1, 6, 3, 7}));
+		
+	}
 
 	private void doPopulate(BinaryTreeNode<Integer> node, Map<Integer, Integer> inOrderSuccessorMapping) {
 		if (node != null) {

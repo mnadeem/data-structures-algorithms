@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.Stack;
 import java.util.TreeMap;
 
 import com.nadeem.app.dsa.support.BinaryTreeNode;
@@ -206,7 +205,25 @@ public class BinaryTreeUtil {
 		result.add(node.getData());
 		printInOrder(node.getRight(), result);
 	}
-
+	
+	public static <T> List<T> iInOrder(BinaryTreeNode<T> root) {
+		List<T> result = new ArrayList<T>();
+		BinaryTreeNode<T> currentNode = root;
+		Deque<BinaryTreeNode<T>> stack = new LinkedList<BinaryTreeNode<T>>();
+		while (!stack.isEmpty() || currentNode != null) {
+			if (currentNode != null) {
+				stack.push(currentNode);
+				currentNode = currentNode.getLeft();
+			} else {
+				BinaryTreeNode<T> item = stack.pop();
+				result.add(item.getData());
+				if (item.getRight() != null) {					
+					currentNode = item.getRight();
+				}
+			}			
+		}		
+		return result;
+	}
 
 	public static int sumTree(BinaryTreeNode<Integer> node) {
 		if (node == null) {
