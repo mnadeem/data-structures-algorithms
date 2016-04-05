@@ -383,6 +383,13 @@ public class BinaryTreeUtilTest {
 		List<Integer> result = BinaryTreeUtil.diagonalSum(node);
 		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{11,13,4}));
 	}
+	
+	@Test
+	public void iterativePreOrderTest() {
+		BinaryTreeNode<Integer> bst = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+		assertThat(BinaryTreeUtil.ipreOrder(bst).toArray(new Integer[0]), equalTo(new Integer[]{1, 2, 4, 5, 3, 6, 7}));
+		
+	}
 
 	private void doPopulate(BinaryTreeNode<Integer> node, Map<Integer, Integer> inOrderSuccessorMapping) {
 		if (node != null) {

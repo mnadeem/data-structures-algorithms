@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 import java.util.TreeMap;
 
 import com.nadeem.app.dsa.support.BinaryTreeNode;
@@ -63,6 +64,9 @@ public class BinaryTreeUtil {
 			return ;
 		}
 		int rootIndex = searchInOrder(inOrder, start, end, preOrder[preIndex.getValue()]);
+		if (rootIndex == -1) {
+			return ;
+		}
 		int currIndex = preIndex.getValue();
 		preIndex.increment();
 		doPrintPostOrderWithOutConstructingTree(inOrder, start, rootIndex - 1, preOrder, preIndex, result);
@@ -121,6 +125,38 @@ public class BinaryTreeUtil {
 		return root;
 	}
 	
+	public static <T extends Comparable<? super T>> BinaryTreeNode<T> iMirror(BinaryTreeNode<T> root) {
+		if (root == null) {
+			return null;
+		}
+		Deque<BinaryTreeNode<T>> queue = new ArrayDeque<BinaryTreeNode<T>>();
+		queue.offer(root);
+
+		while(!queue.isEmpty()) {
+			processNodesForMirroring(queue);
+		}
+		return root;
+	}
+
+	private static <T extends Comparable<? super T>> void processNodesForMirroring(Deque<BinaryTreeNode<T>> queue) {
+		BinaryTreeNode<T> node = queue.poll();
+		swapChildren(node);
+		if (node.hasBothChildren()) {
+			queue.offer(node.getLeft());
+			queue.offer(node.getRight());
+		}  else if(node.hasLeftChild()){
+			queue.offer(node.getLeft());
+		} else if (node.hasRightChild()){
+			queue.offer(node.getRight());
+		}		
+	}
+
+	private static <T extends Comparable<? super T>> void swapChildren(BinaryTreeNode<T> root) {
+		BinaryTreeNode<T> temp = root.getLeft();
+		root.setLeft(root.getRight());
+		root.setRight(temp);
+	}
+
 	public static <T extends Comparable<? super T>>  void printPostOrder(BinaryTreeNode<T> node, List<T> result) {
 		if(node == null) {
 			return ;
@@ -140,7 +176,27 @@ public class BinaryTreeUtil {
 		printPreOrder(node.getLeft(), result);
 		printPreOrder(node.getRight(), result);
 	}
+	
+	public static <T> List<T> ipreOrder(BinaryTreeNode<T> node) {
+		List<T> result = new ArrayList<T>();
 
+		Deque<BinaryTreeNode<T>> stack = new ArrayDeque<BinaryTreeNode<T>>();
+		if (node != null) {			
+			stack.push(node);
+		}
+		while (!stack.isEmpty()) {
+			BinaryTreeNode<T> item  = stack.pop();
+			result.add(item.getData());
+			
+			if (item.hasRightChild()) {
+				stack.push(item.getRight());
+			}
+			if (item.hasLeftChild()) {
+				stack.push(item.getLeft());
+			}
+		}
+		return result;
+	}
 	
 	public static <T extends Comparable<? super T>>  void printInOrder(BinaryTreeNode<T> node, List<T> result) {
 		if (node == null) {
@@ -151,37 +207,6 @@ public class BinaryTreeUtil {
 		printInOrder(node.getRight(), result);
 	}
 
-	public static <T extends Comparable<? super T>> BinaryTreeNode<T> iMirror(BinaryTreeNode<T> root) {
-		if (root == null) {
-			return null;
-		}
-		Deque<BinaryTreeNode<T>> stack = new ArrayDeque<BinaryTreeNode<T>>();
-		stack.offer(root);
-
-		while(!stack.isEmpty()) {
-			processNodesForMirroring(stack);
-		}
-		return root;
-	}
-
-	private static <T extends Comparable<? super T>> void processNodesForMirroring(Deque<BinaryTreeNode<T>> stack) {
-		BinaryTreeNode<T> node = stack.poll();
-		swapChildren(node);
-		if (node.hasBothChildren()) {
-			stack.push(node.getLeft());
-			stack.push(node.getRight());
-		}  else if(node.hasLeftChild()){
-			stack.push(node.getLeft());
-		} else if (node.hasRightChild()){
-			stack.push(node.getRight());
-		}		
-	}
-
-	private static <T extends Comparable<? super T>> void swapChildren(BinaryTreeNode<T> root) {
-		BinaryTreeNode<T> temp = root.getLeft();
-		root.setLeft(root.getRight());
-		root.setRight(temp);
-	}
 
 	public static int sumTree(BinaryTreeNode<Integer> node) {
 		if (node == null) {
