@@ -3,6 +3,7 @@ package com.nadeem.app.dsa.algo;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -221,6 +222,30 @@ public class BinaryTreeUtil {
 					currentNode = item.getRight();
 				}
 			}			
+		}		
+		return result;
+	}
+	
+	public static <T> List<T> iPostOrder(BinaryTreeNode<T> root) {
+		if (root == null) {
+			return Collections.emptyList();
+		}
+		List<T> result = new ArrayList<T>();
+		Deque<BinaryTreeNode<T>> firstLevel = new LinkedList<BinaryTreeNode<T>>();
+		Deque<BinaryTreeNode<T>> secondLevel = new LinkedList<BinaryTreeNode<T>>();
+		firstLevel.push(root);
+		while (!firstLevel.isEmpty()) {
+			BinaryTreeNode<T> node = firstLevel.pop();
+			secondLevel.push(node);
+			if (node.hasLeftChild()) {
+				firstLevel.push(node.getLeft());
+			}
+			if (node.hasRightChild()) {
+				firstLevel.push(node.getRight());
+			}
+		}
+		while (!secondLevel.isEmpty()) {
+			result.add(secondLevel.pop().getData());			
 		}		
 		return result;
 	}
