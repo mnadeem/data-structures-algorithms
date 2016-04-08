@@ -141,12 +141,10 @@ public class BinaryTreeUtil {
 	private static <T extends Comparable<? super T>> void processNodesForMirroring(Deque<BinaryTreeNode<T>> queue) {
 		BinaryTreeNode<T> node = queue.poll();
 		swapChildren(node);
-		if (node.hasBothChildren()) {
+		if(node.hasLeftChild()){
 			queue.offer(node.getLeft());
-			queue.offer(node.getRight());
-		}  else if(node.hasLeftChild()){
-			queue.offer(node.getLeft());
-		} else if (node.hasRightChild()){
+		}
+		if (node.hasRightChild()){
 			queue.offer(node.getRight());
 		}		
 	}
@@ -225,7 +223,7 @@ public class BinaryTreeUtil {
 		}		
 		return result;
 	}
-	
+
 	public static <T> List<T> iPostOrder(BinaryTreeNode<T> root) {
 		if (root == null) {
 			return Collections.emptyList();
@@ -260,7 +258,7 @@ public class BinaryTreeUtil {
 		return oldVal + node.getData();
 	}
 
-	public static <T extends Comparable<? super T>> List<List<T>> printAllPaths(BinaryTreeNode<T> node) {
+	public static <T extends Comparable<? super T>> List<List<T>> printAllPathsFromRoot(BinaryTreeNode<T> node) {
 		List <List<T>> paths = new ArrayList<List<T>>();
 		doPrintAllPaths(node, paths, new ArrayList<T>());
 		return paths;
@@ -425,7 +423,7 @@ public class BinaryTreeUtil {
 	}
 
 	private static <T> void doRLevelOrder(BinaryTreeNode<T> node, int level, List<T> levelOrder) {
-		if (node == null) {
+		if (node == null || level < 1) {
 			return ;
 		}
 		if (level == 1) {
@@ -436,7 +434,7 @@ public class BinaryTreeUtil {
 		
 	}
 
-	public static <T extends Comparable<? super T>> List<List<T>> levelOrder(BinaryTreeNode<T> root) {
+	public static <T extends Comparable<? super T>> List<List<T>> iLevelOrder(BinaryTreeNode<T> root) {
 		List<List<T>> result = new ArrayList<List<T>>();
 		if (root != null) {
 			Queue<BinaryTreeNode<T>> queue = new LinkedList<BinaryTreeNode<T>>();
@@ -681,9 +679,10 @@ public class BinaryTreeUtil {
 		
 	}
 
-	public static <T extends Comparable<? super T>> void iZigZagLevelTravelsal(BinaryTreeNode<T> node) {
+	public static <T extends Comparable<? super T>> List<List<T>> iZigZagLevelTravelsal(BinaryTreeNode<T> node) {
+		List<List<T>> result = new ArrayList<List<T>>();
 		if (node == null) {
-			return ;
+			return result;
 		}
 		Deque<BinaryTreeNode<T>> currentLevelStack = new ArrayDeque<BinaryTreeNode<T>>();
 		Deque<BinaryTreeNode<T>> nextLevelStack = null;
@@ -692,9 +691,10 @@ public class BinaryTreeUtil {
 		currentLevelStack.push(node);
 		
 		nextLevelStack = new ArrayDeque<BinaryTreeNode<T>>();
+		List<T> level = new ArrayList<T>();
 		while (!currentLevelStack.isEmpty()) {
 			BinaryTreeNode<T> temp = currentLevelStack.pop();
-			System.out.print(temp.getData()+ " ");
+			level.add(temp.getData());
 			if (leftToRight) {
 				if (temp.hasLeftChild()) {
 					nextLevelStack.push(temp.getLeft());
@@ -715,9 +715,11 @@ public class BinaryTreeUtil {
 				Deque<BinaryTreeNode<T>> tempStack = currentLevelStack;
 				currentLevelStack = nextLevelStack;
 				nextLevelStack = tempStack;
-				System.out.println();
+				result.add(level);
+				level = new ArrayList<T>();
 			}			
-		}		
+		}
+		return result;
 	}
 
 	public static<T> boolean isTreeBalanced(BinaryTreeNode<T> node) {

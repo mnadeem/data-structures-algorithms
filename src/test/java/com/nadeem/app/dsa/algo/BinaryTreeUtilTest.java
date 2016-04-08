@@ -74,26 +74,19 @@ public class BinaryTreeUtilTest {
 		List<Integer> result = new ArrayList<Integer>();
 		BinaryTreeUtil.printInOrder(bt, result);
 		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{0, 4, 0, 20, 0, 12, 0}));
-		//System.out.println(Arrays.toString(result.toArray()));
 	}
 
 	@Test
 	public void printAllPaths() {
 		BinaryTreeNode<Integer> bt = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,6,1,7,3}, new Integer[]{4,6,5,2,7,3,1});
-		List <List<Integer>> paths = BinaryTreeUtil.printAllPaths(bt);
+		List <List<Integer>> paths = BinaryTreeUtil.printAllPathsFromRoot(bt);
 		
 		assertThat(paths.get(0).toArray(new Integer[0]), equalTo(new Integer[]{1, 2, 4}));
 		assertThat(paths.get(1).toArray(new Integer[0]), equalTo(new Integer[]{1, 2, 5, 6}));
 		assertThat(paths.get(2).toArray(new Integer[0]), equalTo(new Integer[]{1, 3, 7}));
 
-		for (List<Integer> list : paths) {			
-			for (Integer integer : list) {
-				System.out.print(String.format(" %d", integer));
-			}
-			System.out.println();
-		}
 	}
-	
+
 	@Test
 	public void printSpecificPath() {
 		BinaryTreeNode<Integer> bt = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,6,1,7,3}, new Integer[]{4,6,5,2,7,3,1});
@@ -140,13 +133,7 @@ public class BinaryTreeUtilTest {
 
 		assertThat(paths.get(0).toArray(new Integer[0]), equalTo(new Integer[]{1,2,5,6}));
 		assertThat(paths.get(1).toArray(new Integer[0]), equalTo(new Integer[]{1,3,7,3}));
-		
-		for (List<Integer> list : paths) {			
-			for (Integer integer : list) {
-				System.out.print(String.format(" %d", integer));
-			}
-			System.out.println();
-		}
+
 	}
 	
 	@Test
@@ -183,19 +170,13 @@ public class BinaryTreeUtilTest {
 	public void iLevelOrderTraversalTest() {
 		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
 
-		List <List<Integer>> levelOrder = BinaryTreeUtil.<Integer>levelOrder(node);
+		List <List<Integer>> levelOrder = BinaryTreeUtil.<Integer>iLevelOrder(node);
 		
 		assertThat(levelOrder.size(), is(3));
 		assertThat(levelOrder.get(0).toArray(new Integer[0]), equalTo(new Integer[]{1}));
 		assertThat(levelOrder.get(1).toArray(new Integer[0]), equalTo(new Integer[]{2,3}));
 		assertThat(levelOrder.get(2).toArray(new Integer[0]), equalTo(new Integer[]{4,5,6,7}));
 
-		for (List<Integer> list : levelOrder) {			
-			for (Integer integer : list) {
-				System.out.print(String.format(" %d", integer));
-			}
-			System.out.println();
-		}
 	}
 	
 	@Test
@@ -273,6 +254,17 @@ public class BinaryTreeUtilTest {
 		assertThat(result.get(0).toArray(new Integer[0]), equalTo(new Integer[]{1}));
 		assertThat(result.get(1).toArray(new Integer[0]), equalTo(new Integer[]{3, 2}));
 		assertThat(result.get(2).toArray(new Integer[0]), equalTo(new Integer[]{4,5,6, 7}));
+	}
+	
+	@Test
+	public void iZigZagLevelOrderTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
+		List<List<Integer>> result = BinaryTreeUtil.iZigZagLevelTravelsal(node);
+		
+		assertThat(result.size(), is(3));
+		assertThat(result.get(0).toArray(new Integer[0]), equalTo(new Integer[]{1}));
+		assertThat(result.get(1).toArray(new Integer[0]), equalTo(new Integer[]{3, 2}));
+		assertThat(result.get(2).toArray(new Integer[0]), equalTo(new Integer[]{4,5,6,7}));
 	}
 	
 	@Test
