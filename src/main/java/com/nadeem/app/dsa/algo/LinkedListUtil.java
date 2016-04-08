@@ -241,4 +241,75 @@ public class LinkedListUtil {
 		int ls2 = length(ll2);
 		return ls1-ls2;
 	}
+
+	public static LinearNode<Integer> seperateEvenAndOddNodes(LinearNode<Integer> head) {
+		LinearNode<Integer> tail = head, prevNode=null, currNode = head, nextNode;
+		int length = length(head), count = 0;
+		boolean allEven = true, allOdd = true;
+		//point to the last node, start dumping all nodes after this
+		while (tail.next() != null) {
+			if (tail.getElement() % 2 == 0) {
+				allOdd = false;
+			} else {
+				allEven = false;
+			}
+			tail = tail.next();
+		}
+		// Dont do anything if either all odd or all even
+		if (allOdd || allEven) {
+			return head;
+		}
+		// Make sure you don't go in infinite loop, and hence condition to make sure, you traverse limited nodes.
+		while (currNode != null && count < length) {
+			nextNode = currNode.next();
+			//move currNode to the end of list, if it is odd.
+			if (currNode.getElement() % 2 == 1) {
+				LinearNode<Integer> temp = currNode;
+				if (prevNode != null) {
+					prevNode.next(nextNode);
+					currNode = prevNode;
+				} else {
+					head = nextNode;
+					currNode = null;
+				}
+				tail.next(temp);
+				tail = temp;
+				temp.next(null);
+			}
+			prevNode = currNode;
+			currNode = nextNode;
+			count++;
+		}
+		//return the new head, in case the list begins with odd
+		return head;
+	}
+
+	public static LinearNode<Integer> seperateEvenAndOddIndexNodes(LinearNode<Integer> head) {
+		LinearNode<Integer> prevNode =null, currentNode = head, tail = head, nextNode;
+		int length = length(head),index = 0;
+		
+		if (length < 3) {
+			return head;
+		}
+
+		while (tail != null && tail.next() != null) {
+			tail = tail.next();			
+		}
+		while (currentNode != null && index < length) {
+			nextNode = currentNode.next();
+			if (index % 2 == 1) {
+				LinearNode<Integer> temp = currentNode;
+				tail.next(temp);
+				tail = temp;
+				prevNode.next(nextNode);
+				currentNode = prevNode;
+				temp.next(null);
+			}
+			prevNode = currentNode;
+			currentNode = nextNode;
+			index++;
+		}
+
+		return head;
+	}
 }

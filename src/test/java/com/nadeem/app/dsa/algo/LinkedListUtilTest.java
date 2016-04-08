@@ -103,6 +103,45 @@ public class LinkedListUtilTest {
 		MultiNode<Integer> result = LinkedListUtil.flatten(multiList);
 		assertMultiList(result, 5, 7, 8, 10, 19, 20, 22, 28, 30, 35, 40, 45, 50);
 	}
+	
+	@Test
+	public void seperateEvenAndOddNodesTest() {
+		LinearNode<Integer> head = buildLinkedList(2,3,4,1,7,8,9);
+		head = LinkedListUtil.seperateEvenAndOddNodes(head);
+		assertLinkedList(head, 2,4,8,3,1,7,9);
+
+		head = buildLinkedList(9,3,4,1,7,8,2);
+		head = LinkedListUtil.seperateEvenAndOddNodes(head);
+		assertLinkedList(head, 4,8,2,9,3,1,7);
+		
+		head = buildLinkedList(1,3,5,7);
+		head = LinkedListUtil.seperateEvenAndOddNodes(head);
+		assertLinkedList(head, 1,3,5,7);
+		
+		head = buildLinkedList(2,4,6,8);
+		head = LinkedListUtil.seperateEvenAndOddNodes(head);
+		assertLinkedList(head, 2,4,6,8);
+	}
+	
+	
+	@Test
+	public void seperateEvenAndOddIndexesTest() {
+		LinearNode<Integer> head = buildLinkedList(1,2,3,4,5,6);
+		head = LinkedListUtil.seperateEvenAndOddIndexNodes(head);
+		assertLinkedList(head, 1,3,5,2,4,6);
+
+		head = buildLinkedList(1);
+		head = LinkedListUtil.seperateEvenAndOddIndexNodes(head);
+		assertLinkedList(head, 1);
+		
+		head = buildLinkedList(1, 2);
+		head = LinkedListUtil.seperateEvenAndOddIndexNodes(head);
+		assertLinkedList(head, 1, 2);
+		
+		head = buildLinkedList(1, 2, 3);
+		head = LinkedListUtil.seperateEvenAndOddIndexNodes(head);
+		assertLinkedList(head, 1, 3, 2);
+	}
 
 	private void assertMultiList(MultiNode<Integer> result, int... arr) {
 		for (int i : arr) {
