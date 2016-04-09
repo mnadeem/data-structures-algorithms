@@ -2,6 +2,7 @@ package com.nadeem.app.dsa.algo;
 
 import com.nadeem.app.dsa.support.LinearNode;
 import com.nadeem.app.dsa.support.MultiNode;
+import com.nadeem.app.dsa.support.RandomLinearNode;
 
 public class LinkedListUtil {
 
@@ -311,5 +312,37 @@ public class LinkedListUtil {
 		}
 
 		return head;
+	}
+
+	public static <T> RandomLinearNode<T> clone(RandomLinearNode<T> head) {
+		if (head == null) {
+			return head;
+		}
+		RandomLinearNode<T> itr = head, temp;
+
+		// insert copy nodes after each original nodes
+		while (itr != null) {
+			temp = new RandomLinearNode<T>(itr.getElement());
+			temp.next(itr.next());
+			itr.next(temp);
+			itr = temp.next();
+		}
+		// copy the random pointer
+		itr = head;
+		while (itr != null && itr.next() != null) {
+			if (itr.random() != null) {
+				itr.next().random(itr.random().next());
+			}
+			itr = itr.next().next();
+		}
+		// break the list into two
+		RandomLinearNode<T> newHead = head.next();
+		itr = head;
+		while (itr != null && itr.next() != null) {
+			temp = itr.next();
+			itr.next(temp.next());			
+			itr = temp.next();
+		}
+		return newHead;
 	}
 }

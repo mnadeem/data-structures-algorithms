@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.nadeem.app.dsa.support.LinearNode;
 import com.nadeem.app.dsa.support.MultiNode;
+import com.nadeem.app.dsa.support.RandomLinearNode;
 
 public class LinkedListUtilTest {
 
@@ -141,6 +142,33 @@ public class LinkedListUtilTest {
 		head = buildLinkedList(1, 2, 3);
 		head = LinkedListUtil.seperateEvenAndOddIndexNodes(head);
 		assertLinkedList(head, 1, 3, 2);
+	}
+	
+	@Test
+	public void cloneLinkeListWithRandomPointerTest() {
+		RandomLinearNode<Integer> one = new RandomLinearNode<Integer>(1, null, null);
+		RandomLinearNode<Integer> two = new RandomLinearNode<Integer>(2, one, null);
+		RandomLinearNode<Integer> three = new RandomLinearNode<Integer>(3, two, null);
+		RandomLinearNode<Integer> four = new RandomLinearNode<Integer>(4, three, null);
+		RandomLinearNode<Integer> five = new RandomLinearNode<Integer>(5, four, four);
+		RandomLinearNode<Integer> six = new RandomLinearNode<Integer>(6, five, two);
+		RandomLinearNode<Integer> seven = new RandomLinearNode<Integer>(7, six, three);
+		RandomLinearNode<Integer> eight = new RandomLinearNode<Integer>(8, seven, one);
+		
+		RandomLinearNode<Integer> newHead = LinkedListUtil.clone(eight);
+		assertThat(eight, not(sameInstance(newHead)));
+		assertThat(newHead.getElement(), equalTo(eight.getElement()));
+		assertThat(newHead.random().getElement(), equalTo(eight.random().getElement()));
+		
+		assertThat(newHead.next().getElement(), equalTo(eight.next().getElement()));
+		assertThat(newHead.next().random().getElement(), equalTo(eight.next().random().getElement()));
+		
+		assertThat(newHead.next().next().getElement(), equalTo(eight.next().next().getElement()));
+		assertThat(newHead.next().next().random().getElement(), equalTo(eight.next().next().random().getElement()));
+		
+		
+		assertThat(newHead.next().next().next().getElement(), equalTo(eight.next().next().next().getElement()));
+		assertThat(newHead.next().next().next().random().getElement(), equalTo(eight.next().next().next().random().getElement()));
 	}
 
 	private void assertMultiList(MultiNode<Integer> result, int... arr) {
