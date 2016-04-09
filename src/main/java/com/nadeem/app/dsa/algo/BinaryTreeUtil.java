@@ -13,6 +13,7 @@ import java.util.Queue;
 import java.util.TreeMap;
 
 import com.nadeem.app.dsa.support.BinaryTreeNode;
+import com.nadeem.app.dsa.support.LinearNode;
 import com.nadeem.app.dsa.support.MaxSumPath;
 import com.nadeem.app.dsa.support.MutableInteger;
 import com.nadeem.app.dsa.support.MutableValue;
@@ -647,6 +648,51 @@ public class BinaryTreeUtil {
 		populateVerticalSumMap(node.getRight(), hd + 1, map);
 	}
 	
+	public static Collection<Integer> verticalSumUsingDLL(BinaryTreeNode<Integer> node) {
+		if (node == null) {
+			return Collections.emptyList();
+		}
+		LinearNode<Integer> head = new LinearNode<Integer>(node.getData());
+		verticalSumUsingDLL(head, node);
+		List<Integer> result = new ArrayList<Integer>();
+		
+		while(head.prev != null) {
+			head = head.prev;
+		}
+
+		while (head != null) {
+			result.add(head.data);
+			head = head.next;			
+		}
+		return result;
+	}
+
+	private static void verticalSumUsingDLL(LinearNode<Integer> dll, BinaryTreeNode<Integer> node) {
+		if (node == null) {
+			return ;
+		}
+		if (node.hasLeftChild()) {
+			if (dll.prev == null) {
+				LinearNode<Integer> temp = new LinearNode<Integer>(node.getLeft().getData());
+				dll.prev = temp;
+				temp.next = dll;
+			} else {
+				dll.prev.data = dll.prev.data + node.getLeft().getData();
+			}
+			verticalSumUsingDLL(dll.prev, node.getLeft());
+		}
+		if (node.hasRightChild()) {
+			if (dll.next == null) {
+				LinearNode<Integer> temp = new LinearNode<Integer>(node.getRight().getData());
+				dll.next = temp;
+				temp.prev = dll;
+			} else {
+				dll.next.data = dll.next.data + node.getRight().getData();
+			}
+			verticalSumUsingDLL(dll.next, node.getRight());
+		}
+		
+	}
 
 	public static <T extends Comparable<? super T>> List<List<T>> rZigZagTraversal(BinaryTreeNode<T> node) {
 		List<List<T>> result = new ArrayList<List<T>>();

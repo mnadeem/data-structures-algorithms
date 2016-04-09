@@ -144,7 +144,7 @@ public class LinkedListUtil {
 			return l1;
 		}
 		LinearNode<T> result = null;
-		if (l1.getElement().compareTo(l2.getElement()) <= 0) {
+		if (l1.getData().compareTo(l2.getData()) <= 0) {
 			result = l1;
 			result.next(mergeSorted(l1.next(), l2));
 		} else {
@@ -225,8 +225,8 @@ public class LinkedListUtil {
 			nextNode = doSum(ll1Next, ll2Next, 0, carry, head1, head2);
 		}
 		
-		int val1 = ll1 != null ? ll1.getElement() : 0;
-		int val2 = ll2 != null ? ll2.getElement() : 0;
+		int val1 = ll1 != null ? ll1.getData() : 0;
+		int val2 = ll2 != null ? ll2.getData() : 0;
 		
 		int sum = (val1 +val2 + carry[0]) %10;
 		carry[0] = (val1+ val2+carry[0])/10;
@@ -249,7 +249,7 @@ public class LinkedListUtil {
 		boolean allEven = true, allOdd = true;
 		//point to the last node, start dumping all nodes after this
 		while (tail.next() != null) {
-			if (tail.getElement() % 2 == 0) {
+			if (tail.getData() % 2 == 0) {
 				allOdd = false;
 			} else {
 				allEven = false;
@@ -264,7 +264,7 @@ public class LinkedListUtil {
 		while (currNode != null && count < length) {
 			nextNode = currNode.next();
 			//move currNode to the end of list, if it is odd.
-			if (currNode.getElement() % 2 == 1) {
+			if (currNode.getData() % 2 == 1) {
 				LinearNode<Integer> temp = currNode;
 				if (prevNode != null) {
 					prevNode.next(nextNode);

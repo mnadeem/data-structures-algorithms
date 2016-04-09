@@ -40,9 +40,9 @@ public class LinkedListUtilTest {
 	public void findMiddleNode() {
 		LinearNode<Integer> list = buildLinkedList(1,2,3,4);
 		LinearNode<Integer> mid = LinkedListUtil.middleNode(list);
-		assertThat(mid.getElement(), is(3));
+		assertThat(mid.getData(), is(3));
 		mid = LinkedListUtil.middleNode(buildLinkedList(1,2,3,4,5));
-		assertThat(mid.getElement(), is(3));
+		assertThat(mid.getData(), is(3));
 	}
 	
 	@Test
@@ -92,7 +92,7 @@ public class LinkedListUtilTest {
 		
 		LinearNode<Integer> cycle = LinkedListUtil.removeCycle(head, meetingPoint);
 		
-		assertThat(cycle.getElement(), equalTo(6));
+		assertThat(cycle.getData(), equalTo(6));
 
 		meetingPoint = LinkedListUtil.<Integer>loopExists(head);
 		assertNull(meetingPoint);
@@ -219,7 +219,7 @@ public class LinkedListUtilTest {
 	private static void printLinkedList(LinearNode<Integer> head) {
 		LinearNode<Integer> current = head;
 		while(current != null) {
-			System.out.println(String.format("%d ", current.getElement()));
+			System.out.println(String.format("%d ", current.getData()));
 			current = current.next();
 		}
 		
@@ -237,7 +237,7 @@ public class LinkedListUtilTest {
 	
 	private <T extends Comparable<? super T>>  void assertLinkedList(LinearNode<T> node, T... arr) {
 		for (int i = 0; i < arr.length; i++) {
-			assertThat(node.getElement(), is(arr[i]));
+			assertThat(node.getData(), is(arr[i]));
 			node = node.next();
 		}		
 	}

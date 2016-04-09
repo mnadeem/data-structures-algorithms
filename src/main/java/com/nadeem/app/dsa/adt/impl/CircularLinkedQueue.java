@@ -45,7 +45,7 @@ public class CircularLinkedQueue<T extends Comparable<? super T>> implements Que
 			this.rear.next(item.next());
 		}
 		this.count --;
-		return item.getElement();
+		return item.getData();
 	}
 
 	@Override

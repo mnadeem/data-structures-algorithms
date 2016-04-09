@@ -11,7 +11,7 @@ public class LinkedIterator<T> implements Iterator<T> {
 	}
 
 	public final T current() {
-		return this.currentNode.getElement();
+		return this.currentNode.getData();
 	}
 
 	public final void next() {

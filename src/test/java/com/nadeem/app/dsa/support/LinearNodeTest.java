@@ -10,13 +10,13 @@ public class LinearNodeTest {
 	@Test
 	public void dataShouldBeNull() {
 		LinearNode<String> node = new LinearNode<String>();
-		assertNull(node.getElement());
+		assertNull(node.getData());
 	}
 
 	@Test
 	public void dataShouldNotBeNull() {
 		LinearNode<String> node = new LinearNode<String>("A");
-		assertNotNull(node.getElement());
+		assertNotNull(node.getData());
 	}
 	
 	@Test

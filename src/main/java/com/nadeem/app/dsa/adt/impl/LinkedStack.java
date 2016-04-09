@@ -25,7 +25,7 @@ public class LinkedStack<T extends Comparable<? super T>> implements Stack<T> {
 		if (this.isEmpty()) {
 			throw new CollectionEmptyException();
 		}
-		T result = this.top.getElement();
+		T result = this.top.getData();
 		this.top = this.top.next();
 		this.count--;
 		return result;
@@ -39,7 +39,7 @@ public class LinkedStack<T extends Comparable<? super T>> implements Stack<T> {
 		if (this.isEmpty()) {
 			throw new CollectionEmptyException();
 		}
-		return this.top.getElement();
+		return this.top.getData();
 	}
 
 	public final boolean isEmpty() {

@@ -39,7 +39,7 @@ public class LinkedQueue<T extends Comparable<? super T>> implements Queue<T> {
 		if (isEmpty()) {
 			throw new CollectionEmptyException();
 		}
-		T result = this.front.getElement();
+		T result = this.front.getData();
 		this.front = this.front.next();
 		this.count--;
 		if (isEmpty()) {
