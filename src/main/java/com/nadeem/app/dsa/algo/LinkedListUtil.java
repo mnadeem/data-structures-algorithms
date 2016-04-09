@@ -313,7 +313,7 @@ public class LinkedListUtil {
 
 		return head;
 	}
-
+	// refer http://www.programcreek.com/2012/12/leetcode-copy-list-with-random-pointer/
 	public static <T> RandomLinearNode<T> clone(RandomLinearNode<T> head) {
 		if (head == null) {
 			return head;
