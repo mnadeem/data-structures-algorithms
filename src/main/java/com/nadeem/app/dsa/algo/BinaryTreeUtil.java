@@ -795,6 +795,38 @@ public class BinaryTreeUtil {
 		}
 	}
 	
+	//Given A Binary Tree of size n , Find Out a Matrix M[n][n], 
+	//where M[i][j]=1 if i is predecessor/ancestor of j, else M[i][j]=0. [Hints DP]
+	public static int[][] predecessorMatrix(BinaryTreeNode<Integer> root, int n) {
+		int[][] matrix = new int[n][n];
+		dofindAncestorsOfNodes(root, matrix);
+		return matrix;
+	}
+	
+	private static void dofindAncestorsOfNodes(BinaryTreeNode<Integer> root, int[][] matrix) {
+
+		if (root == null) {
+			return ;
+		}
+		
+		if (root.hasLeftChild()) {
+			dofindAncestorsOfNodes(root.getLeft(),  matrix);
+		}
+		if (root.hasRightChild()) {
+			dofindAncestorsOfNodes(root.getRight(),  matrix);
+		}
+		
+		if (root.isLeafNode()) {
+			return ;
+		}
+		
+		if (root.hasLeftChild()) {
+			matrix[root.getData()][root.getLeft().getData()] = 1;
+		}
+		if (root.hasRightChild()) {
+			matrix[root.getData()][root.getRight().getData()] = 1;
+		}
+	}
 
 	public static List<Integer> ancestors(BinaryTreeNode<Integer> root, Integer target) {
 		List<Integer> result = new ArrayList<Integer>();
@@ -813,7 +845,7 @@ public class BinaryTreeUtil {
 			result.add(node.getData());
 			return true;
 		}
-		
+
 		return false;
 	}
 

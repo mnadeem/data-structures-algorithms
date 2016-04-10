@@ -327,12 +327,27 @@ public class BinaryTreeUtilTest {
 	}
 	
 	@Test
+	public void predecessorMatrixTest() {
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{3,1,4,0,5,2,6}, new Integer[]{3,4,1,5,6,2,0});
+		int [][] result = BinaryTreeUtil.predecessorMatrix(node, 7);
+		int [][] expected = {{0, 1, 1, 0, 0, 0, 0}, 
+				{0, 0, 0, 1, 1, 0, 0}, 
+				{0, 0, 0, 0, 0, 1, 1}, 
+				{0, 0, 0, 0, 0, 0, 0}, 
+				{0, 0, 0, 0, 0, 0, 0}, 
+				{0, 0, 0, 0, 0, 0, 0}, 
+				{0, 0, 0, 0, 0, 0, 0}};
+		
+		assertThat(result, equalTo(expected));
+	}
+
+	@Test
 	public void allAncestors() {
 		BinaryTreeNode<Integer> root = buildTree();
 		List<Integer> ancestors = BinaryTreeUtil.ancestors(root, 6);
 		assertThat(ancestors.toArray(new Integer[0]), equalTo(new Integer[]{5,2,1}));
 	}
-	
+
 	@Test
 	public void distanceFromRoot2NodeTest() {
 		BinaryTreeNode<Integer> node = buildTree();
