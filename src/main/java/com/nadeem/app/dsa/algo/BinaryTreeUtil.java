@@ -794,6 +794,28 @@ public class BinaryTreeUtil {
 			return Math.max(left, right) + 1;
 		}
 	}
+	
+
+	public static List<Integer> ancestors(BinaryTreeNode<Integer> root, Integer target) {
+		List<Integer> result = new ArrayList<Integer>();
+		findAncestors(root, target, result);
+		return result;
+	}
+
+	private static boolean findAncestors(BinaryTreeNode<Integer> node, Integer target, List<Integer> result) {
+		if (node == null) {
+			return false;
+		}
+		if (node.getData() == target) {
+			return true;
+		}
+		if (findAncestors(node.getLeft(), target, result) || findAncestors(node.getRight(), target, result)) {
+			result.add(node.getData());
+			return true;
+		}
+		
+		return false;
+	}
 
 	public static <T> BinaryTreeNode<T> LCA(BinaryTreeNode<T> root, T a, T b) {
 		if (root == null) {
@@ -927,4 +949,5 @@ public class BinaryTreeUtil {
 		doFindDiagonalSum(node.getRight(), distance, sumMap);
 		
 	}
+
 }

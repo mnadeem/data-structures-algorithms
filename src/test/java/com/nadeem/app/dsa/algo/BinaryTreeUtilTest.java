@@ -327,6 +327,13 @@ public class BinaryTreeUtilTest {
 	}
 	
 	@Test
+	public void allAncestors() {
+		BinaryTreeNode<Integer> root = buildTree();
+		List<Integer> ancestors = BinaryTreeUtil.ancestors(root, 6);
+		assertThat(ancestors.toArray(new Integer[0]), equalTo(new Integer[]{5,2,1}));
+	}
+	
+	@Test
 	public void distanceFromRoot2NodeTest() {
 		BinaryTreeNode<Integer> node = buildTree();
 		int distance = BinaryTreeUtil.distanceFromRoot(node, 6);
