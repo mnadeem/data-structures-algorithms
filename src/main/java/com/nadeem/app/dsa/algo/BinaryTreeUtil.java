@@ -822,9 +822,22 @@ public class BinaryTreeUtil {
 		
 		if (root.hasLeftChild()) {
 			matrix[root.getData()][root.getLeft().getData()] = 1;
+			int[] row = matrix[root.getLeft().getData()];
+			for (int i = 0; i < row.length; i++) {
+				if (row[i] == 1) {
+					matrix[root.getData()][i] = 1;
+				}
+			}
+			
 		}
 		if (root.hasRightChild()) {
 			matrix[root.getData()][root.getRight().getData()] = 1;
+			int[] row = matrix[root.getRight().getData()];
+			for (int i = 0; i < row.length; i++) {
+				if (row[i] == 1) {
+					matrix[root.getData()][i] = 1;
+				}
+			}
 		}
 	}
 

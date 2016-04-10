@@ -328,15 +328,24 @@ public class BinaryTreeUtilTest {
 	
 	@Test
 	public void predecessorMatrixTest() {
-		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{3,1,4,0,5,2,6}, new Integer[]{3,4,1,5,6,2,0});
-		int [][] result = BinaryTreeUtil.predecessorMatrix(node, 7);
-		int [][] expected = {{0, 1, 1, 0, 0, 0, 0}, 
-				{0, 0, 0, 1, 1, 0, 0}, 
-				{0, 0, 0, 0, 0, 1, 1}, 
-				{0, 0, 0, 0, 0, 0, 0}, 
-				{0, 0, 0, 0, 0, 0, 0}, 
-				{0, 0, 0, 0, 0, 0, 0}, 
-				{0, 0, 0, 0, 0, 0, 0}};
+		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{7,3,8,1,9,4,10,0,11,5,12,2,13,6,14}, new Integer[]{7,8,3,9,10,4,1,11,12,5,13,14,6,2,0});
+		int [][] result = BinaryTreeUtil.predecessorMatrix(node, 15);
+		int [][] expected = 
+					{{0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
+					{0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0}, 
+					{0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1}, 
+					{0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0}, 
+					{0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0}, 
+					{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0}, 
+					{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1}, 
+					{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+					{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+					{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+					{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+					{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+					{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+					{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+					{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 		
 		assertThat(result, equalTo(expected));
 	}
