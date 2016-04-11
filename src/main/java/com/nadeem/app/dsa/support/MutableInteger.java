@@ -22,6 +22,10 @@ public class MutableInteger {
 		}
 		return false;
 	}
+	
+	public void add(Integer val) {
+		this.value = this.value + val;
+	}
 
 	public void increment() {
 		this.value = this.value + 1;

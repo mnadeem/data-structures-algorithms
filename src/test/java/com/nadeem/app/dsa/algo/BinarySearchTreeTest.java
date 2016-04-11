@@ -38,8 +38,5 @@ public class BinarySearchTreeTest {
 		result.clear();
 		bst.printPostOrder(result);
 		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{20, 5, 30, 15, 10}));
-		
-		System.out.println(Math.pow(10, (Math.log10(2) + Math.log10(6))));
-		
 	}
 }

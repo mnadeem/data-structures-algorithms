@@ -353,7 +353,14 @@ public class BinaryTreeUtilTest {
 	@Test
 	public void allAncestors() {
 		BinaryTreeNode<Integer> root = buildTree();
-		List<Integer> ancestors = BinaryTreeUtil.ancestors(root, 6);
+		List<Integer> ancestors = BinaryTreeUtil.rAncestors(root, 6);
+		assertThat(ancestors.toArray(new Integer[0]), equalTo(new Integer[]{5,2,1}));
+	}
+	
+	@Test
+	public void allRAncestors() {
+		BinaryTreeNode<Integer> root = buildTree();
+		List<Integer> ancestors = BinaryTreeUtil.iAncestors(root, 6);
 		assertThat(ancestors.toArray(new Integer[0]), equalTo(new Integer[]{5,2,1}));
 	}
 
@@ -434,6 +441,24 @@ public class BinaryTreeUtilTest {
 	public void iterativePostOrderTest() {
 		BinaryTreeNode<Integer> bst = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
 		assertThat(BinaryTreeUtil.iPostOrder(bst).toArray(new Integer[0]), equalTo(new Integer[]{4,5,2,6,7,3,1}));
+		
+	}
+	
+	@Test
+	public void replaceBSTNodesWithSumOfNodesGreaterOrEqualToNodeTest() {
+		
+		BinaryTreeNode<Integer> eighty = new BinaryTreeNode<Integer>(80);
+		BinaryTreeNode<Integer> sixty = new BinaryTreeNode<Integer>(60);
+		BinaryTreeNode<Integer> forty = new BinaryTreeNode<Integer>(40);
+		BinaryTreeNode<Integer> twenty = new BinaryTreeNode<Integer>(20);
+		BinaryTreeNode<Integer> seventy = new BinaryTreeNode<Integer>(70, sixty, eighty);
+		BinaryTreeNode<Integer> thrity = new BinaryTreeNode<Integer>(30, twenty, forty);
+		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(50, thrity, seventy);
+		
+		BinaryTreeUtil.modifyWithSumOfGreaterNodes(root);
+		
+		assertThat(BinaryTreeUtil.iPostOrder(root).toArray(new Integer[0]), equalTo(new Integer[]{350,300,330,210,80,150,260}));
+		
 		
 	}
 

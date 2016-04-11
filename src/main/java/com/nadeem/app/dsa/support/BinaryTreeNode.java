@@ -68,4 +68,10 @@ public class BinaryTreeNode<T> {
 	public String toString() {
 		return String.valueOf(this.getData());
 	}
+
+	public boolean isParentOf(BinaryTreeNode<Integer> lastNode) {
+		if( this.getLeft() == lastNode || this.getRight() == lastNode)
+			return true;
+		return false;
+	}
 }

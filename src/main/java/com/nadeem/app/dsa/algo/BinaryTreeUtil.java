@@ -841,7 +841,7 @@ public class BinaryTreeUtil {
 		}
 	}
 
-	public static List<Integer> ancestors(BinaryTreeNode<Integer> root, Integer target) {
+	public static List<Integer> rAncestors(BinaryTreeNode<Integer> root, Integer target) {
 		List<Integer> result = new ArrayList<Integer>();
 		findAncestors(root, target, result);
 		return result;
@@ -860,6 +860,39 @@ public class BinaryTreeUtil {
 		}
 
 		return false;
+	}
+
+	public static List<Integer> iAncestors(BinaryTreeNode<Integer> root, Integer target) {
+		List<Integer> result = new ArrayList<Integer>();
+		Deque<BinaryTreeNode<Integer>> firstStack = new LinkedList<BinaryTreeNode<Integer>>();
+		Deque<BinaryTreeNode<Integer>> secondStack = new LinkedList<BinaryTreeNode<Integer>>();
+		firstStack.push(root);
+		while (!firstStack.isEmpty()) {
+			BinaryTreeNode<Integer> temp = firstStack.pop();
+			secondStack.push(temp);
+			
+			if (temp.getData() == target) {
+				break;
+			}
+
+			if (temp.hasLeftChild()) {
+				firstStack.push(temp.getLeft());
+			}
+			if (temp.hasRightChild()) {
+				firstStack.push(temp.getRight());
+			}
+		}
+		BinaryTreeNode<Integer> lastNode = secondStack.pop();
+		while (!secondStack.isEmpty()) {
+			BinaryTreeNode<Integer> node = secondStack.pop();
+			
+			if (node.isParentOf(lastNode)) {
+				result.add(node.getData());
+				lastNode = node;
+			}			
+		}
+		
+		return result;
 	}
 
 	public static <T> BinaryTreeNode<T> LCA(BinaryTreeNode<T> root, T a, T b) {
@@ -993,6 +1026,21 @@ public class BinaryTreeUtil {
 		
 		doFindDiagonalSum(node.getRight(), distance, sumMap);
 		
+	}
+
+	public static void modifyWithSumOfGreaterNodes(BinaryTreeNode<Integer> bst) {
+		doModifyWithSumOfGreaterNodes(bst, new MutableInteger(0));		
+	}
+
+	private static void doModifyWithSumOfGreaterNodes(BinaryTreeNode<Integer> bst, MutableInteger sum) {
+		if (bst == null) {
+			return ;
+		}
+
+		doModifyWithSumOfGreaterNodes(bst.getRight(), sum);
+		sum.add(bst.getData());
+		bst.setData(sum.getValue());
+		doModifyWithSumOfGreaterNodes(bst.getLeft(), sum);		
 	}
 
 }
