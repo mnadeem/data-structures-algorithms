@@ -19,8 +19,7 @@ import com.nadeem.app.dsa.support.MutableInteger;
 import com.nadeem.app.dsa.support.MutableValue;
 
 public class BinaryTreeUtil {
-	
-	
+
 	public static <U extends Comparable<? super U>> BinaryTreeNode<U> fromInAndPostOrder(U[] inOrder, U[] postOrder) {
 		return doConstruct(inOrder, 0, inOrder.length -1, postOrder, 0, postOrder.length - 1);
 	}
@@ -30,11 +29,11 @@ public class BinaryTreeUtil {
 			return null;
 		}
 		BinaryTreeNode<U> root = new BinaryTreeNode<U>(postOrder[pE]);
-		
+
 		if (inS == inE) {
 			return root;
 		}
-		
+
 		int divideIndex = divideIndexInOrder(inOrder, inS, inE, postOrder[pE]);
 		//Because divideIndex is not the length, it needs to -(inStart+1) to get the length
 		root.setLeft(doConstruct(inOrder, inS, divideIndex - 1, postOrder, pS, pS + divideIndex-(inS + 1)));
@@ -46,7 +45,6 @@ public class BinaryTreeUtil {
 	private static <U extends Comparable<? super U>> int divideIndexInOrder(U[] inOrder, int inS, int inE, U item) {
 		for (int i = 0; i < inOrder.length; i++) {
 			if (item.compareTo(inOrder[i]) == 0) {
-				
 				return i;
 			}
 		}
@@ -125,7 +123,7 @@ public class BinaryTreeUtil {
 		}
 		return root;
 	}
-	
+
 	public static <T extends Comparable<? super T>> BinaryTreeNode<T> iMirror(BinaryTreeNode<T> root) {
 		if (root == null) {
 			return null;
@@ -164,8 +162,6 @@ public class BinaryTreeUtil {
 		printPostOrder(node.getRight(), result);
 		result.add(node.getData());
 	}
-	
-
 
 	public static <T extends Comparable<? super T>> void printPreOrder(BinaryTreeNode<T> node, List<T> result) {
 		if (node == null) {
@@ -175,7 +171,7 @@ public class BinaryTreeUtil {
 		printPreOrder(node.getLeft(), result);
 		printPreOrder(node.getRight(), result);
 	}
-	
+
 	public static <T> List<T> ipreOrder(BinaryTreeNode<T> node) {
 		List<T> result = new ArrayList<T>();
 
@@ -205,7 +201,7 @@ public class BinaryTreeUtil {
 		result.add(node.getData());
 		printInOrder(node.getRight(), result);
 	}
-	
+
 	public static <T> List<T> iInOrder(BinaryTreeNode<T> root) {
 		List<T> result = new ArrayList<T>();
 		BinaryTreeNode<T> currentNode = root;
@@ -543,7 +539,7 @@ public class BinaryTreeUtil {
 		}
 		doPrintVerticalView(node.getLeft(), lineNo, hd - 1, lineResult);
 		doPrintVerticalView(node.getRight(), lineNo, hd + 1, lineResult);
-		
+		 
 	}
 
 	public static<T extends Comparable<? super T>> List<List<T>> mapBasedVerticalView(BinaryTreeNode<T> node) {
@@ -569,7 +565,7 @@ public class BinaryTreeUtil {
 		if (list == null) {
 			list = new ArrayList<BinaryTreeNode<T>>();
 			map.put(hd, list);
-		}
+		}	
 		list.add(node);
 	}
 
@@ -915,17 +911,17 @@ public class BinaryTreeUtil {
 	}
 
 	public static<T extends Comparable<? super T>> int distanceFromRoot(BinaryTreeNode<T> node, T key) {
-		return numberOfNodes(node, key) - 1;
+		return numberOfNodes(node, key, 0) - 1;
 	}
 
-	public static<T extends Comparable<? super T>> int numberOfNodes(BinaryTreeNode<T> node, T key) {
+	public static<T extends Comparable<? super T>> int numberOfNodes(BinaryTreeNode<T> node, T key, int numberOfNodes) {
 		if (node == null) {
 			return 0;
 		}
-		int numberOfNodes = 0;
+		//int numberOfNodes = 0;
 		if (node.getData().equals(key) 
-				|| (numberOfNodes = numberOfNodes(node.getLeft(), key)) > 0 
-				||  (numberOfNodes = numberOfNodes(node.getRight(), key)) > 0 ) {
+				|| (numberOfNodes = numberOfNodes(node.getLeft(), key, numberOfNodes)) > 0 
+				||  (numberOfNodes = numberOfNodes(node.getRight(), key, numberOfNodes)) > 0 ) {
 			return numberOfNodes + 1;
 		}		
 		return 0;
@@ -951,13 +947,11 @@ public class BinaryTreeUtil {
 		return n1Distance + n2Distance - 2 * lcaDistance;
 	}
 
-	
-
-	public static <T extends Comparable<? super T>> void populateInOrderTraversalOfAllNodes(BinaryTreeNode<T> node) {
+	public static <T extends Comparable<? super T>> void populateInOrderSuccessorOfAllNodes(BinaryTreeNode<T> node) {
 		doPopulateInOrderTraversalOfAllNodes(node, new MutableValue<BinaryTreeNode<T>>(null));
 	}
 
-	private static <T extends Comparable<? super T>>  void doPopulateInOrderTraversalOfAllNodes(BinaryTreeNode<T> node, MutableValue<BinaryTreeNode<T>> next) {
+	private static <T extends Comparable<? super T>> void doPopulateInOrderTraversalOfAllNodes(BinaryTreeNode<T> node, MutableValue<BinaryTreeNode<T>> next) {
 		if (node != null) {			
 			doPopulateInOrderTraversalOfAllNodes(node.getRight(), next);
 			node.setNext(next.getValue());

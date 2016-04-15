@@ -310,8 +310,8 @@ public class BinaryTreeUtilTest {
 		BinaryTreeNode<Integer> n3 = new BinaryTreeNode<Integer>(3, n7, null);
 		BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(1, n2, n3);
 		
-		BinaryTreeNode<Integer> result = BinaryTreeUtil.LCA(root, 6, 4);
-		assertThat(result, equalTo(n2));
+		BinaryTreeNode<Integer> result = BinaryTreeUtil.LCA(root, 5, 6);
+		assertThat(result, equalTo(n5));
 		
 		result = BinaryTreeUtil.LCA(root, 4, 5);
 		assertThat(result, equalTo(n2));
@@ -392,9 +392,9 @@ public class BinaryTreeUtilTest {
 	}
 
 	@Test
-	public void populateInOrderTraversalOfAllNodesTest() {
+	public void populateInOrderSuccessorOfAllNodesTest() {
 		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
-		BinaryTreeUtil.populateInOrderTraversalOfAllNodes(node);
+		BinaryTreeUtil.populateInOrderSuccessorOfAllNodes(node);
 		
 		Map<Integer, Integer> inOrderSuccessorMapping = new LinkedHashMap<Integer, Integer>();
 		
@@ -408,14 +408,13 @@ public class BinaryTreeUtilTest {
 		assertThat(inOrderSuccessorMapping.get(3), equalTo(7));
 		
 	}
-	
+
 	@Test
 	public void populateRightNeighbourTest() {
 		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
-		BinaryTreeUtil.populateRightNeighbour(node);
-		
+		BinaryTreeUtil.populateRightNeighbour(node);		
 	}
-	
+
 	@Test
 	public void diagonalSumTest() {
 		BinaryTreeNode<Integer> node = BinaryTreeUtil.<Integer>fromInAndPostOrder(new Integer[]{4,2,5,1,6,3,7}, new Integer[]{4,5,2,6,7,3,1});
