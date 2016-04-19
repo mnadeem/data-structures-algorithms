@@ -23,15 +23,6 @@ public class StringUtil {
 		return validateMap(counter);
 	}
 
-	private static boolean validateMap(Map<Character, Integer> counter) {
-		for (int val : counter.values()) {
-			if (val != 0) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	private static Map<Character, Integer> populateMap(final String first, final String second) {
 		Map<Character, Integer> counter = new HashMap<Character, Integer>();
 		for (int i = 0; i < first.length(); i++) {
@@ -48,6 +39,15 @@ public class StringUtil {
 	private static int getCount(Map<Character, Integer> map, char charAt) {
 		Integer val = map.get(charAt);
 		return val == null ? 0 : val;
+	}
+
+	private static boolean validateMap(Map<Character, Integer> counter) {
+		for (int val : counter.values()) {
+			if (val != 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	static boolean doCheckAnagramUsingCouter(String first, String second) {

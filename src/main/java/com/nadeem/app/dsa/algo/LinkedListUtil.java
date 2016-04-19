@@ -345,4 +345,55 @@ public class LinkedListUtil {
 		}
 		return newHead;
 	}
+
+	public static LinearNode<Integer> sortLinkedListOf0s1sAnd2s(LinearNode<Integer> node) {
+		LinearNode<Integer>  node0 = null, node1 = null, node2 = null, next, node0Tail = null, node1Tail = null, result;
+		while (node != null) {
+			next = node.next;
+			if(0 == node.getData()) {
+				if (node0 == null) {
+					node0 = node;
+					node0Tail = node;
+				}
+				node.next = node0;
+				node0 = node;
+			} else if(1 == node.getData()) {
+				if (node1 == null) {
+					node1 = node;
+					node1Tail = node;
+				}
+				node.next = node1;
+				node1 = node;
+			} else {
+				if (node2 == null) {
+					node2 = node;
+				}
+				node.next = node2;
+				node2 = node;
+			}
+			node = next;
+		}
+		if (node0 != null) {
+			result = node0;
+		} else if (node1 != null) {
+			result = node1;
+		} else {
+			result = node2;
+		}
+		
+		if (node0Tail != null) {
+			if (node1 != null) {				
+				node0Tail.next = node1;
+			} else {
+				node0Tail.next = node2;
+			}
+		} 
+
+		if (node1Tail != null) {			
+			node1Tail.next = node2;
+		}
+		
+		return result;
+	}
+	
 }

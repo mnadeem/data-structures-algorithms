@@ -27,6 +27,7 @@ public class TopKFrequentItemsTest {
 		stream.add("home");
 		stream.add("go");
 		stream.add("go");
+
 		assertThat(stream.getItems()).hasSize(2).contains(new TopK("hero", 3), new TopK("hello", 8));
 	}
 

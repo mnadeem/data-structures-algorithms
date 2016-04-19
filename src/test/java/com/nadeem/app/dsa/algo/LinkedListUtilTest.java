@@ -170,7 +170,34 @@ public class LinkedListUtilTest {
 		assertThat(newHead.next().next().next().getElement(), equalTo(eight.next().next().next().getElement()));
 		assertThat(newHead.next().next().next().random().getElement(), equalTo(eight.next().next().next().random().getElement()));
 	}
-
+	
+	@Test
+	public void sortLinkedListOf0s1sAnd2sTest() {
+		LinearNode<Integer> head = buildLinkedList(2,1,0,2,1,0,0,1);
+		head = LinkedListUtil.sortLinkedListOf0s1sAnd2s(head);
+		assertLinkedList(head, 0,0,0,1,1,1,2,2);
+		
+		head = buildLinkedList(0,0,0,0);
+		head = LinkedListUtil.sortLinkedListOf0s1sAnd2s(head);
+		assertLinkedList(head, 0,0,0,0);
+		
+		head = buildLinkedList(1,1,1,1);
+		head = LinkedListUtil.sortLinkedListOf0s1sAnd2s(head);
+		assertLinkedList(head, 1,1,1,1);
+		
+		head = buildLinkedList(2,2,2,2);
+		head = LinkedListUtil.sortLinkedListOf0s1sAnd2s(head);
+		assertLinkedList(head, 2,2,2,2);
+		
+		head = buildLinkedList(1,2,1,2,1);
+		head = LinkedListUtil.sortLinkedListOf0s1sAnd2s(head);
+		assertLinkedList(head, 1,1,1,2,2);
+		
+		head = buildLinkedList(0,2,0,2,0);
+		head = LinkedListUtil.sortLinkedListOf0s1sAnd2s(head);
+		assertLinkedList(head, 0,0,0,2,2);
+	}
+	
 	private void assertMultiList(MultiNode<Integer> result, int... arr) {
 		for (int i : arr) {
 			assertThat(result.data(), is(i));

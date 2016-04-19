@@ -774,9 +774,9 @@ public final class ArrayUtils {
 			start = end;
 			end <<= 1;			
 		}
-		int mid = (start + end) / 2;
 		
 		while(start < end && array[start + 1] != 1) {
+			int mid = (start + end) / 2;
 			if (array[mid] == 0) {
 				start = mid + 1;
 			} else {
