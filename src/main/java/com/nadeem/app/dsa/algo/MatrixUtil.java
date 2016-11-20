@@ -200,11 +200,11 @@ public class MatrixUtil {
 		MutableInteger numberOfPaths = new MutableInteger(0);
 		List<Point> visited = new ArrayList<Point>();
 		List<Point> endsVisited = new ArrayList<Point>();
-		for (int i = 0; i < maze[0].length; i++) {
+		for (int column = 0; column < maze[0].length; column++) {
 			visited.clear();
 			endsVisited.clear();
-			if (isValidMazeEntry(maze, 0, i)) {
-				traverseMaze(maze,  visited, endsVisited, numberOfPaths, 0, i);
+			if (isValidMazeEntry(maze, 0, column)) {
+				traverseMaze(maze,  visited, endsVisited, numberOfPaths, 0, column);
 			}
 		}
 		return numberOfPaths.getValue();
