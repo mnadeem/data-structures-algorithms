@@ -28,6 +28,9 @@ public final class StringUtilTest {
 		List<Integer> result = StringUtil.lexicogrSmallestPermutation("IIII");
 		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{1, 2, 3, 4, 5}));
 		
+		result = StringUtil.lexicogrSmallestPermutation("DDDI");
+		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{4,3,2,1,5}));
+		
 		result = StringUtil.lexicogrSmallestPermutation("DDDD");
 		assertThat(result.toArray(new Integer[0]), equalTo(new Integer[]{5, 4, 3, 2, 1}));
 		
