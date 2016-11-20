@@ -26,7 +26,8 @@ public class MathUtil {
 	public static int multiplyWithUsingAsteric(int a, int b) {
 		return (int) Math.pow(10, (Math.log10(a) + Math.log10(b)));
 	}
-	
+
+	//https://en.wikipedia.org/wiki/Exponentiation_by_squaring
 	public static double rXPowerYInLogN(int a, int n) {
 		if (n ==  0) {
 			return 1;

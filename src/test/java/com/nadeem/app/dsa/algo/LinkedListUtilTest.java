@@ -193,7 +193,15 @@ public class LinkedListUtilTest {
 		head = LinkedListUtil.sortLinkedListOf0s1sAnd2s(head);
 		assertLinkedList(head, 1,1,1,2,2);
 		
+		head = buildLinkedList(2,1,1,2,1);
+		head = LinkedListUtil.sortLinkedListOf0s1sAnd2s(head);
+		assertLinkedList(head, 1,1,1,2,2);
+		
 		head = buildLinkedList(0,2,0,2,0);
+		head = LinkedListUtil.sortLinkedListOf0s1sAnd2s(head);
+		assertLinkedList(head, 0,0,0,2,2);
+		
+		head = buildLinkedList(2,0,0,2,0);
 		head = LinkedListUtil.sortLinkedListOf0s1sAnd2s(head);
 		assertLinkedList(head, 0,0,0,2,2);
 	}
