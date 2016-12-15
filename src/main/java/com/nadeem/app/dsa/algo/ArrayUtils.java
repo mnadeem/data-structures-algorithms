@@ -1011,7 +1011,7 @@ public final class ArrayUtils {
 
 	public static int equilibriumIndex(int[] array) {
 		int INDEX_NOT_FOUND = -1;
-		int rSum = 0, lSum = 0;
+		long rSum = 0, lSum = 0;
 
 		for (int index = 0; index < array.length; index++) {
 			rSum += array[index];			
