@@ -9,8 +9,8 @@ public class LongestPalindromeSubstringTest {
 
 	@Test
 	public void logestPalindromStringIsEmpty() {
-		LongestPalindromeSubstring lps = new LongestPalindromeSubstring("");
-		assertThat(lps.get(), is(""));
+		LongestPalindromeSubstring lps = new LongestPalindromeSubstring("aa");
+		assertThat(lps.get(), is("aa"));
 	}
 	
 	@Test

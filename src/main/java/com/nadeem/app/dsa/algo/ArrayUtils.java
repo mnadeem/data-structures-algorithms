@@ -1008,4 +1008,22 @@ public final class ArrayUtils {
 		}
 		return partitionSet(sum - set[currentIndex], currentIndex + 1, set) || partitionSet(sum, currentIndex + 1, set);
 	}
+
+	public static int equilibriumIndex(int[] array) {
+		int INDEX_NOT_FOUND = -1;
+		int rSum = 0, lSum = 0;
+
+		for (int index = 0; index < array.length; index++) {
+			rSum += array[index];			
+		}
+
+		for (int index = 0; index < array.length; index++) {
+			lSum += (index==0) ? 0 : array[index -1];// cumulative sum before (left sum) the current index
+			rSum -= array[index]; // sum after (right sum) the current index onwards
+			if (lSum == rSum) { // if both sums, cumulative sum before the current index and cumulative sum after the current index is equal, we got the equilibrium index 
+				return index;
+			}						
+		}
+		return INDEX_NOT_FOUND;
+	}
 }

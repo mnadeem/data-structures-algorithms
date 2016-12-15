@@ -496,4 +496,10 @@ public class ArrayUtilsTest {
 		boolean result = ArrayUtils.rTwoSubSetsWithEqualSumExists(set);
 		assertThat(result, equalTo(true));
 	}
+	
+	@Test
+	public void equilibriumTest() {
+		int result = ArrayUtils.equilibriumIndex(new int[]{1,2,3,1,6});
+		assertThat(result, equalTo(3));
+	}
 }
