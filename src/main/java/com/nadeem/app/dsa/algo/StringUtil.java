@@ -190,12 +190,17 @@ public class StringUtil {
 	}
 
 	private static List<String> wordLadderResult(String end, Set<String> dictionary, Queue<LadderNode> queue) {
+		int currentSize = Integer.MAX_VALUE;
+		List<String> result = Collections.emptyList();
 		while (!queue.isEmpty()) {
 			int count = queue.size();
 			for (int i = 0; i < count; i++) {
 				LadderNode current = queue.poll();			
 				if (current.value.equals(end)) {
-					return current.buildResult();
+					List<String> currentResult = current.buildResult();
+					if (currentSize > currentResult.size()) {
+						result = currentResult;
+					}
 				}
 				for(String next: allRelated(current, dictionary)) {
 					if (current.notInLadder(next)) {					
@@ -204,21 +209,22 @@ public class StringUtil {
 				}
 			}
 		}
-		return Collections.emptyList();
+		return result;
 	}
 
 	private static class LadderNode {
+		private String value;
+		private LadderNode previous;
 		public LadderNode(final String value, final LadderNode previous) {
 			this.value = value;
 			this.previous = previous;
 		}
-		private String value;
-		private LadderNode previous;
+
 		@Override
 		public String toString() {
 			return this.value;
 		}
-		
+
 		public boolean notInLadder(String next) {
 			LadderNode tmp = this;
 			while (tmp != null) {
@@ -252,6 +258,7 @@ public class StringUtil {
 	}
 
 	private static boolean related(String word1, String word2) {
+		// Use Edit differences instead
 		int differences = 1;
 	    if(word1.length() == word2.length()) {
 	        for(int i = 0; i < word1.length(); i++) {
