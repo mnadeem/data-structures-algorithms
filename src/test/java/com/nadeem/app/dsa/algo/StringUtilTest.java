@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -109,5 +110,14 @@ public final class StringUtilTest {
 		dict.add("cog");
 		dict.add("hit");
 		return dict;
+	}
+	
+	@Test
+	public void allPermutationsTest() {
+		Collection<String> result = StringUtil.allPermutations(1221);
+		org.assertj.core.api.Assertions.assertThat(result).hasSize(5).containsAll(Arrays.asList("abba","abu", "ava", "lba", "lu"));
+		
+		result = StringUtil.allPermutations(10);
+		org.assertj.core.api.Assertions.assertThat(result).hasSize(2).containsAll(Arrays.asList("a","j"));
 	}
 }

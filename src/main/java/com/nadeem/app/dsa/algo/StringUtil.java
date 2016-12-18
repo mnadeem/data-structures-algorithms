@@ -1,6 +1,9 @@
 package com.nadeem.app.dsa.algo;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -271,5 +274,71 @@ public class StringUtil {
 	        }
 	    }
 	    return true;
+	}
+
+	public static Collection<String> allPermutations(int num) {
+		TreeNode root = createTree(toArray(num));
+		Collection<String> result = new ArrayList<String>();
+		allLeafNodes(root, result);
+		return result;
+	}
+
+	private static Integer[] toArray(int num) {
+		ArrayDeque<Integer> array = new ArrayDeque<Integer>();
+		do{
+		    array.push(num % 10);
+		    num /= 10;
+		} while  (num > 0);
+		return array.toArray(new Integer[0]);
+	}
+
+	private static TreeNode createTree(Integer[] integers) {
+		return doCreateTree(0, "", integers);
+	}
+
+	private static TreeNode doCreateTree(int index, String parentString, Integer[] integers) {
+		String nodeData = parentString + AlphabetMatcher.match(index);
+		TreeNode root = new TreeNode(nodeData);
+		if (integers.length != 0) {
+			
+			root.left = doCreateTree(integers[0], nodeData, Arrays.copyOfRange(integers, 1, integers.length));
+
+			if (integers.length > 1) {
+				int newIndex = integers[0]* 10 + integers[1];
+				root.right = doCreateTree(newIndex, nodeData, Arrays.copyOfRange(integers, 2, integers.length));
+			}
+		}
+
+		return root;
+	}
+
+	private static void allLeafNodes(TreeNode root, Collection<String> result) {
+		if (root != null) {
+			if (root.right == null && root.left ==null) {
+				result.add(root.data);
+			}
+			allLeafNodes(root.left, result);
+			allLeafNodes(root.right, result);
+		}
+		
+	}
+
+	private static class TreeNode {
+		private String data;
+		private TreeNode left;
+		private TreeNode right;
+
+		public TreeNode(String data) {
+			this.data = data;
+		}
+	}
+	
+	private static class AlphabetMatcher {
+		private static final String[] alphabet = {"", "a", "b", "c", "d", "e",
+		        "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
+		        "s", "t", "u", "v", "w", "x", "v", "z"};
+		public static String match(int number) {			
+			return alphabet[number];
+		}
 	}
 }
