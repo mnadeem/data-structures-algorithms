@@ -502,4 +502,11 @@ public class ArrayUtilsTest {
 		int result = ArrayUtils.equilibriumIndex(new int[]{1,2,3,1,6});
 		assertThat(result, equalTo(3));
 	}
+	
+	@Test
+	public void dutchNationalFlagProblemTest() {
+		int[] input = new int[]{0,1,0,2,2,1};
+		ArrayUtils.dutchNationalFlagProblem(input);
+		assertThat(input, equalTo(new int[]{0,0,1,1,2,2}));
+	}
 }

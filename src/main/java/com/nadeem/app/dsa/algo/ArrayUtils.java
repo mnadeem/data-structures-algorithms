@@ -1026,4 +1026,28 @@ public final class ArrayUtils {
 		}
 		return INDEX_NOT_FOUND;
 	}
+
+	public static void dutchNationalFlagProblem(int[] input) {
+		int low=0, mid=0, high = input.length -1;
+		while(mid <=high) {
+			switch (input[mid]) {
+				case 0:
+					swap(input, low++, mid++);	
+					break;
+				case 1:
+					mid++;	
+					break;
+				default :
+					swap(input, mid, high--);
+					break;
+			}
+		}		
+	}
+
+	private static void swap(int[] input, int firstIndex, int secondIndex) {
+		int temp = input[firstIndex];
+		input[firstIndex] = input[secondIndex];
+		input[secondIndex] = temp;
+		
+	}
 }
