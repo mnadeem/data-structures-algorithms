@@ -1,6 +1,6 @@
 package com.nadeem.app.dsa.algo;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -88,5 +88,26 @@ public final class StringUtilTest {
 		
 		result = StringUtil.shortestSubstrContainingAllChars("this is a test string", "tist");
 		assertThat(result, equalTo("t stri"));
+	}
+	
+	@Test
+	public void wordLadderTest() {
+		String begin="hit", end ="cog";
+		Set<String> dictionary = wordLadderDictonary();
+		List<String> result = StringUtil.wordLadder(begin, end, dictionary);
+
+		org.assertj.core.api.Assertions.assertThat(result).containsAll(Arrays.asList("hit","hot","lot","log","cog"));
+	}
+
+	private Set<String> wordLadderDictonary() {
+		Set<String> dict = new HashSet<String>();
+		dict.add("hot");
+		dict.add("dog");
+		dict.add("dog");
+		dict.add("lot");
+		dict.add("log");		
+		dict.add("cog");
+		dict.add("hit");
+		return dict;
 	}
 }

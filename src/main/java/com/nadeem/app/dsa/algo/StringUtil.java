@@ -1,9 +1,13 @@
 package com.nadeem.app.dsa.algo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 public class StringUtil {
@@ -176,5 +180,89 @@ public class StringUtil {
 			}
 		}
 		return result;
+	}
+
+	public static List<String> wordLadder(String begin, String end, Set<String> dictionary) {
+		Queue<LadderNode> queue = new LinkedList<LadderNode>();
+		queue.offer(new LadderNode(begin, null));
+
+		return wordLadderResult(end, dictionary, queue);
+	}
+
+	private static List<String> wordLadderResult(String end, Set<String> dictionary, Queue<LadderNode> queue) {
+		while (!queue.isEmpty()) {
+			int count = queue.size();
+			for (int i = 0; i < count; i++) {
+				LadderNode current = queue.poll();			
+				if (current.value.equals(end)) {
+					return current.buildResult();
+				}
+				for(String next: allRelated(current, dictionary)) {
+					if (current.notInLadder(next)) {					
+						queue.offer(new LadderNode(next, current));
+					}
+				}
+			}
+		}
+		return Collections.emptyList();
+	}
+
+	private static class LadderNode {
+		public LadderNode(final String value, final LadderNode previous) {
+			this.value = value;
+			this.previous = previous;
+		}
+		private String value;
+		private LadderNode previous;
+		@Override
+		public String toString() {
+			return this.value;
+		}
+		
+		public boolean notInLadder(String next) {
+			LadderNode tmp = this;
+			while (tmp != null) {
+				if (tmp.value.equals(next)) {
+					return false;
+				}
+				tmp = tmp.previous;
+			}
+			return true;
+		}
+		
+		public List<String> buildResult() {
+			List<String> result = new ArrayList<String>();
+			LadderNode current = this;
+			while(current != null) {
+				result.add(current.value);
+				current = current.previous;
+			}
+			return result;
+		}
+	}
+
+	private static Set<String> allRelated(LadderNode current, Set<String> dictionary) {
+		Set<String> related = new HashSet<String>();
+		for (String word : dictionary) {
+			if (related(current.value, word) && current.notInLadder(word)) {
+				related.add(word);			
+			}
+		}
+		return related;
+	}
+
+	private static boolean related(String word1, String word2) {
+		int differences = 1;
+	    if(word1.length() == word2.length()) {
+	        for(int i = 0; i < word1.length(); i++) {
+	            if(word1.charAt(i) != word2.charAt(i)) {
+	            	differences--;
+	                if(differences < 0) {
+	                    return false;
+	                }
+	            }
+	        }
+	    }
+	    return true;
 	}
 }
