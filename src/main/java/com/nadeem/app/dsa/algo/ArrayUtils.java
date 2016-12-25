@@ -1050,4 +1050,24 @@ public final class ArrayUtils {
 		input[secondIndex] = temp;
 		
 	}
+
+	public static int[] countFrequenciesInRange1ToN(int[] input) {
+		int n = input.length;
+		//Reduce all elements by 1 so that the elements are converted in the range 0 to n-1
+		for (int i = 0; i < n; i++) {
+			input[i]--;
+		}
+		//Traverse the input array and for i = 0 to n-1, add n to element at index (input[i]%n). After all the elements are completed, element at index i will be increment by n*k where k is the number of times i occurs in the array.
+		for (int i = 0; i < n; i++) {
+			input[input[i] % n] += n;
+		}
+		int[] result = new int[n];
+		for (int i = 0; i < n; i++) {
+			result[i] = input[i] / n;
+			// Change the element back to original value
+			input[i] = input[i]  % n + 1;
+		}
+
+		return result;
+	}
 }

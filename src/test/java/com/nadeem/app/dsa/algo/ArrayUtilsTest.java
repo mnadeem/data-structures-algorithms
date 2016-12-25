@@ -509,4 +509,13 @@ public class ArrayUtilsTest {
 		ArrayUtils.dutchNationalFlagProblem(input);
 		assertThat(input, equalTo(new int[]{0,0,1,1,2,2}));
 	}
+	
+	@Test
+	public void countFrequenciesInRange1ToN() {
+		int[] input = new int[]{2,3,3,2,5};
+		int[] result = ArrayUtils.countFrequenciesInRange1ToN(input);
+		assertThat(result, equalTo(new int[]{0,2,2,0,1}));
+		assertThat(input, equalTo(new int[]{2,3,3,2,5}));
+	}
+	
 }
